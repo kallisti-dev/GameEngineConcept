@@ -8,7 +8,7 @@ namespace GameEngineConcept
     struct Texture2D
     {
 
-        protected int textureId;
+        private int textureId;
 
         private Texture2D(int id)
         {
