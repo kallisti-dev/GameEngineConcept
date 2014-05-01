@@ -12,13 +12,13 @@ namespace GameEngineTest
     {
         static int failCount = 0;
 
-        static void RunTest<T>()
+
+        static void RunTest(Type t)
         {
-            Type t = typeof(T);
             MethodInfo m = t.GetMethod("Test");
-            if (m == null || !m.IsStatic)
+            if (m == null || !m.IsStatic || m.GetParameters().Length > 0 || !typeof(bool).IsAssignableFrom(m.ReturnType))
             {
-                Console.WriteLine("warning: no static method named Test for type " + t);
+                Console.WriteLine("warning: no method with signature \"static bool Test()\" for type " + t);
             }
             else if ((bool)m.Invoke(null, null))
             {
@@ -30,6 +30,12 @@ namespace GameEngineTest
                 ++failCount;
             }
         }
+
+        static void RunTest<T>()
+        {
+            RunTest(typeof(T));
+        }
+
         static void Main(string[] args)
         {
             RunTest<BroadcastTestComponent>();
