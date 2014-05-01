@@ -1,18 +1,26 @@
-﻿using OpenTK.Graphics.OpenGL;
+﻿using System;
+using OpenTK.Graphics.OpenGL;
 using System.Diagnostics;
 using System.Drawing;
 using Img = System.Drawing.Imaging;
 
 namespace GameEngineConcept
 {
-    struct Texture2D
+    struct Texture2D : IDisposable
     {
 
         private int textureId;
 
-        private Texture2D(int id)
+        public int Width {get; set;}
+        public int Height {get; set;}
+
+        public bool IsNull { get { return textureId == 0; } }
+
+        private Texture2D(int width, int height) : this()
         {
-            textureId = id;
+            textureId = GL.GenTexture();
+            Width = width;
+            Height = height;
         }
 
         public static void InitializeGL()
@@ -24,11 +32,9 @@ namespace GameEngineConcept
             GL.PixelStore(PixelStoreParameter.UnpackAlignment, 1);
         }
 
-        private static int AllocateTexture()
+        public static void UninitializeGL()
         {
-            int tex = GL.GenTexture();
-            GL.BindTexture(TextureTarget.Texture2D, tex);
-            return tex;
+            GL.Disable(EnableCap.Texture2D);
         }
 
         private static void SetTextureParameters()
@@ -44,7 +50,13 @@ namespace GameEngineConcept
 
         public static Texture2D FromFile(string path)
         {
-            return FromBitmap(new Bitmap(Bitmap.FromFile(path)));
+            return FromBitmap(new Bitmap(path));
+        }
+
+        /* bind this texture for use in openGL calls */
+        private void Bind()
+        {
+            GL.BindTexture(TextureTarget.Texture2D, textureId);
         }
 
         public static Texture2D FromBitmap(Bitmap bitmap)
@@ -53,8 +65,8 @@ namespace GameEngineConcept
             new Rectangle(0, 0, bitmap.Width, bitmap.Height),
             Img.ImageLockMode.ReadOnly,
             Img.PixelFormat.Format32bppArgb);
-          var tex = AllocateTexture();
-          GL.BindTexture(TextureTarget.Texture2D, tex);
+          Texture2D tex = new Texture2D(data.Width, data.Height);
+          tex.Bind();
           GL.TexImage2D(
             TextureTarget.Texture2D,
             0,
@@ -66,7 +78,39 @@ namespace GameEngineConcept
             data.Scan0);
           bitmap.UnlockBits(data);
           SetTextureParameters();
-          return new Texture2D(tex);
+          return tex;
+        }
+
+        private void BeginDraw(BeginMode mode)
+        {
+            GL.MatrixMode(MatrixMode.Modelview);
+            GL.LoadIdentity();
+            Bind();
+            GL.Begin(mode);
+        }
+
+        private void EndDraw()
+        {
+            GL.End();
+        }
+
+        public void Draw(Rectangle rec)
+        {
+            BeginDraw(BeginMode.Quads);
+            GL.TexCoord2(0, 0); GL.Vertex2(rec.X, rec.Y);
+            GL.TexCoord2(Width, 0); GL.Vertex2(rec.Right, rec.Y);
+            GL.TexCoord2(Width, Height); GL.Vertex2(rec.Right, rec.Bottom);
+            GL.TexCoord2(0, Height); GL.Vertex2(rec.X, rec.Bottom);
+            EndDraw();
+        }
+
+        public void Dispose()
+        {
+            if (textureId != 0) {
+                GL.DeleteTexture(textureId);
+                textureId = 0;
+            }
+            GC.SuppressFinalize(this);
         }
     }
 }
