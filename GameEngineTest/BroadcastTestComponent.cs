@@ -8,12 +8,12 @@ using GameEngineConcept;
 namespace GameEngineTest
 {
     /* tests message broadcasting functionality of ComponentCollection */
-    public class BroadcastTestComponent : IComponent, IReceiverComponent<IComponentCollection>
+    public class BroadcastTestComponent : IComponent, IReceiverComponent<ComponentCollection>
     {
         static bool success = false;
 
         public void Update() { }
-        public void Receive(IComponentCollection c)
+        public void Receive(ComponentCollection c)
         {
             success = true;
         }
