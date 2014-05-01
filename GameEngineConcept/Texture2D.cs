@@ -81,12 +81,12 @@ namespace GameEngineConcept
           return tex;
         }
 
-        private void BeginDraw(BeginMode mode)
+        private void BeginDraw(PrimitiveType t)
         {
             GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadIdentity();
             Bind();
-            GL.Begin(mode);
+            GL.Begin(t);
         }
 
         private void EndDraw()
@@ -96,7 +96,7 @@ namespace GameEngineConcept
 
         public void Draw(Rectangle rec)
         {
-            BeginDraw(BeginMode.Quads);
+            BeginDraw(PrimitiveType.Quads);
             GL.TexCoord2(0, 0); GL.Vertex2(rec.X, rec.Y);
             GL.TexCoord2(Width, 0); GL.Vertex2(rec.Right, rec.Y);
             GL.TexCoord2(Width, Height); GL.Vertex2(rec.Right, rec.Bottom);
