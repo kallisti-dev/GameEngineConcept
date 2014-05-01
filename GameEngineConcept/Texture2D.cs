@@ -42,12 +42,12 @@ namespace GameEngineConcept
               (int)TextureMagFilter.Nearest);
         }
 
-        public static Texture2D CreateFromFile(string path)
+        public static Texture2D FromFile(string path)
         {
-            return CreateFromBitmap(new Bitmap(Bitmap.FromFile(path)));
+            return FromBitmap(new Bitmap(Bitmap.FromFile(path)));
         }
 
-        public static Texture2D CreateFromBitmap(Bitmap bitmap)
+        public static Texture2D FromBitmap(Bitmap bitmap)
         {
           Img.BitmapData data = bitmap.LockBits(
             new Rectangle(0, 0, bitmap.Width, bitmap.Height),
