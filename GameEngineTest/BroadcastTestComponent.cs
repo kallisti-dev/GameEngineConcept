@@ -7,12 +7,13 @@ using GameEngineConcept;
 
 namespace GameEngineTest
 {
-    public class BroadcastTestComponent : IComponent, IReceiverComponent<ComponentCollection>
+    /* tests message broadcasting functionality of ComponentCollection */
+    public class BroadcastTestComponent : IComponent, IReceiverComponent<IComponentCollection>
     {
         static bool success = false;
 
         public void Update() { }
-        public void Receive(ComponentCollection c)
+        public void Receive(IComponentCollection c)
         {
             success = true;
         }
