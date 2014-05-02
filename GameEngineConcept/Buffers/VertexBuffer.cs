@@ -1,0 +1,66 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using OpenTK.Graphics.OpenGL;
+
+namespace GameEngineConcept
+{
+    public class VertexBuffer : IDisposable
+    {
+        [ThreadStaticAttribute]
+        static VertexBuffer[] bindTable = new VertexBuffer[Enum.GetNames(typeof(BufferTarget)).Length];
+
+        int vboId;
+
+        internal VertexBuffer(int id)
+        {
+            vboId = id;
+        }
+
+        private void Bind(BufferTarget target)
+        {
+            GL.BindBuffer(target, vboId);
+            bindTable[(uint)target] = this;
+        }
+
+        public void Bind(BufferTarget target, Action<BoundVertexBuffer> handler)
+        {
+            VertexBuffer previousBind = bindTable[(uint)target];
+            Bind(target);
+            try { handler(new BoundVertexBuffer(this, target)); }
+            finally
+            {
+                if (previousBind == null)
+                {
+                    bindTable[(uint)target] = null;
+                    GL.BindBuffer(target, 0);
+                }
+                else
+                    previousBind.Bind(target);
+            }
+        }
+
+        public static VertexBuffer Allocate()
+        {
+            return new VertexBuffer(GL.GenBuffer());
+        }
+
+        public static IEnumerable<VertexBuffer> Allocate(int n)
+        {
+            int[] vboIds = new int[n];
+            GL.GenBuffers(n, vboIds);
+            return vboIds.Select((id) => new VertexBuffer(id));
+        }
+
+        public void Dispose()
+        {
+            //TODO: batch multiple deletes into one DeleteBuffers call
+            if (vboId != 0)
+            {
+                GL.DeleteBuffer(vboId);
+                vboId = 0;
+            }
+            GC.SuppressFinalize(this);
+        }
+    }
+}

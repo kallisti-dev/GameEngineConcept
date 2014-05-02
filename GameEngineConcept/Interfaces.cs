@@ -27,4 +27,5 @@ namespace GameEngineConcept
         //update all inner components that match type C
         void Update<C>() where C : IComponent;
     }
+
 }

@@ -48,10 +48,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Buffers\BoundVertexBuffer.cs" />
+    <Compile Include="Buffers\AttributedVertexBuffer.cs" />
     <Compile Include="ComponentCollection.cs" />
     <Compile Include="Interfaces.cs" />
+    <Compile Include="Sprite.cs" />
+    <Compile Include="Buffers\TexturedQuadBuffer.cs" />
+    <Compile Include="Buffers\VertexAttribute.cs" />
+    <Compile Include="Buffers\VertexBuffer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Texture2D.cs" />
+    <Compile Include="Texture.cs" />
+    <Compile Include="TexturedVertex2.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
