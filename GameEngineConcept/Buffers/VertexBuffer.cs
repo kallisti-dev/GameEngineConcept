@@ -17,10 +17,30 @@ namespace GameEngineConcept
             vboId = id;
         }
 
+        public static VertexBuffer Allocate()
+        {
+            return new VertexBuffer(GL.GenBuffer());
+        }
+
+        public static IEnumerable<VertexBuffer> Allocate(int n)
+        {
+            int[] vboIds = new int[n];
+            GL.GenBuffers(n, vboIds);
+            return vboIds.Select((id) => new VertexBuffer(id));
+        }
+
+        public void LoadData<T>(BufferUsageHint hint, T[] data) where T : struct
+        {
+            Bind(BufferTarget.ArrayBuffer, (b) => b.LoadData(hint, data));
+        }
+
         private void Bind(BufferTarget target)
         {
-            GL.BindBuffer(target, vboId);
-            bindTable[(uint)target] = this;
+            if (bindTable[(uint)target] != this) //prevent unnecessary openGL calls
+            {
+                GL.BindBuffer(target, vboId);
+                bindTable[(uint)target] = this;
+            }
         }
 
         public void Bind(BufferTarget target, Action<BoundVertexBuffer> handler)
@@ -38,18 +58,6 @@ namespace GameEngineConcept
                 else
                     previousBind.Bind(target);
             }
-        }
-
-        public static VertexBuffer Allocate()
-        {
-            return new VertexBuffer(GL.GenBuffer());
-        }
-
-        public static IEnumerable<VertexBuffer> Allocate(int n)
-        {
-            int[] vboIds = new int[n];
-            GL.GenBuffers(n, vboIds);
-            return vboIds.Select((id) => new VertexBuffer(id));
         }
 
         public void Dispose()
