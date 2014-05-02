@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using OpenTK.Graphics.OpenGL;
 
-namespace GameEngineConcept
+namespace GameEngineConcept.Buffers
 {
-    public sealed class BoundVertexBuffer : IVertexBufferLoadable
+    public sealed class BoundVertexBuffer : IBoundVertexBuffer
     {
         private VertexBuffer buffer;
         private BufferTarget target;

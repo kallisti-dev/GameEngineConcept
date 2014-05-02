@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using OpenTK.Graphics.OpenGL;
 
+using GameEngineConcept.Buffers;
+
 namespace GameEngineConcept
 {
     //basic game component interface
@@ -26,10 +28,12 @@ namespace GameEngineConcept
         void Update<C>() where C : IComponent;
     }
 
-    public interface IVertexBufferLoadable
-    {
-        void LoadData<T>(BufferUsageHint hint, T[] data) where T : struct;
+    public interface IHasVertexBuffer<B> where B : IVertexBuffer {
+        B Buffer { get; }
     }
 
-
+    public interface IHasVertexBufferIndices<B> : IHasVertexBuffer<B> where B : IVertexBuffer 
+    {
+        uint[] BufferIndices { get; }
+    }
 }

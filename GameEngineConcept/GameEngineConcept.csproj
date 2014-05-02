@@ -48,11 +48,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Buffers\BoundVertexBuffer.cs" />
     <Compile Include="Buffers\AttributedVertexBuffer.cs" />
+    <Compile Include="Buffers\BoundVertexBuffer.cs" />
+    <Compile Include="Buffers\Interfaces.cs" />
     <Compile Include="ComponentCollection.cs" />
     <Compile Include="Interfaces.cs" />
     <Compile Include="Sprite.cs" />
+    <Compile Include="TexturedVertices.cs" />
     <Compile Include="Buffers\VertexAttribute.cs" />
     <Compile Include="Buffers\VertexBuffer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

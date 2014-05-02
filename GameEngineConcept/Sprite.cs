@@ -1,23 +1,31 @@
 ﻿using System;
-using System.Drawing;
+using System.Collections.Generic;
+using System.Linq;
+
+using GameEngineConcept.Buffers;
 
 namespace GameEngineConcept
 {
-    public class Sprite
+    public class Sprite : TexturedVertices
     {
-        Texture tex;
-        VertexBuffer buffer;
-        Rectangle texRect;
-        Rectangle vertexRect;
 
-        //TODO property: bool isLoaded
+        private int index;
+        public int BufferIndex {
+            get { return index; }
+            set 
+            { 
+                index = value;
+                BufferIndices = Enumerable.Range(value, 4).Cast<uint>().ToArray();
+            }
+        }
+        public int Depth { get; set; }
 
-
-        public Sprite(Texture tex, Rectangle texRect, Rectangle vertexRect)
+        public Sprite(Texture tex, VertexBuffer buffer, int bufferInd, int depth = 0) : base()
         {
-            this.tex = tex;
-            this.texRect = texRect;
-            this.vertexRect = vertexRect;
+            Texture = tex;
+            Buffer = buffer;
+            BufferIndex = bufferInd;
+            Depth = depth;
         }
     }
 }

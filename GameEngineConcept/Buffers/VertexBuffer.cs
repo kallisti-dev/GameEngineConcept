@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using OpenTK.Graphics.OpenGL;
 
-namespace GameEngineConcept
+namespace GameEngineConcept.Buffers
 {
-    public class VertexBuffer : IDisposable, IVertexBufferLoadable
+    public class VertexBuffer : IDisposable, IVertexBufferBindable
     {
         [ThreadStaticAttribute]
         static VertexBuffer[] bindTable = new VertexBuffer[Enum.GetNames(typeof(BufferTarget)).Length];
@@ -43,7 +43,7 @@ namespace GameEngineConcept
             }
         }
 
-        public void Bind(BufferTarget target, Action<BoundVertexBuffer> handler)
+        public void Bind(BufferTarget target, Action<IBoundVertexBuffer> handler)
         {
             VertexBuffer previousBind = bindTable[(uint)target];
             Bind(target);
