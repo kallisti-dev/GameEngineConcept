@@ -5,14 +5,14 @@ using OpenTK.Graphics.OpenGL;
 
 namespace GameEngineConcept
 {
-    public class VertexBuffer : IDisposable
+    public class VertexBuffer : IDisposable, IVertexBufferLoadable
     {
         [ThreadStaticAttribute]
         static VertexBuffer[] bindTable = new VertexBuffer[Enum.GetNames(typeof(BufferTarget)).Length];
 
         int vboId;
 
-        internal VertexBuffer(int id)
+        protected VertexBuffer(int id)
         {
             vboId = id;
         }

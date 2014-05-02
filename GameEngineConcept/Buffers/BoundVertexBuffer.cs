@@ -6,7 +6,7 @@ using OpenTK.Graphics.OpenGL;
 
 namespace GameEngineConcept
 {
-    public sealed class BoundVertexBuffer
+    public sealed class BoundVertexBuffer : IVertexBufferLoadable
     {
         private VertexBuffer buffer;
         private BufferTarget target;

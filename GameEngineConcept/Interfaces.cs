@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using OpenTK.Graphics.OpenGL;
 
 namespace GameEngineConcept
 {
@@ -27,5 +25,11 @@ namespace GameEngineConcept
         //update all inner components that match type C
         void Update<C>() where C : IComponent;
     }
+
+    public interface IVertexBufferLoadable
+    {
+        void LoadData<T>(BufferUsageHint hint, T[] data) where T : struct;
+    }
+
 
 }
