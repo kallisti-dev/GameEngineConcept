@@ -5,10 +5,10 @@ using GameEngineConcept.Buffers;
 
 namespace GameEngineConcept
 {
-    public class TexturedVertices : IHasVertexBufferIndices<IVertexBufferBindable>
+    public class TexturedVertices : IHasVertexBufferIndices<IBindableVertexBuffer>
     {
         public Texture Texture { get; protected set; }
-        public IVertexBufferBindable Buffer { get; protected set; }
+        public IBindableVertexBuffer Buffer { get; protected set; }
         public uint[] BufferIndices { get; protected set; }
         public PrimitiveType DrawMode { get; protected set; }
 
@@ -16,13 +16,12 @@ namespace GameEngineConcept
 
         protected TexturedVertices() { }
 
-        public TexturedVertices(PrimitiveType mode, Texture tex, IVertexBufferBindable buffer, uint[] indices, int depth = 0)
+        public TexturedVertices(PrimitiveType mode, Texture tex, IBindableVertexBuffer buffer, uint[] indices, int depth = 0)
         {
             DrawMode = mode;
             Texture = Texture;
             Buffer = buffer;
             BufferIndices = indices;
         }
-
     }
 }

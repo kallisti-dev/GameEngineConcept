@@ -4,12 +4,12 @@ using OpenTK.Graphics.OpenGL;
 
 namespace GameEngineConcept.Buffers
 {
-    class AttributedVertexBuffer : IVertexBufferBindable
+    class AttributedVertexBuffer : IAttributedVertexBuffer
     {
-        IVertexBufferBindable buff;
+        IBindableVertexBuffer buff;
         VertexAttribute[] attrs;
 
-        public AttributedVertexBuffer(IVertexBufferBindable buffer, VertexAttribute[] attributes)
+        public AttributedVertexBuffer(IBindableVertexBuffer buffer, VertexAttribute[] attributes)
         {
             buff = buffer;
             attrs = attributes;

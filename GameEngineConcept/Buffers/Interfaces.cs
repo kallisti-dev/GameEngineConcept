@@ -9,7 +9,7 @@ namespace GameEngineConcept.Buffers
         void LoadData<T>(BufferUsageHint hint, T[] data) where T : struct;
     }
 
-    public interface IVertexBufferDrawable : IVertexBuffer
+    public interface IDrawableVertexBuffer : IVertexBuffer
     {
         void DrawElements(PrimitiveType mode, VertexBuffer indexBuffer, int count, DrawElementsType type);
         void DrawElements(PrimitiveType mode, byte[] indices);
@@ -18,18 +18,23 @@ namespace GameEngineConcept.Buffers
         void DrawRange(PrimitiveType mode, int first, int count);
     }
 
-    public interface IVertexBufferAttributable : IVertexBuffer
+    public interface IAttributableVertexBuffer : IVertexBuffer
     {
         void WithAttributes(VertexAttribute[] attrs, Action inner);
         void WithAttributes(VertexAttribute[] attrs, IEnumerable<int> indices, Action inner);
     }
 
-    public interface IVertexBufferBindable : IVertexBuffer
+    public interface IBindableVertexBuffer : IVertexBuffer
     {
         void Bind(BufferTarget target, Action<IBoundVertexBuffer> handler);
     }
 
-    public interface IBoundVertexBuffer : IVertexBufferDrawable, IVertexBufferAttributable
+    public interface IAttributedVertexBuffer : IBindableVertexBuffer
+    {
+        void Bind(BufferTarget target, IEnumerable<int> indices, Action<IBoundVertexBuffer> inner);
+    }
+
+    public interface IBoundVertexBuffer : IDrawableVertexBuffer, IAttributableVertexBuffer
     {
 
     }
