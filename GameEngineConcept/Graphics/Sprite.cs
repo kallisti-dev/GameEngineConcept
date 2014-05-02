@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using OpenTK.Graphics.OpenGL;
 
-using GameEngineConcept.Buffers;
+using GameEngineConcept.VertexBuffers;
 
-namespace GameEngineConcept
+namespace GameEngineConcept.Graphics
 {
     public class Sprite : TexturedVertices
     {

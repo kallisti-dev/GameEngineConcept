@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using OpenTK.Graphics.OpenGL;
 
-namespace GameEngineConcept.Buffers
+namespace GameEngineConcept.VertexBuffers
 {
     public interface IVertexBuffer
     {
@@ -37,5 +37,15 @@ namespace GameEngineConcept.Buffers
     public interface IBoundVertexBuffer : IDrawableVertexBuffer, IAttributableVertexBuffer
     {
 
+    }
+
+    public interface IHasVertexBuffer<B> where B : IVertexBuffer
+    {
+        B Buffer { get; }
+    }
+
+    public interface IHasVertexBufferIndices<B> : IHasVertexBuffer<B> where B : IVertexBuffer
+    {
+        uint[] BufferIndices { get; }
     }
 }

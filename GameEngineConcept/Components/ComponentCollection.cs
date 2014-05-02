@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace GameEngineConcept
+namespace GameEngineConcept.Components
 {
     public class ComponentCollection : IComponentCollection
     {

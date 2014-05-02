@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using OpenTK.Graphics.OpenGL;
 
-namespace GameEngineConcept
+namespace GameEngineConcept.VertexBuffers
 {
     public struct VertexAttribute
     {

@@ -1,17 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using OpenTK.Graphics.OpenGL;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-using GameEngineConcept.Buffers;
-
-namespace GameEngineConcept
+namespace GameEngineConcept.Components
 {
-    //object that can draw with no extra parameters needed
-    public interface IDrawable
-    {
-        void Draw();
-    }
-
     //basic game component interface
     public interface IComponent
     {
@@ -32,14 +26,5 @@ namespace GameEngineConcept
         void Broadcast<T>(T state);
         //update all inner components that match type C
         void Update<C>() where C : IComponent;
-    }
-
-    public interface IHasVertexBuffer<B> where B : IVertexBuffer {
-        B Buffer { get; }
-    }
-
-    public interface IHasVertexBufferIndices<B> : IHasVertexBuffer<B> where B : IVertexBuffer 
-    {
-        uint[] BufferIndices { get; }
     }
 }

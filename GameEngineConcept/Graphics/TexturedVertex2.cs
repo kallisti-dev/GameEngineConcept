@@ -3,7 +3,9 @@ using System.Runtime.InteropServices;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
-namespace GameEngineConcept
+using GameEngineConcept.VertexBuffers;
+
+namespace GameEngineConcept.Graphics
 {
     public struct TexturedVertex2
     {

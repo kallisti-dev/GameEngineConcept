@@ -1,9 +1,9 @@
 ﻿using System;
 using OpenTK.Graphics.OpenGL;
 
-using GameEngineConcept.Buffers;
+using GameEngineConcept.VertexBuffers;
 
-namespace GameEngineConcept
+namespace GameEngineConcept.Graphics
 {
     public class TexturedVertices : IHasVertexBufferIndices<IAttributedVertexBuffer>, IDrawable
     {

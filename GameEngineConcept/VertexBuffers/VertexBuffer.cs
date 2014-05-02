@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using OpenTK.Graphics.OpenGL;
 
-namespace GameEngineConcept.Buffers
+namespace GameEngineConcept.VertexBuffers
 {
     public class VertexBuffer : IDisposable, IBindableVertexBuffer
     {

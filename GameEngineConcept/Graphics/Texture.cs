@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using Img = System.Drawing.Imaging;
 
-namespace GameEngineConcept
+namespace GameEngineConcept.Graphics
 {
     public class Texture : IDisposable
     {

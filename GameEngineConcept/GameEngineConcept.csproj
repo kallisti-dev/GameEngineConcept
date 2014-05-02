@@ -48,18 +48,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Buffers\AttributedVertexBuffer.cs" />
-    <Compile Include="Buffers\BoundVertexBuffer.cs" />
-    <Compile Include="Buffers\Interfaces.cs" />
-    <Compile Include="ComponentCollection.cs" />
-    <Compile Include="Interfaces.cs" />
-    <Compile Include="Sprite.cs" />
-    <Compile Include="TexturedVertices.cs" />
-    <Compile Include="Buffers\VertexAttribute.cs" />
-    <Compile Include="Buffers\VertexBuffer.cs" />
+    <Compile Include="Components\Interfaces.cs" />
+    <Compile Include="Graphics\Interfaces.cs" />
+    <Compile Include="VertexBuffers\AttributedVertexBuffer.cs" />
+    <Compile Include="VertexBuffers\BoundVertexBuffer.cs" />
+    <Compile Include="VertexBuffers\Interfaces.cs" />
+    <Compile Include="Components\ComponentCollection.cs" />
+    <Compile Include="Graphics\Sprite.cs" />
+    <Compile Include="Graphics\TexturedVertices.cs" />
+    <Compile Include="VertexBuffers\VertexAttribute.cs" />
+    <Compile Include="VertexBuffers\VertexBuffer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Texture.cs" />
-    <Compile Include="TexturedVertex2.cs" />
+    <Compile Include="Graphics\Texture.cs" />
+    <Compile Include="Graphics\TexturedVertex2.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
