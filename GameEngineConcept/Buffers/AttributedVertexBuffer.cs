@@ -4,35 +4,40 @@ using OpenTK.Graphics.OpenGL;
 
 namespace GameEngineConcept.Buffers
 {
-    class AttributedVertexBuffer : IAttributedVertexBuffer
+    class AttributedVertexBuffer : IAttributedVertexBuffer, IHasVertexBuffer<IBindableVertexBuffer>
     {
-        IBindableVertexBuffer buff;
-        VertexAttribute[] attrs;
+        public IBindableVertexBuffer Buffer { get; protected set; }
+        public VertexAttribute[] Attributes { get; protected set; }
 
         public AttributedVertexBuffer(IBindableVertexBuffer buffer, VertexAttribute[] attributes)
         {
-            buff = buffer;
-            attrs = attributes;
+            Buffer = buffer;
+            Attributes = attributes;
         }
 
         public void LoadData<T>(BufferUsageHint hint, T[] data) where T : struct
         {
-            buff.LoadData(hint, data);
+            Buffer.LoadData(hint, data);
         }
 
         public void Bind(BufferTarget target, IEnumerable<int> indices, Action<IBoundVertexBuffer> inner)
         {
-            buff.Bind(target, (b) =>
+            if (indices == null)
             {
-                b.WithAttributes(attrs, indices, () => inner(b));
+                Bind(target, inner);
+                return;
+            }
+            Buffer.Bind(target, (b) =>
+            {
+                b.WithAttributes(Attributes, indices, () => inner(b));
             });
         }
 
         public void Bind(BufferTarget target, Action<IBoundVertexBuffer> inner)
         {
-            buff.Bind(target, (b) =>
+            Buffer.Bind(target, (b) =>
             {
-                b.WithAttributes(attrs, () => inner(b));
+                b.WithAttributes(Attributes, () => inner(b));
             });
         }
     }

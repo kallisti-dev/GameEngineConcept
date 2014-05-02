@@ -6,6 +6,12 @@ using GameEngineConcept.Buffers;
 
 namespace GameEngineConcept
 {
+    //object that can draw with no extra parameters needed
+    public interface IDrawable
+    {
+        void Draw();
+    }
+
     //basic game component interface
     public interface IComponent
     {
