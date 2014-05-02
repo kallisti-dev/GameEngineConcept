@@ -4,6 +4,22 @@ using OpenTK.Graphics.OpenGL;
 
 namespace GameEngineConcept.VertexBuffers
 {
+
+    public interface IHasVertexBuffer<B> where B : IVertexBuffer
+    {
+        B Buffer { get; }
+    }
+
+    public interface IHasVertexBufferIndices<B> : IHasVertexBuffer<B> where B : IVertexBuffer
+    {
+        uint[] BufferIndices { get; }
+    }
+
+    public interface IHasVertexAttributes
+    {
+        VertexAttribute[] VertexAttributes { get; }
+    }
+
     public interface IVertexBuffer
     {
         void LoadData<T>(BufferUsageHint hint, T[] data) where T : struct;
@@ -29,7 +45,7 @@ namespace GameEngineConcept.VertexBuffers
         void Bind(BufferTarget target, Action<IBoundVertexBuffer> handler);
     }
 
-    public interface IAttributedVertexBuffer : IBindableVertexBuffer
+    public interface IAttributedVertexBuffer : IHasVertexAttributes, IBindableVertexBuffer
     {
         void Bind(BufferTarget target, IEnumerable<int> indices, Action<IBoundVertexBuffer> inner);
     }
@@ -37,15 +53,5 @@ namespace GameEngineConcept.VertexBuffers
     public interface IBoundVertexBuffer : IDrawableVertexBuffer, IAttributableVertexBuffer
     {
 
-    }
-
-    public interface IHasVertexBuffer<B> where B : IVertexBuffer
-    {
-        B Buffer { get; }
-    }
-
-    public interface IHasVertexBufferIndices<B> : IHasVertexBuffer<B> where B : IVertexBuffer
-    {
-        uint[] BufferIndices { get; }
     }
 }

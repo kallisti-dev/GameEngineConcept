@@ -7,7 +7,7 @@ using GameEngineConcept.VertexBuffers;
 
 namespace GameEngineConcept.Graphics
 {
-    public struct TexturedVertex2
+    public struct TexturedVertex2 : IHasVertexAttributes
     {
 
         public static VertexAttribute[] vertexAttributes;
@@ -21,6 +21,8 @@ namespace GameEngineConcept.Graphics
                 new VertexAttribute(1, 2, VertexAttribPointerType.Float, false, size, (int)Marshal.OffsetOf(t, "texel"))
             };
         }
+
+        public VertexAttribute[] VertexAttributes { get { return vertexAttributes; } }
 
         public Vector2 position;
         public Vector2 texel;
