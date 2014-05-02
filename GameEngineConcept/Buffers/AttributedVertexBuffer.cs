@@ -4,7 +4,7 @@ using OpenTK.Graphics.OpenGL;
 
 namespace GameEngineConcept
 {
-    class AttributedVertexBuffer
+    class AttributedVertexBuffer : IVertexBufferLoadable
     {
         VertexBuffer buff;
         VertexAttribute[] attrs;
@@ -13,6 +13,11 @@ namespace GameEngineConcept
         {
             buff = buffer;
             attrs = attributes;
+        }
+
+        public void LoadData<T>(BufferUsageHint hint, T[] data) where T : struct
+        {
+            buff.LoadData(hint, data);
         }
 
         public void Bind(BufferTarget target, IEnumerable<int> indices, Action<BoundVertexBuffer> inner)

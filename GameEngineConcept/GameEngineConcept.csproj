@@ -53,7 +53,6 @@
     <Compile Include="ComponentCollection.cs" />
     <Compile Include="Interfaces.cs" />
     <Compile Include="Sprite.cs" />
-    <Compile Include="Buffers\TexturedQuadBuffer.cs" />
     <Compile Include="Buffers\VertexAttribute.cs" />
     <Compile Include="Buffers\VertexBuffer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
