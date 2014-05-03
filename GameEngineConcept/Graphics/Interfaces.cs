@@ -13,4 +13,9 @@ namespace GameEngineConcept.Graphics
     {
         void Draw();
     }
+
+    public interface IDrawableDepth : IDrawable
+    {
+        int DrawDepth { get; }
+    }
 }

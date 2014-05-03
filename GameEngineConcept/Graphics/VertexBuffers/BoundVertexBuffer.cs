@@ -37,6 +37,21 @@ namespace GameEngineConcept.Graphics.VertexBuffers
             }
         }
 
+        public void WithAttributes(VertexAttribute[] attrs, Action inner)
+        {
+            EnableAttributes(attrs);
+            try { inner(); }
+            finally { DisableAttributes(Enumerable.Range(0, attrs.Length)); }
+        }
+
+        public void WithAttributes(VertexAttribute[] attrs, IEnumerable<int> indices, Action inner)
+        {
+            EnableAttributes(attrs, indices);
+            try { inner(); }
+            finally { DisableAttributes(indices); }
+        }
+
+
         private void EnableAttributes(VertexAttribute[] attrs, IEnumerable<int> indices)
         {
             for (int i = 0; i < attrs.Length; ++i)
@@ -55,20 +70,6 @@ namespace GameEngineConcept.Graphics.VertexBuffers
             {
                 GL.DisableVertexAttribArray(i);
             }
-        }
-
-        public void WithAttributes(VertexAttribute[] attrs, Action inner)
-        {
-            EnableAttributes(attrs);
-            try { inner(); }
-            finally { DisableAttributes(Enumerable.Range(0, attrs.Length)); }
-        }
-
-        public void WithAttributes(VertexAttribute[] attrs, IEnumerable<int> indices, Action inner)
-        {
-            EnableAttributes(attrs, indices);
-            try { inner(); }
-            finally { DisableAttributes(indices); }
         }
     }
 }

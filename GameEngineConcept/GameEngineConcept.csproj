@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\Interfaces.cs" />
+    <Compile Include="Graphics\DepthSet.cs" />
     <Compile Include="Graphics\VertexBuffers\VertexIndices.cs" />
     <Compile Include="Graphics\VertexLoader.cs" />
     <Compile Include="Graphics\VertexBuffers\VertexBufferPool.cs" />
