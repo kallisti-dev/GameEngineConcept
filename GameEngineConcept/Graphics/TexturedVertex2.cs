@@ -10,19 +10,19 @@ namespace GameEngineConcept.Graphics
     public struct TexturedVertex2 : IHasVertexAttributes
     {
 
-        public static VertexAttribute[] vertexAttributes;
+        public static VertexAttribute[] vAttributes;
 
         //static constructor
         static TexturedVertex2() {
             Type t = typeof(TexturedVertex2);
             int size = Marshal.SizeOf(t);
-            vertexAttributes = new[] {
+            vAttributes = new[] {
                 new VertexAttribute(0, 2, VertexAttribPointerType.Float, false, size, (int)Marshal.OffsetOf(t, "position")),
                 new VertexAttribute(1, 2, VertexAttribPointerType.Float, false, size, (int)Marshal.OffsetOf(t, "texel"))
             };
         }
 
-        public VertexAttribute[] VertexAttributes { get { return vertexAttributes; } }
+        public VertexAttribute[] VertexAttributes { get { return vAttributes; } }
 
         public Vector2 position;
         public Vector2 texel;

@@ -6,8 +6,8 @@ namespace GameEngineConcept.Graphics.VertexBuffers
 {
     class AttributedVertexBuffer : IAttributedVertexBuffer, IHasVertexBuffer<IBindableVertexBuffer>, IHasVertexAttributes
     {
-        public IBindableVertexBuffer Buffer { get; protected set; }
-        public VertexAttribute[] VertexAttributes { get; protected set; }
+        public IBindableVertexBuffer Buffer { get; private set; }
+        public VertexAttribute[] VertexAttributes { get; private set; }
 
         public AttributedVertexBuffer(IBindableVertexBuffer buffer, VertexAttribute[] attributes)
         {

@@ -22,11 +22,7 @@ namespace GameEngineConcept.Graphics.VertexBuffers
 
     public interface IDrawableVertexBuffer : IVertexBuffer
     {
-        void DrawElements(PrimitiveType mode, VertexBuffer indexBuffer, int count, DrawElementsType type);
-        void DrawElements(PrimitiveType mode, byte[] indices);
-        void DrawElements(PrimitiveType mode, ushort[] indices);
-        void DrawElements(PrimitiveType mode, uint[] indices);
-        void DrawRange(PrimitiveType mode, int first, int count);
+        void Draw(PrimitiveType type, VertexIndices indices);
     }
 
     public interface IBindableVertexBuffer : IVertexBuffer

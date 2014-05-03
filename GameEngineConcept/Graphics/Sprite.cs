@@ -9,27 +9,26 @@ namespace GameEngineConcept.Graphics
 {
     public class Sprite : TexturedVertexSet
     {
+        public static VertexAttribute vAttributes;
 
-        private uint index;
-        public uint VertexBufferStartIndex {
+        private int index;
+        public int depth;
+        public int BufferIndex
+        {
             get { return index; }
-            protected set 
-            { 
+            protected set
+            {
                 index = value;
-                uint[] indices = new uint[4];
-                for(uint i = 0; i < 4; ++i) indices[i] = value+i;
-                VertexBufferIndices = indices;
+                indices = new IndexRange(value, 4);
             }
         }
-        public int Depth { get; set; }
 
-        public Sprite(Texture tex, IAttributedVertexBuffer buffer, uint bufferInd, int depth = 0) : base()
+        public Sprite(Texture tex, IBindableVertexBuffer buffer, int bufferInd, int depth = 0, int[] enabledAttribs = null)
+            : base(tex, PrimitiveType.Quads, new AttributedVertexBuffer(buffer, TexturedVertex2.vAttributes), new IndexRange(bufferInd, 4), enabledAttribs)
         {
-            Texture = tex;
-            VertexBuffer = buffer;
-            VertexBufferStartIndex = bufferInd;
-            Depth = depth;
-            DrawMode = PrimitiveType.Quads;
+            this.depth = depth;
+            index = bufferInd;
+
         }
     }
 }
