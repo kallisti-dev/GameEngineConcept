@@ -16,6 +16,7 @@ namespace GameEngineConcept
         Func<int, int> resizer;
 
         public int Count { get; protected set; }
+        public T[] InternalArray {get { return array; }}
 
         T this[int i]
         {
