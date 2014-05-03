@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 namespace GameEngineConcept.Graphics.VertexBuffers
 {
+    //allows recycling of allocated buffer objects. Use Request() to request an unused buffer object.
+    //All Request() calls should have a corresponding Release() call for when the buffer is no longer needed, so that other consumers can reuse the buffer.
     class VertexBufferPool
     {
         const uint defaultInitialSize = 20;
@@ -40,7 +42,7 @@ namespace GameEngineConcept.Graphics.VertexBuffers
         }
 
 
-
+        //Requests a buffer, passes it to the given callback, and automatically releases buffer after callback completes or callback triggers an exception.
         public async Task WithBuffer(Action<VertexBuffer> callback)
         {
             var b = await Request();
