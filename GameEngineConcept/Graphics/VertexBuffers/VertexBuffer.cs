@@ -5,7 +5,7 @@ using OpenTK.Graphics.OpenGL;
 
 namespace GameEngineConcept.Graphics.VertexBuffers
 {
-    public class VertexBuffer : IDisposable, IBindableVertexBuffer
+    public class VertexBuffer : IBindableVertexBuffer
     {
         [ThreadStaticAttribute]
         static VertexBuffer[] bindTable = new VertexBuffer[Enum.GetNames(typeof(BufferTarget)).Length];
@@ -63,17 +63,6 @@ namespace GameEngineConcept.Graphics.VertexBuffers
                 else
                     previousBind.Bind(target);
             }
-        }
-
-        public void Dispose()
-        {
-            //TODO: batch multiple deletes into one DeleteBuffers call
-            if (vboId != 0)
-            {
-                GL.DeleteBuffer(vboId);
-                vboId = 0;
-            }
-            GC.SuppressFinalize(this);
         }
     }
 }

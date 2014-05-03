@@ -6,7 +6,7 @@ using Img = System.Drawing.Imaging;
 
 namespace GameEngineConcept.Graphics
 {
-    public class Texture : IDisposable
+    public class Texture
     {
 
         private int textureId;
@@ -91,16 +91,6 @@ namespace GameEngineConcept.Graphics
             Set2DTextureParameters();
           });
           return tex;
-        }
-
-        //delete texture from video memory when struct is garbage collected
-        public void Dispose()
-        {
-            if (textureId != 0) {
-                GL.DeleteTexture(textureId);
-                textureId = 0;
-            }
-            GC.SuppressFinalize(this);
         }
     }
 }
