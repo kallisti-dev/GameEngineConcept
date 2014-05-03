@@ -12,7 +12,7 @@ namespace GameEngineConcept.Graphics.VertexBuffers
 
     public interface IHasVertexBuffer<B> where B : IVertexBuffer
     {
-        B Buffer { get; }
+        B VBuffer { get; }
     }
 
     public interface IVertexBuffer

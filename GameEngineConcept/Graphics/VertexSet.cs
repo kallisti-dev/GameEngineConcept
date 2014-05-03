@@ -4,31 +4,31 @@ using GameEngineConcept.Graphics.VertexBuffers;
 
 namespace GameEngineConcept.Graphics
 {
-    public class VertexSet : IDrawable, IHasVertexAttributes
+    public class VertexSet : IDrawable, IHasVertexBuffer<IAttributedVertexBuffer>, IHasVertexAttributes
     {
-        public IAttributedVertexBuffer vertexBuffer;
-        public PrimitiveType drawMode;
+        public IAttributedVertexBuffer VBuffer { get; protected set; }
+        public PrimitiveType DrawMode { get; protected set; }
         protected VertexIndices indices;
         protected int[] enabledAttributes;
 
 
-        public VertexAttribute[] VertexAttributes { get { return vertexBuffer.VertexAttributes; } }
+        public VertexAttribute[] VertexAttributes { get { return VBuffer.VertexAttributes; } }
 
         protected VertexSet() { }
 
         public VertexSet(PrimitiveType mode, IAttributedVertexBuffer buffer, VertexIndices indices, int[] enabledAttribs = null)
         {
-            drawMode = mode;
-            vertexBuffer = buffer;
+            DrawMode = mode;
+            VBuffer = buffer;
             enabledAttributes = enabledAttribs;
             this.indices = indices;
         }
          
         public virtual void Draw()
         {
-            vertexBuffer.Bind(BufferTarget.ArrayBuffer, enabledAttributes, (boundBuffer) =>
+            VBuffer.Bind(BufferTarget.ArrayBuffer, enabledAttributes, (boundBuffer) =>
             {
-                boundBuffer.Draw(drawMode, indices);
+                boundBuffer.Draw(DrawMode, indices);
             });
         }
     }
