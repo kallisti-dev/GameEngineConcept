@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using OpenTK.Graphics.OpenGL;
 
-namespace GameEngineConcept.VertexBuffers
+namespace GameEngineConcept.Graphics.VertexBuffers
 {
     class AttributedVertexBuffer : IAttributedVertexBuffer, IHasVertexBuffer<IBindableVertexBuffer>, IHasVertexAttributes
     {
@@ -20,16 +20,16 @@ namespace GameEngineConcept.VertexBuffers
             Buffer.LoadData(hint, data);
         }
 
-        public void Bind(BufferTarget target, IEnumerable<int> indices, Action<IBoundVertexBuffer> inner)
+        public void Bind(BufferTarget target, IEnumerable<int> enabledAttributes, Action<IBoundVertexBuffer> inner)
         {
-            if (indices == null)
+            if (enabledAttributes == null)
             {
                 Bind(target, inner);
                 return;
             }
             Buffer.Bind(target, (b) =>
             {
-                b.WithAttributes(VertexAttributes, indices, () => inner(b));
+                b.WithAttributes(VertexAttributes, enabledAttributes, () => inner(b));
             });
         }
 

@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
-using GameEngineConcept.VertexBuffers;
+using GameEngineConcept.Graphics.VertexBuffers;
 
 namespace GameEngineConcept.Graphics
 {

@@ -2,22 +2,17 @@
 using System.Collections.Generic;
 using OpenTK.Graphics.OpenGL;
 
-namespace GameEngineConcept.VertexBuffers
+namespace GameEngineConcept.Graphics.VertexBuffers
 {
-
-    public interface IHasVertexBuffer<B> where B : IVertexBuffer
-    {
-        B Buffer { get; }
-    }
-
-    public interface IHasVertexBufferIndices<B> : IHasVertexBuffer<B> where B : IVertexBuffer
-    {
-        uint[] BufferIndices { get; }
-    }
 
     public interface IHasVertexAttributes
     {
         VertexAttribute[] VertexAttributes { get; }
+    }
+
+    public interface IHasVertexBuffer<B> where B : IVertexBuffer
+    {
+        B Buffer { get; }
     }
 
     public interface IVertexBuffer
@@ -34,12 +29,6 @@ namespace GameEngineConcept.VertexBuffers
         void DrawRange(PrimitiveType mode, int first, int count);
     }
 
-    public interface IAttributableVertexBuffer : IVertexBuffer
-    {
-        void WithAttributes(VertexAttribute[] attrs, Action inner);
-        void WithAttributes(VertexAttribute[] attrs, IEnumerable<int> indices, Action inner);
-    }
-
     public interface IBindableVertexBuffer : IVertexBuffer
     {
         void Bind(BufferTarget target, Action<IBoundVertexBuffer> handler);
@@ -47,11 +36,12 @@ namespace GameEngineConcept.VertexBuffers
 
     public interface IAttributedVertexBuffer : IHasVertexAttributes, IBindableVertexBuffer
     {
-        void Bind(BufferTarget target, IEnumerable<int> indices, Action<IBoundVertexBuffer> inner);
+        void Bind(BufferTarget target, IEnumerable<int> enabledAttributes, Action<IBoundVertexBuffer> inner);
     }
 
-    public interface IBoundVertexBuffer : IDrawableVertexBuffer, IAttributableVertexBuffer
+    public interface IBoundVertexBuffer : IDrawableVertexBuffer
     {
-
+        void WithAttributes(VertexAttribute[] attrs, Action inner);
+        void WithAttributes(VertexAttribute[] attrs, IEnumerable<int> indices, Action inner);
     }
 }

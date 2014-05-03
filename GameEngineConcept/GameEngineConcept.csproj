@@ -49,15 +49,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\Interfaces.cs" />
+    <Compile Include="Graphics\SpriteLoader.cs" />
+    <Compile Include="Graphics\VertexBuffers\VertexBufferPool.cs" />
+    <Compile Include="Graphics\VertexSet.cs" />
     <Compile Include="Graphics\Interfaces.cs" />
-    <Compile Include="VertexBuffers\AttributedVertexBuffer.cs" />
-    <Compile Include="VertexBuffers\BoundVertexBuffer.cs" />
-    <Compile Include="VertexBuffers\Interfaces.cs" />
+    <Compile Include="Graphics\VertexBuffers\AttributedVertexBuffer.cs" />
+    <Compile Include="Graphics\VertexBuffers\BoundVertexBuffer.cs" />
+    <Compile Include="Graphics\VertexBuffers\Interfaces.cs" />
     <Compile Include="Components\ComponentCollection.cs" />
     <Compile Include="Graphics\Sprite.cs" />
-    <Compile Include="Graphics\TexturedVertices.cs" />
-    <Compile Include="VertexBuffers\VertexAttribute.cs" />
-    <Compile Include="VertexBuffers\VertexBuffer.cs" />
+    <Compile Include="Graphics\TexturedVertexSet.cs" />
+    <Compile Include="Graphics\VertexBuffers\VertexAttribute.cs" />
+    <Compile Include="Graphics\VertexBuffers\VertexBuffer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Graphics\Texture.cs" />
     <Compile Include="Graphics\TexturedVertex2.cs" />

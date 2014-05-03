@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using OpenTK.Graphics.OpenGL;
 
-namespace GameEngineConcept.VertexBuffers
+namespace GameEngineConcept.Graphics.VertexBuffers
 {
     public class VertexBuffer : IDisposable, IBindableVertexBuffer
     {
@@ -27,6 +27,11 @@ namespace GameEngineConcept.VertexBuffers
             int[] vboIds = new int[n];
             GL.GenBuffers(n, vboIds);
             return vboIds.Select((id) => new VertexBuffer(id));
+        }
+
+        public static IEnumerable<VertexBuffer> Allocate(uint n)
+        {
+            return Allocate(Convert.ToInt32(n));
         }
 
         public void LoadData<T>(BufferUsageHint hint, T[] data) where T : struct

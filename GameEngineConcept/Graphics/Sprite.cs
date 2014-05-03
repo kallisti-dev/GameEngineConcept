@@ -3,29 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using OpenTK.Graphics.OpenGL;
 
-using GameEngineConcept.VertexBuffers;
+using GameEngineConcept.Graphics.VertexBuffers;
 
 namespace GameEngineConcept.Graphics
 {
-    public class Sprite : TexturedVertices
+    public class Sprite : TexturedVertexSet
     {
 
-        private int index;
-        public int BufferIndex {
+        private uint index;
+        public uint VertexBufferStartIndex {
             get { return index; }
             protected set 
             { 
                 index = value;
-                BufferIndices = Enumerable.Range(value, 4).Cast<uint>().ToArray();
+                uint[] indices = new uint[4];
+                for(uint i = 0; i < 4; ++i) indices[i] = value+i;
+                VertexBufferIndices = indices;
             }
         }
         public int Depth { get; set; }
 
-        public Sprite(Texture tex, IAttributedVertexBuffer buffer, int bufferInd, int depth = 0) : base()
+        public Sprite(Texture tex, IAttributedVertexBuffer buffer, uint bufferInd, int depth = 0) : base()
         {
             Texture = tex;
-            Buffer = buffer;
-            BufferIndex = bufferInd;
+            VertexBuffer = buffer;
+            VertexBufferStartIndex = bufferInd;
             Depth = depth;
             DrawMode = PrimitiveType.Quads;
         }
