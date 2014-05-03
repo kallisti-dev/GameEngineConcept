@@ -14,7 +14,7 @@ namespace GameEngineConcept.Components
     }
 
     //a component that can receive an object of type T
-    public interface IReceiverComponent<T> : IComponent
+    public interface IReceiverComponent<in T> : IComponent
     {
         void Receive(T obj);
     }

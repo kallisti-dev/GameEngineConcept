@@ -38,7 +38,7 @@ namespace GameEngineConcept.Graphics.VertexBuffers
             }
             this.buffersAllocated = initialSize;
             this.maxAllocated = maxSize;
-            this.resizer = resizer == null? defaultResizer : resizer;
+            this.resizer = resizer ?? defaultResizer;
         }
 
 
