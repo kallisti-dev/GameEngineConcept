@@ -6,14 +6,14 @@ using OpenTK.Graphics.OpenGL;
 
 namespace GameEngineConcept.Graphics.VertexBuffers
 {
-    public sealed class BoundVertexBuffer : IBoundVertexBuffer
+    public struct BoundVertexBuffer : IBoundVertexBuffer
     {
-        private VertexBuffer buffer;
+        //private VertexBuffer buffer;
         private BufferTarget target;
 
-        internal BoundVertexBuffer(VertexBuffer buffer, BufferTarget target)
+        internal BoundVertexBuffer(BufferTarget target)
         {
-            this.buffer = buffer;
+            //this.buffer = buffer;
             this.target = target;
         }
 
@@ -22,30 +22,10 @@ namespace GameEngineConcept.Graphics.VertexBuffers
             GL.BufferData<T>(target, new IntPtr(data.Length * Marshal.SizeOf(typeof(T))), data, hint);
         }
 
-        public void DrawRange(PrimitiveType mode, int first, int count)
-        {
-            GL.DrawArrays(mode, first, count);
-        }
 
-        public void DrawElements(PrimitiveType mode, byte[] indices)
+        public void Draw(PrimitiveType type, VertexIndices indices)
         {
-            GL.DrawElements(mode, indices.Length, DrawElementsType.UnsignedByte, indices);
-        }
-
-        public void DrawElements(PrimitiveType mode, uint[] indices)
-        {
-            GL.DrawElements(mode, indices.Length, DrawElementsType.UnsignedInt, indices);
-        }
-
-        public void DrawElements(PrimitiveType mode, ushort[] indices)
-        {
-            GL.DrawElements(mode, indices.Length, DrawElementsType.UnsignedShort, indices);
-        }
-
-        public void DrawElements(PrimitiveType mode, VertexBuffer indexBuffer, int count, DrawElementsType type)
-        {
-            indexBuffer.Bind(BufferTarget.ElementArrayBuffer,
-                (b) => GL.DrawElements(mode, count, type, 0));
+            indices.DrawVerticies(type);
         }
 
         private void EnableAttributes(VertexAttribute[] attrs)

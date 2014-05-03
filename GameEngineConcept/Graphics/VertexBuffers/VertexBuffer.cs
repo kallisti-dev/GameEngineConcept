@@ -52,7 +52,7 @@ namespace GameEngineConcept.Graphics.VertexBuffers
         {
             VertexBuffer previousBind = bindTable[(uint)target];
             Bind(target);
-            try { handler(new BoundVertexBuffer(this, target)); }
+            try { handler(new BoundVertexBuffer(target)); }
             finally
             {
                 if (previousBind == null)
