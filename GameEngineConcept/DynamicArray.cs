@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace GameEngineConcept
 {
     //since List<T> doesn't expose its internal array pointer, we need to roll our own dynamically resizing array implementation.
-    class DynamicArray<T> : IEnumerable<T>
+    public class DynamicArray<T> : IEnumerable<T>
     {
 
         const int defaultCapacity = 10;

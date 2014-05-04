@@ -50,8 +50,10 @@
   <ItemGroup>
     <Compile Include="Components\Interfaces.cs" />
     <Compile Include="Graphics\DepthSet.cs" />
+    <Compile Include="Graphics\Loaders\AbstractVertexLoader.cs" />
+    <Compile Include="Graphics\Loaders\SpriteLoader.cs" />
     <Compile Include="Graphics\VertexBuffers\VertexIndices.cs" />
-    <Compile Include="Graphics\VertexLoader.cs" />
+    <Compile Include="Graphics\Loaders\VertexLoader.cs" />
     <Compile Include="Graphics\VertexBuffers\VertexBufferPool.cs" />
     <Compile Include="Graphics\VertexSet.cs" />
     <Compile Include="Graphics\Interfaces.cs" />

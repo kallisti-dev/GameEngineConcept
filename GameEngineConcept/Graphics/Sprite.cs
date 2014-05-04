@@ -27,7 +27,6 @@ namespace GameEngineConcept.Graphics
         {
             DrawDepth = depth;
             index = bufferInd;
-
         }
     }
 }
