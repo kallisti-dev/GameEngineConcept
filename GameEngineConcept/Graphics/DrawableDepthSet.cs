@@ -13,11 +13,11 @@ namespace GameEngineConcept.Graphics
     }
 
     [Serializable]
-    public class DepthSet : SortedSet<IDrawableDepth>, IDrawable
+    public class DrawableDepthSet : SortedSet<IDrawableDepth>, IDrawable
     {
         static DepthComparer comparer = new DepthComparer();
 
-        public DepthSet() : base(comparer) { }
+        public DrawableDepthSet() : base(comparer) { }
 
         public void Draw()
         {
