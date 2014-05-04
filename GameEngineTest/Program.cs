@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Reflection;
 
 using GameEngineConcept;
+using GameEngineTest.Tests;
 
 namespace GameEngineTest
 {
@@ -16,6 +17,7 @@ namespace GameEngineTest
         {
             using (TestWindow window = new TestWindow())
             {
+                window.AddTest<TestWindowTest>();
                 window.Run();
             }
         }
