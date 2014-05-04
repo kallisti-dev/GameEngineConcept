@@ -24,7 +24,7 @@ namespace GameEngineConcept.Graphics.Loaders
         public SpriteLoader(BufferUsageHint hint, IBindableVertexBuffer buffer) 
             : base(hint, new AttributedVertexBuffer(buffer, TexturedVertex2.vAttributes)) { }
 
-        public void Add(Texture tex, Rectangle rect = null, Vector2 pos, int depth = 0, int[] enabledAttribs = null)
+        public void Add(Texture tex, Rectangle rect, Vector2 pos, int depth = 0, int[] enabledAttribs = null)
         {
             AddState(new State {
                 tex = tex,
