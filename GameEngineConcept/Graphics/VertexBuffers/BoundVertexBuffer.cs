@@ -28,15 +28,6 @@ namespace GameEngineConcept.Graphics.VertexBuffers
             indices.DrawVerticies(type);
         }
 
-        private void EnableAttributes(VertexAttribute[] attrs)
-        {
-            for (int i = 0; i < attrs.Length; ++i)
-            {
-                GL.EnableVertexAttribArray(i);
-                GL.VertexAttribPointer(i, attrs[i].nComponents, attrs[i].type, attrs[i].normalized, attrs[i].stride, attrs[i].offset);
-            }
-        }
-
         public void WithAttributes(VertexAttribute[] attrs, Action inner)
         {
             EnableAttributes(attrs);
@@ -51,6 +42,15 @@ namespace GameEngineConcept.Graphics.VertexBuffers
             finally { DisableAttributes(indices); }
         }
 
+
+        private void EnableAttributes(VertexAttribute[] attrs)
+        {
+            for (int i = 0; i < attrs.Length; ++i)
+            {
+                GL.EnableVertexAttribArray(i);
+                GL.VertexAttribPointer(i, attrs[i].nComponents, attrs[i].type, attrs[i].normalized, attrs[i].stride, attrs[i].offset);
+            }
+        }
 
         private void EnableAttributes(VertexAttribute[] attrs, IEnumerable<int> indices)
         {

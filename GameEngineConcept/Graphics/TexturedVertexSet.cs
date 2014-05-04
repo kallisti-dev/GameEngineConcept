@@ -19,7 +19,7 @@ namespace GameEngineConcept.Graphics
 
         public override void Draw()
         {
-            VBuffer.Bind(BufferTarget.ArrayBuffer, enabledAttributes, (boundBuffer) =>
+            VBuffer.Bind(BufferTarget.ArrayBuffer, EnabledAttributes, (boundBuffer) =>
             {
                 texture.Bind(TextureUnit.Texture0, () =>
                 {

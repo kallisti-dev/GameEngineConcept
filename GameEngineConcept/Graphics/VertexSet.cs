@@ -9,7 +9,26 @@ namespace GameEngineConcept.Graphics
         public IAttributedVertexBuffer VBuffer { get; protected set; }
         public PrimitiveType DrawMode { get; protected set; }
         protected VertexIndices indices;
-        protected int[] enabledAttributes;
+        private int[] enabledAttribs;
+        public int[] EnabledAttributes { 
+            get 
+            {
+                if(enabledAttribs == null) 
+                    enabledAttribs = VBuffer.GetAttributeIndices();
+                return enabledAttribs;
+            }
+            set
+            {
+                int[] allIndices = VBuffer.GetAttributeIndices();
+                foreach(int i in value) 
+                {
+                    if(-1 == Array.IndexOf(allIndices, i)) {
+                        throw new IndexOutOfRangeException(i + " is not a valid attribute index. Valids indices are: " + allIndices);
+                    }                   
+                }           
+                enabledAttribs = value;
+            }
+        }
 
 
         public VertexAttribute[] VertexAttributes { get { return VBuffer.VertexAttributes; } }
@@ -20,13 +39,13 @@ namespace GameEngineConcept.Graphics
         {
             DrawMode = mode;
             VBuffer = buffer;
-            enabledAttributes = enabledAttribs;
+            EnabledAttributes = enabledAttribs;
             this.indices = indices;
         }
          
         public virtual void Draw()
         {
-            VBuffer.Bind(BufferTarget.ArrayBuffer, enabledAttributes, (boundBuffer) =>
+            VBuffer.Bind(BufferTarget.ArrayBuffer, EnabledAttributes, (boundBuffer) =>
             {
                 boundBuffer.Draw(DrawMode, indices);
             });

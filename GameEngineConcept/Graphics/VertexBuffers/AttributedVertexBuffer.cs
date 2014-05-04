@@ -40,5 +40,13 @@ namespace GameEngineConcept.Graphics.VertexBuffers
                 b.WithAttributes(VertexAttributes, () => inner(b));
             });
         }
+
+        public int[] GetAttributeIndices() 
+        {
+            int[] indices = new int[VertexAttributes.Length];
+            for (int i = 0; i < indices.Length; ++i)
+                indices[i] = VertexAttributes[i].index;
+            return indices;
+        }
     }
 }

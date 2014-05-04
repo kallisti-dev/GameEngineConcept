@@ -33,6 +33,7 @@ namespace GameEngineConcept.Graphics.VertexBuffers
     public interface IAttributedVertexBuffer : IHasVertexAttributes, IBindableVertexBuffer
     {
         void Bind(BufferTarget target, IEnumerable<int> enabledAttributes, Action<IBoundVertexBuffer> inner);
+        int[] GetAttributeIndices();
     }
 
     public interface IBoundVertexBuffer : IDrawableVertexBuffer
