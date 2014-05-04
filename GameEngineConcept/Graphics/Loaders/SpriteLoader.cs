@@ -14,6 +14,7 @@ namespace GameEngineConcept.Graphics.Loaders
         {
             public Texture tex;
             public Rectangle rect;
+            public Vector2 pos;
             public PrimitiveType type;
             public int index;
             public int depth;
@@ -23,20 +24,21 @@ namespace GameEngineConcept.Graphics.Loaders
         public SpriteLoader(BufferUsageHint hint, IBindableVertexBuffer buffer) 
             : base(hint, new AttributedVertexBuffer(buffer, TexturedVertex2.vAttributes)) { }
 
-        public void AddSprite(Texture tex, Rectangle r, Vector2 v, int depth = 0, int[] enabledAttribs = null)
+        public void Add(Texture tex, Rectangle rect = null, Vector2 pos, int depth = 0, int[] enabledAttribs = null)
         {
             AddState(new State {
                 tex = tex,
-                rect = r,
+                rect = rect,
+                pos = pos,
                 depth = depth,
                 index = currentIndex,
                 enabledAttribs = enabledAttribs
             });
             AddVerticies(new[] {
-                new TexturedVertex2(v,                                          new Vector2(r.Left, r.Top)),
-                new TexturedVertex2(new Vector2(v.X, v.Y + r.Height),           new Vector2(r.Left, r.Bottom)),
-                new TexturedVertex2(new Vector2(v.X + r.Width, v.Y + r.Height), new Vector2(r.Right, r.Bottom)),
-                new TexturedVertex2(new Vector2(v.X + r.Width, v.Y),            new Vector2(r.Right, r.Top))
+                new TexturedVertex2(pos,                                                  new Vector2(rect.Left, rect.Top)),
+                new TexturedVertex2(new Vector2(pos.X, pos.Y + rect.Height),              new Vector2(rect.Left, rect.Bottom)),
+                new TexturedVertex2(new Vector2(pos.X + rect.Width, pos.Y + rect.Height), new Vector2(rect.Right, rect.Bottom)),
+                new TexturedVertex2(new Vector2(pos.X + rect.Width, pos.Y),               new Vector2(rect.Right, rect.Top))
             });
         }
 
