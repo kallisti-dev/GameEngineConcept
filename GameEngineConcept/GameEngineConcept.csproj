@@ -54,7 +54,7 @@
   <ItemGroup>
     <Compile Include="Components\Interfaces.cs" />
     <Compile Include="Graphics\DrawableDepthSet.cs" />
-    <Compile Include="Graphics\Loaders\AbstractVertexLoader.cs" />
+    <Compile Include="Graphics\Loaders\BaseVertexLoader.cs" />
     <Compile Include="Graphics\Loaders\SpriteLoader.cs" />
     <Compile Include="Graphics\VertexBuffers\VertexIndices.cs" />
     <Compile Include="Graphics\Loaders\VertexLoader.cs" />

@@ -18,7 +18,7 @@ namespace GameEngineTest
             success = true;
         }
 
-        public static bool Test()
+        public static Task<bool> Test()
         {
             ComponentCollection collection = new ComponentCollection();
             ComponentCollection collection2 = new ComponentCollection();
@@ -26,7 +26,7 @@ namespace GameEngineTest
             collection.Add(collection2);
             collection2.Add(c);
             collection.Broadcast(collection);
-            return success;
+            return Task.FromResult(success);
         }
     }
 }
