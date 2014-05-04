@@ -4,7 +4,7 @@ using OpenTK.Graphics.OpenGL;
 
 namespace GameEngineConcept.Graphics.VertexBuffers
 {
-    class AttributedVertexBuffer : IAttributedVertexBuffer, IHasVertexBuffer<IBindableVertexBuffer>, IHasVertexAttributes
+    public class AttributedVertexBuffer : IAttributedVertexBuffer, IHasVertexBuffer<IBindableVertexBuffer>, IHasVertexAttributes
     {
         public IBindableVertexBuffer VBuffer { get; private set; }
         public VertexAttribute[] VertexAttributes { get; private set; }

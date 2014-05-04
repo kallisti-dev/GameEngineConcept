@@ -7,7 +7,7 @@ using GameEngineConcept.Graphics.VertexBuffers;
 
 namespace GameEngineConcept.Graphics.Loaders
 {
-    class SpriteLoader : AbstractVertexLoader<IAttributedVertexBuffer, TexturedVertex2, SpriteLoader.State, Sprite>
+    public class SpriteLoader : AbstractVertexLoader<AttributedVertexBuffer, TexturedVertex2, SpriteLoader.State, Sprite>
     {
 
         public class State
