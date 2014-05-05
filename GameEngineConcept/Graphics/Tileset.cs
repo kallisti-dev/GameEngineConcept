@@ -9,7 +9,7 @@ using GameEngineConcept.Graphics.VertexBuffers;
 
 namespace GameEngineConcept.Graphics
 {
-    public struct TileSet
+    public class TileSet
     {
         public int TileWidth  { get; private set; }
         public int TileHeight { get; private set; }
@@ -30,14 +30,14 @@ namespace GameEngineConcept.Graphics
         private string fileName;
         private Texture t;
 
-        public TileSet(Texture tex, int tileWidth, int tileHeight) : this()
+        public TileSet(Texture tex, int tileWidth, int tileHeight)
         {
             Debug.Assert(tex != null);
             Texture = tex;
 
         }
 
-        public TileSet(string fileName, int tileWidth, int tileHeight) : this()
+        public TileSet(string fileName, int tileWidth, int tileHeight)
         {
             this.fileName = fileName;
             TileWidth = tileWidth;
