@@ -7,7 +7,7 @@ namespace GameEngineConcept.Graphics.VertexBuffers
 {
     //allows recycling of allocated buffer objects. Use Request() to request an unused buffer object.
     //All Request() calls should have a corresponding Release() call for when the buffer is no longer needed, so that other consumers can reuse the buffer.
-    class VertexBufferPool
+    public class VertexBufferPool
     {
         const uint defaultInitialSize = 20;
         const int defaultMaxSize = 100;

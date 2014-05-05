@@ -13,4 +13,10 @@ namespace GameEngineConcept.Graphics
     {
         int DrawDepth { get; }
     }
+
+    //interface for objects with external openGL resources.
+    public interface IRelease
+    {
+        void Release();
+    }
 }

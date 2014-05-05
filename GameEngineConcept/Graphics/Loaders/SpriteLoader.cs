@@ -44,7 +44,7 @@ namespace GameEngineConcept.Graphics.Loaders
 
         protected override Sprite CreateVertexOutput(State state)
         {
-            return new Sprite(state.tex, buffer, state.index, state.depth, state.enabledAttribs);
+            return new Sprite(state.tex, buffer, state.index, state.depth);
         }
     }
 }

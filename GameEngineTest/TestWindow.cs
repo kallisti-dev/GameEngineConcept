@@ -9,7 +9,7 @@ using GameEngineConcept;
 
 namespace GameEngineTest
 {
-    class TestWindow : MainWindow
+    class TestWindow : EngineWindow
     {
         Queue<BaseTester> tests = new Queue<BaseTester>();
         BaseTester currentTest = null;

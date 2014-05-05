@@ -5,16 +5,18 @@ using OpenTK.Graphics.OpenGL;
 
 namespace GameEngineConcept.Graphics.VertexBuffers
 {
-    public class VertexBuffer : IBindableVertexBuffer
+    public class VertexBuffer : IRelease, IDisposable, IBindableVertexBuffer
     {
         [ThreadStaticAttribute]
         static VertexBuffer[] bindTable = new VertexBuffer[Enum.GetNames(typeof(BufferTarget)).Length];
 
         int vboId;
+        VertexBufferPool bufferPool;
 
-        protected VertexBuffer(int id)
+        protected VertexBuffer(int id, VertexBufferPool pool = null)
         {
             vboId = id;
+            bufferPool = pool;
         }
 
         public static VertexBuffer Allocate()
@@ -37,6 +39,14 @@ namespace GameEngineConcept.Graphics.VertexBuffers
         public void LoadData<T>(BufferUsageHint hint, T[] data) where T : struct
         {
             Bind(BufferTarget.ArrayBuffer, (b) => b.LoadData(hint, data));
+        }
+
+        public void Release() 
+        {
+            if (bufferPool == null)
+                GL.DeleteBuffer(vboId);
+            else
+                bufferPool.Release(this);
         }
 
         private void Bind(BufferTarget target)
@@ -63,6 +73,12 @@ namespace GameEngineConcept.Graphics.VertexBuffers
                 else
                     previousBind.Bind(target);
             }
+        }
+
+        public void Dispose()
+        {
+            EngineWindow.ReleaseOnMainThread(this);
+            GC.SuppressFinalize(this);
         }
     }
 }
