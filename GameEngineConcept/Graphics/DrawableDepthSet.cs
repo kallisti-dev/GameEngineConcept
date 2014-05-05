@@ -4,18 +4,10 @@ using System.Collections.Generic;
 
 namespace GameEngineConcept.Graphics
 {
-    public class DepthComparer : IComparer<IDrawableDepth> 
-    {
-        public int Compare(IDrawableDepth a, IDrawableDepth b) 
-        {
-            return a.DrawDepth.CompareTo(b.DrawDepth);
-        }
-    }
-
     [Serializable]
     public class DrawableDepthSet : SortedSet<IDrawableDepth>, IDrawable
     {
-        static DepthComparer comparer = new DepthComparer();
+        static IComparer<IDrawableDepth> comparer = Comparer<IDrawableDepth>.Create((a, b) => a.DrawDepth.CompareTo(b.DrawDepth));
 
         public DrawableDepthSet() : base(comparer) { }
 
