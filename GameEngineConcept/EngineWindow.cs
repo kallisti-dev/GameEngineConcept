@@ -70,8 +70,7 @@ namespace GameEngineConcept
 
         public void AddScene(IScene scene)
         {
-            if (!scene.IsLoaded)
-                scene.Load();
+            scene.Load();
             scene.Activate(this);
             sceneSet.Add(scene);
         }

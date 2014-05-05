@@ -51,7 +51,7 @@ namespace GameEngineConcept.Graphics
         }
 
 
-        public static Texture FromBitmap(string path)
+        public static Texture FromFile(string path)
         {
             return FromBitmap(new Bitmap(path));
         }
