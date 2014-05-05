@@ -4,7 +4,7 @@ using OpenTK;
 
 namespace GameEngineConcept.Scenes
 {
-    //base class for scenes that override all current scenes when activated, and restore them once deactivated
+    //base class for scenes that removes all current scenes when activated, and restores them once deactivated
     public abstract class OverrideScene : Scene
     {
         IEnumerable<IScene> scenes = null;

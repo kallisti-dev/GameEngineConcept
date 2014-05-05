@@ -31,12 +31,14 @@ namespace GameEngineConcept
         ComponentCollection updateSet = new ComponentCollection();
         HashSet<IDrawable> drawSet;
         DrawableDepthSet depthSet = new DrawableDepthSet();
-        BufferBlock<IRelease> releaseQueue = new BufferBlock<IRelease>();     
-        IGraphicsMode graphicsMode = null;
+        BufferBlock<IRelease> releaseQueue = new BufferBlock<IRelease>();
+
+        public IGraphicsMode CurrentGraphicsMode { get; private set; }
 
         public EngineWindow() : base(800, 600, GraphicsMode.Default, "foo", GameWindowFlags.Default, null, 4, 2, GraphicsContextFlags.Debug) 
         {
             drawSet = new HashSet<IDrawable> { depthSet };
+            CurrentGraphicsMode = null;
         }
 
         public void AddDrawables(IEnumerable<IDrawableDepth> drawables)
@@ -111,23 +113,23 @@ namespace GameEngineConcept
 
         public void UseGraphicsMode(IGraphicsMode mode)
         {
-            if (graphicsMode != null)
-                graphicsMode.Uninitialize();
-            graphicsMode = mode;
-            if (graphicsMode != null)
-                graphicsMode.Initialize();
+            if (CurrentGraphicsMode != null)
+                CurrentGraphicsMode.Uninitialize();
+            CurrentGraphicsMode = mode;
+            if (CurrentGraphicsMode != null)
+                CurrentGraphicsMode.Initialize();
 
         }
 
         public void WithGraphicsMode(IGraphicsMode mode, Action inner)
         {
-            if (mode == graphicsMode) 
+            if (mode == CurrentGraphicsMode) 
             {
                 inner();
                 return;
             }
-            IGraphicsMode prevGraphicsMode = graphicsMode;
-            graphicsMode = mode;
+            IGraphicsMode prevGraphicsMode = CurrentGraphicsMode;
+            CurrentGraphicsMode = mode;
             MatrixMode? mMode = mode.PrimaryMatrixMode, prevMMode = null;
             if (prevGraphicsMode != null)
             {
@@ -159,9 +161,9 @@ namespace GameEngineConcept
                 {
                     GL.MatrixMode(prevMMode.Value);
                 }
-                graphicsMode = prevGraphicsMode;
-                if(graphicsMode != null)
-                    graphicsMode.Initialize();
+                CurrentGraphicsMode = prevGraphicsMode;
+                if(CurrentGraphicsMode != null)
+                    CurrentGraphicsMode.Initialize();
             }
         }
 
