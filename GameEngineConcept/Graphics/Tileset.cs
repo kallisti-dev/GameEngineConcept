@@ -13,28 +13,22 @@ namespace GameEngineConcept.Graphics
     {
         public int TileWidth  { get; private set; }
         public int TileHeight { get; private set; }
+
+        //lazily loads texture from file if given filename instead of texture
         public Texture Texture 
         {
-            get
-            {
-                if (t == null)
-                    t = Texture.FromFile(fileName);
-                return t;
-            }
-            private set
-            {
-                t = value;
-            }
+            get { return t.Value; }
         }
 
         private string fileName;
-        private Texture t;
+        private Lazy<Texture> t;
 
         public TileSet(Texture tex, int tileWidth, int tileHeight)
         {
             Debug.Assert(tex != null);
-            Texture = tex;
-
+            TileWidth = tileWidth;
+            TileHeight = tileHeight;
+            t = new Lazy<Texture>(() => tex);
         }
 
         public TileSet(string fileName, int tileWidth, int tileHeight)
@@ -42,9 +36,11 @@ namespace GameEngineConcept.Graphics
             this.fileName = fileName;
             TileWidth = tileWidth;
             TileHeight = tileHeight;
+            t = new Lazy<Texture>(() => Texture.FromFile(fileName));
+
         }
 
-        public IEnumerable<Sprite> LoadTileMap(VertexBuffer buffer, Point[,] mapIndices, int depth)
+        public IEnumerable<Sprite> LoadTileMap(IBindableVertexBuffer buffer, Point[,] mapIndices, int depth)
         {
 
             SpriteLoader loader = new SpriteLoader(OpenTK.Graphics.OpenGL.BufferUsageHint.DynamicDraw, buffer);
