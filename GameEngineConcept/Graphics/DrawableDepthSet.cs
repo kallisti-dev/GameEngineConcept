@@ -7,7 +7,7 @@ namespace GameEngineConcept.Graphics
     [Serializable]
     public class DrawableDepthSet : SortedSet<IDrawableDepth>, IDrawable
     {
-        static IComparer<IDrawableDepth> comparer = Comparer<IDrawableDepth>.Create((a, b) => a.DrawDepth.CompareTo(b.DrawDepth));
+       static IComparer<IDrawableDepth> comparer = Comparer<IDrawableDepth>.Create((a, b) => a.DrawDepth.CompareTo(b.DrawDepth));
 
         public DrawableDepthSet() : base(comparer) { }
 

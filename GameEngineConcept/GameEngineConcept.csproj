@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\Interfaces.cs" />
+    <Compile Include="Components\MiscellaneousComponent.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Graphics\AnimatedSprite.cs" />
     <Compile Include="Graphics\DrawableDepthSet.cs" />

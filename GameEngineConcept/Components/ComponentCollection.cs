@@ -3,47 +3,17 @@ using System.Collections.Generic;
 
 namespace GameEngineConcept.Components
 {
-    public class ComponentCollection : IComponentCollection
+    public class ComponentCollection : HashSet<IComponent>, IComponentCollection
     {
-        List<IComponent> components;
-
-        /* Constructors */
-        public ComponentCollection()
-        {
-            components = new List<IComponent>();
-        }
-
-        /* IEnumerable interface */
-        public IEnumerator<IComponent> GetEnumerator() { return components.GetEnumerator(); }
-        IEnumerator IEnumerable.GetEnumerator() { return components.GetEnumerator(); }
-
-        /* ICollection interface */
-        public bool IsReadOnly { get { return false; } }
-        public int Count { get { return components.Count; } }
-        public bool Contains(IComponent c) { return components.Contains(c); }
-        public void CopyTo(IComponent[] a, int ind) { components.CopyTo(a, ind); }
-        public void Clear() { components.Clear(); }
-
-        public void Add(IComponent c)
-        {
-            components.Add(c);
-        }
-
-        public bool Remove(IComponent c)
-        {
-            return components.Remove(c);
-        }
-
-        /* IComponent interface */
         public void Update()
         {
-            foreach (IComponent c in components) { c.Update(); }
+            foreach (IComponent c in this) { c.Update(); }
         }
 
         /* IComponentCollection interface */
         public void Update<C>() where C : IComponent
         {
-            foreach (IComponent c in components)
+            foreach (IComponent c in this)
             {
                 IComponentCollection collection;
                 if (c is C)
@@ -58,7 +28,7 @@ namespace GameEngineConcept.Components
         }
         public void Broadcast<T>(T obj)
         {
-            foreach (IComponent c in components)
+            foreach (IComponent c in this)
             {
                 IReceiverComponent<T> rc;
                 IComponentCollection coll;

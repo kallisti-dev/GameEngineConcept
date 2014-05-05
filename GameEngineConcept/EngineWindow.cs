@@ -27,7 +27,7 @@ namespace GameEngineConcept
         }
 
         HashSet<IScene> sceneSet = new HashSet<IScene>();
-        HashSet<IComponent> updateSet = new HashSet<IComponent>();
+        ComponentCollection updateSet = new ComponentCollection();
         HashSet<IDrawable> drawSet;
         DrawableDepthSet depthSet = new DrawableDepthSet();
         BufferBlock<IRelease> releaseQueue = new BufferBlock<IRelease>();     
@@ -170,7 +170,7 @@ namespace GameEngineConcept
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             processReleaseQueue();
-            foreach (IComponent c in updateSet) { c.Update(); }
+            updateSet.Update<MiscellaneousComponent>();
             base.OnUpdateFrame(e);
         }
 
