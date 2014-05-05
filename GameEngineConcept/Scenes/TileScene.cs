@@ -14,7 +14,7 @@ namespace GameEngineConcept.Scenes
 {
     class TileScene : Scene
     {
-        VertexBuffer buffer;
+        IBindableVertexBuffer buffer;
         TileSet tileSet;
         Point[,] mapIndices;
         int depth;
@@ -22,7 +22,7 @@ namespace GameEngineConcept.Scenes
 
         public override bool IsLoaded { get { return sprites != null; } }
 
-        public TileScene(VertexBuffer buffer, TileSet tileSet, Point[,] mapIndices, int depth = 0)
+        public TileScene(IBindableVertexBuffer buffer, TileSet tileSet, Point[,] mapIndices, int depth = 0)
         {
             this.buffer = buffer;
             this.tileSet = tileSet;
