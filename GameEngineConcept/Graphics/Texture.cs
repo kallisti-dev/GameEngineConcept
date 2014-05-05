@@ -25,20 +25,6 @@ namespace GameEngineConcept.Graphics
             Target = target;
         }
 
-        public static void Initialize2DTexturing()
-        {
-            GL.Disable(EnableCap.CullFace);
-            GL.Enable(EnableCap.Texture2D);
-            GL.Enable(EnableCap.Blend);
-            GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
-            GL.PixelStore(PixelStoreParameter.UnpackAlignment, 1);
-        }
-
-        public static void Uninitialize2DTexturing()
-        {
-            GL.Disable(EnableCap.Texture2D);
-        }
-
         private static void Set2DTextureParameters()
         {
             GL.TexParameter(

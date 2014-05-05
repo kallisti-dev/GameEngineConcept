@@ -7,6 +7,7 @@ using GameEngineConcept.Graphics.VertexBuffers;
 
 namespace GameEngineConcept.Graphics
 {
+    [StructLayout(LayoutKind.Sequential)]
     public struct TexturedVertex2 : IHasVertexAttributes
     {
 

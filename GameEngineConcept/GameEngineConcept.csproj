@@ -20,7 +20,9 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>3</WarningLevel>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -41,10 +43,6 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Threading.Tasks.Dataflow, Version=4.5.14.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.Tpl.Dataflow.4.5.14\lib\portable-net45+win8\System.Threading.Tasks.Dataflow.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -56,6 +54,9 @@
     <Compile Include="Graphics\DrawableDepthSet.cs" />
     <Compile Include="Graphics\Loaders\BaseVertexLoader.cs" />
     <Compile Include="Graphics\Loaders\SpriteLoader.cs" />
+    <Compile Include="Graphics\Modes\Interfaces.cs" />
+    <Compile Include="Graphics\Modes\ResizeMode.cs" />
+    <Compile Include="Graphics\Modes\Texturing2DMode.cs" />
     <Compile Include="Graphics\VertexBuffers\VertexIndices.cs" />
     <Compile Include="Graphics\Loaders\VertexLoader.cs" />
     <Compile Include="Graphics\VertexBuffers\VertexBufferPool.cs" />
@@ -74,12 +75,22 @@
     <Compile Include="Graphics\Texture.cs" />
     <Compile Include="Graphics\TexturedVertex2.cs" />
     <Compile Include="DynamicArray.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

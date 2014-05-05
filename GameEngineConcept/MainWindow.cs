@@ -1,75 +1,117 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Threading.Tasks.Dataflow;
 using System.Diagnostics;
 using System.Drawing;
 using OpenTK;
+using OpenTK.Platform;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 
 using GameEngineConcept.Graphics;
+using GameEngineConcept.Graphics.Modes;
+using GameEngineConcept.Components;
 
 namespace GameEngineConcept
 {
     public class MainWindow : GameWindow
     {
-
-        private static BufferBlock<Action> drawQueue = new BufferBlock<Action>();
         private static MainWindow mainWindow = null;
 
-        public static Task<bool> WithDrawThread(Action callback) 
+        HashSet<IDrawable> drawSet = new HashSet<IDrawable>();
+        HashSet<IComponent> updateSet = new HashSet<IComponent>();
+        
+        IGraphicsMode graphicsMode = null;
+
+        public MainWindow() : base(800, 600, GraphicsMode.Default, "foo", GameWindowFlags.Default, null, 4, 2, GraphicsContextFlags.Debug) {  }
+
+        public void UseGraphicsMode(IGraphicsMode mode)
         {
-            return drawQueue.SendAsync(callback);
+            if (graphicsMode != null)
+                graphicsMode.Uninitialize();
+            graphicsMode = mode;
+            if (graphicsMode != null)
+                graphicsMode.Initialize();
+
         }
 
-        public MainWindow() : base(500, 500, GraphicsMode.Default, "test") {  }
+        public void WithGraphicsMode(IGraphicsMode mode, Action inner)
+        {
+            if (mode == graphicsMode) 
+            {
+                inner();
+                return;
+            }
+            IGraphicsMode prevGraphicsMode = graphicsMode;
+            graphicsMode = mode;
+            MatrixMode? mMode = mode.PrimaryMatrixMode, prevMMode = null;
+            if (prevGraphicsMode != null)
+            {
+                prevMMode = prevGraphicsMode.PrimaryMatrixMode;
+                prevGraphicsMode.Uninitialize();
+            }   
+            bool restore;
+            if (restore = prevMMode.HasValue && mMode == prevMMode)
+            {
+                GL.PushMatrix();
+            }
+            else if (mMode.HasValue)
+            {
+                GL.MatrixMode(mMode.Value);
+            }
+            try
+            {
+                mode.Initialize();
+                inner();
+            }
+            finally
+            {
+                mode.Uninitialize();
+                if (restore)
+                {
+                    GL.PopMatrix();
+                }
+                else if (prevMMode.HasValue)
+                {
+                    GL.MatrixMode(prevMMode.Value);
+                }
+                graphicsMode = prevGraphicsMode;
+                if(graphicsMode != null)
+                    graphicsMode.Initialize();
+            }
+        }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
             Debug.Assert(mainWindow == null);
             mainWindow = this;
-            GL.ClearColor(Color.Black);
-            Texture.Initialize2DTexturing();
+            //UseGraphicsMode(new ResizeMode(Width, Height));
+            //UseGraphicsMode(new Texturing2DMode());
         }
 
         protected override void OnUnload(EventArgs e)
         {
-            drawQueue.Complete();
             base.OnUnload(e);
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)
         {
-            processDrawQueue();
-            SwapBuffers();
+            foreach (IDrawable x in drawSet) { x.Draw(); }
             base.OnRenderFrame(e);
+            //SwapBuffers();
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
+            foreach (IComponent c in updateSet) { c.Update(); }
             base.OnUpdateFrame(e);
         }
 
         protected override void OnResize(EventArgs e)
         {
-            // Standard OpenTK code for window resize
-            GL.Viewport(0, 0, Width, Height);
-            Matrix4 projection = Matrix4.CreatePerspectiveFieldOfView((float)Math.PI / 4, Width / (float)Height, 1.0f, 64.0f);
-            GL.MatrixMode(MatrixMode.Projection);
-            GL.LoadMatrix(ref projection);
+            WithGraphicsMode(new ResizeMode(Width, Height), () => { });
             base.OnResize(e);
-        }
-
-        private void processDrawQueue() 
-        {
-            IList<Action> drawActions;
-            if (drawQueue.TryReceiveAll(out drawActions))
-            {
-                foreach (var drawAction in drawActions)
-                    drawAction();
-            }
         }
     }
 }

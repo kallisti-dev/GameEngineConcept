@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GameEngineConcept.Components;
 
-namespace GameEngineTest
+namespace GameEngineTest.TestComponents
 {
     /* tests message broadcasting functionality of ComponentCollection */
     public class BroadcastTestComponent : IComponent, IReceiverComponent<ComponentCollection>
@@ -18,7 +18,7 @@ namespace GameEngineTest
             success = true;
         }
 
-        public static Task<bool> Test()
+        public static bool Test()
         {
             ComponentCollection collection = new ComponentCollection();
             ComponentCollection collection2 = new ComponentCollection();
@@ -26,7 +26,7 @@ namespace GameEngineTest
             collection.Add(collection2);
             collection2.Add(c);
             collection.Broadcast(collection);
-            return Task.FromResult(success);
+            return success;
         }
     }
 }
