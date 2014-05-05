@@ -64,13 +64,15 @@ namespace GameEngineConcept.Graphics.VertexBuffers
             {
                 if (bufferPool.Count > 0)
                 {
-                    return Task.FromResult(GetBuffer());
+                    var buf = GetBuffer();
+                    if (buf == null)
+                        return AddWaiter();
+                    else
+                        return Task.FromResult(buf);
                 }
                 else
                 {
-                    var source = new TaskCompletionSource<VertexBuffer>();
-                    waiters.Enqueue(source);
-                    return source.Task;
+                    return AddWaiter();
                 }
             }
         }
@@ -99,6 +101,13 @@ namespace GameEngineConcept.Graphics.VertexBuffers
             var b = bufferPool.Last.Value;
             bufferPool.RemoveLast();
             return b;
+        }
+
+        private Task<VertexBuffer> AddWaiter()
+        {
+            var source = new TaskCompletionSource<VertexBuffer>();
+            waiters.Enqueue(source);
+            return source.Task;
         }
 
         //resize buffer pool. returns false if no resize occurs because pool is already at max capacity;
