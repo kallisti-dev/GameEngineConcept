@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace GameEngineConcept.Graphics
 {
+    /*
     public class AnimatedSprite : Sprite
     {
     }
+     */
 }
