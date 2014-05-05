@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using OpenTK;
 using OpenTK.Platform;
 using OpenTK.Graphics;
@@ -76,6 +77,11 @@ namespace GameEngineConcept
             sceneSet.Add(scene);
         }
 
+        public void AddScenes(IEnumerable<IScene> scenes)
+        {
+            foreach (var s in scenes) { AddScene(s); }
+        }
+
         public async void AddSceneAsync(Task<IScene> sceneTask)
         {
             AddScene(await sceneTask);
@@ -87,6 +93,20 @@ namespace GameEngineConcept
             {
                 scene.Deactivate(this);
             }
+        }
+
+        public void RemoveScenes(IEnumerable<IScene> scenes)
+        {
+            foreach (var s in sceneSet) { RemoveScene(s);  }
+        }
+
+        //removes all scenes from the window. returns a collection of the scenes that can later be
+        //passed to AddScenes to restore them.
+        public IEnumerable<IScene> RemoveAllScenes()
+        {
+            var scenesCopy = new HashSet<IScene>(sceneSet);
+            RemoveScenes(sceneSet);
+            return scenesCopy;
         }
 
         public void UseGraphicsMode(IGraphicsMode mode)

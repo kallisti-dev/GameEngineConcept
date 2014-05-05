@@ -89,6 +89,7 @@
     <Compile Include="DynamicArray.cs" />
     <Compile Include="Scenes\Interfaces.cs" />
     <Compile Include="Scenes\JoinScenes.cs" />
+    <Compile Include="Scenes\OverrideScene.cs" />
     <Compile Include="Scenes\Scene.cs" />
     <Compile Include="Scenes\TileScene.cs" />
   </ItemGroup>
