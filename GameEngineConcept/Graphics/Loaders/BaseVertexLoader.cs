@@ -7,7 +7,7 @@ using GameEngineConcept.Graphics.VertexBuffers;
 
 namespace GameEngineConcept.Graphics.Loaders
 {
-    public abstract class AbstractVertexLoader<BufferType, VIn, VState, VOut>
+    public abstract class BaseVertexLoader<BufferType, VIn, VState, VOut>
         where BufferType : IVertexBuffer
         where VIn : struct
     {
@@ -20,7 +20,7 @@ namespace GameEngineConcept.Graphics.Loaders
 
         protected abstract VOut CreateVertexOutput(VState state);
 
-        public AbstractVertexLoader(BufferUsageHint hint, BufferType buffer)
+        public BaseVertexLoader(BufferUsageHint hint, BufferType buffer)
         {
             this.buffer = buffer;
             vList = new DynamicArray<VIn>();

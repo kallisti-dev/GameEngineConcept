@@ -5,7 +5,7 @@ using GameEngineConcept.Graphics.VertexBuffers;
 
 namespace GameEngineConcept.Graphics.Loaders
 {
-    public class VertexLoader<V> : AbstractVertexLoader<IAttributedVertexBuffer, V, VertexLoader<V>.State, VertexSet>
+    public class VertexLoader<V> : BaseVertexLoader<IAttributedVertexBuffer, V, VertexLoader<V>.State, VertexSet>
         where V : struct
     {
         public class State 
