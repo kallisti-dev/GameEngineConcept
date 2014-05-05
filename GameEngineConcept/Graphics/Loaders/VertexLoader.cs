@@ -11,7 +11,7 @@ namespace GameEngineConcept.Graphics.Loaders
         public class State 
         {
             public PrimitiveType mode;
-            public IndexRange indices;
+            public VertexIndices indices;
             public int[] enabledAttribs;
         }
 
@@ -22,7 +22,7 @@ namespace GameEngineConcept.Graphics.Loaders
             AddState(new State
             {
                 mode = mode,
-                indices = new IndexRange(currentIndex, verticies.Length),
+                indices = VertexIndices.Create(currentIndex, verticies.Length),
                 enabledAttribs = enabledAttribs
             });
             AddVerticies(verticies);

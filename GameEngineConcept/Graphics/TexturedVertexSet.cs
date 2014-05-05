@@ -7,21 +7,21 @@ namespace GameEngineConcept.Graphics
 {
     public class TexturedVertexSet : VertexSet
     {
-        public Texture texture;
+        public Texture Texture { get; set; }
 
         protected TexturedVertexSet() : base() { }
 
         public TexturedVertexSet(Texture tex, PrimitiveType mode, IAttributedVertexBuffer buffer, VertexIndices indices, int[] enabledAttribs = null)
             : base(mode, buffer, indices, enabledAttribs)
         {
-            texture = tex;
+            Texture = tex;
         }
 
         public override void Draw()
         {
             VBuffer.Bind(BufferTarget.ArrayBuffer, EnabledAttributes, (boundBuffer) =>
             {
-                texture.Bind(TextureUnit.Texture0, () =>
+                Texture.Bind(TextureUnit.Texture0, () =>
                 {
                     boundBuffer.Draw(DrawMode, indices);
                 });

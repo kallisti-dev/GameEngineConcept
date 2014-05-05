@@ -18,12 +18,12 @@ namespace GameEngineConcept.Graphics
             protected set
             {
                 index = value;
-                indices = new IndexRange(value, 4);
+                indices = VertexIndices.Create(value, 4);
             }
         }
 
         public Sprite(Texture tex, IBindableVertexBuffer buffer, int bufferInd, int depth = 0)
-            : base(tex, PrimitiveType.Quads, new AttributedVertexBuffer(buffer, TexturedVertex2.vAttributes), new IndexRange(bufferInd, 4), null)
+            : base(tex, PrimitiveType.Quads, new AttributedVertexBuffer(buffer, TexturedVertex2.vAttributes), VertexIndices.Create(bufferInd, 4), null)
         {
             DrawDepth = depth;
             index = bufferInd;
