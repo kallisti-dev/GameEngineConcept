@@ -7,14 +7,19 @@ using System.Threading.Tasks;
 namespace GameEngineConcept.Scenes
 {
     //abstract base class for Scenes
+    //static convenience functions for Scenes go here as well.
     public abstract class Scene : IScene
     {
-        //convenience functions for Scenes go here.
-        //TODO: add  background thread scene loader
+
         public static IScene Join(params IScene[] scenes) { return new JoinScenes(scenes);  }
 
         public static IScene operator+(Scene s1, IScene s2) { return new JoinScenes(s1, s2); }
         public static IScene operator+(IScene s1, Scene s2) { return new JoinScenes(s1, s2); }
+
+        public static Task LoadInBackground(IScene scene)
+        {
+            return Task.Run(() => scene.Load());
+        }
 
         public abstract bool IsLoaded { get; }
 

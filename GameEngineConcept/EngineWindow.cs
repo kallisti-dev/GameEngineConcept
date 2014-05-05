@@ -70,7 +70,8 @@ namespace GameEngineConcept
 
         public void AddScene(IScene scene)
         {
-            scene.Load();
+            if(scene.IsLoaded)
+                scene.Load();
             scene.Activate(this);
             sceneSet.Add(scene);
         }
@@ -82,7 +83,7 @@ namespace GameEngineConcept
 
         public void RemoveScene(IScene scene)
         {
-            if(sceneSet.Remove(scene))
+            if (sceneSet.Remove(scene))
             {
                 scene.Deactivate(this);
             }

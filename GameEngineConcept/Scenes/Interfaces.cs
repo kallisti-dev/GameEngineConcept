@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameEngineConcept.Scenes
 {
+    //TODO: progress meters?
     public interface IScene
     {
         bool IsLoaded { get; }
