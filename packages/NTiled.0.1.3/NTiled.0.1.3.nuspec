@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>NTiled</id>
+    <version>0.1.3</version>
+    <authors>Patrik Svensson</authors>
+    <owners>Patrik Svensson</owners>
+    <licenseUrl>https://github.com/patriksvensson/ntiled/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/patriksvensson/ntiled</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A library for working with Tiled maps (tmx).</description>
+    <releaseNotes>Patch for decimal object widths and heights. (Contributed by Naeem Khedarun)
+Added support for loading external tilesets. (Contributed by Naeem Khedarun)</releaseNotes>
+    <copyright>Copyright (c) Patrik Svensson 2013</copyright>
+    <tags>Tiled</tags>
+  </metadata>
+</package>

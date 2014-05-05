@@ -37,6 +37,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NTiled">
+      <HintPath>..\packages\NTiled.0.1.3\lib\net45\NTiled.dll</HintPath>
+    </Reference>
     <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
       <HintPath>..\packages\OpenTK.1.1.1579.5793\lib\NET40\OpenTK.dll</HintPath>
     </Reference>
@@ -58,6 +61,7 @@
     <Compile Include="Graphics\DrawableDepthSet.cs" />
     <Compile Include="Graphics\Loaders\BaseVertexLoader.cs" />
     <Compile Include="Graphics\Loaders\SpriteLoader.cs" />
+    <Compile Include="Graphics\Loaders\TMXLoader.cs" />
     <Compile Include="Graphics\Modes\Interfaces.cs" />
     <Compile Include="Graphics\Modes\ResizeMode.cs" />
     <Compile Include="Graphics\Modes\Texturing2DMode.cs" />
@@ -87,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
