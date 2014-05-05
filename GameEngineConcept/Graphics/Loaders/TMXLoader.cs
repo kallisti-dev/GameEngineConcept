@@ -52,12 +52,24 @@ namespace GameEngineConcept.Graphics.Loaders
             return t;
         }
 
-        public IEnumerable<Sprite> LoadLayer(IBindableVertexBuffer buffer, string name, int depth = 0)
+        public IEnumerable<Sprite> LoadAllLayers(IBindableVertexBuffer buffer, int depth = 0)
         {
-            return LoadLayer(lazyLayers.Value[name], buffer, name, depth);
+            return LoadAllLayers(buffer, (layer) => depth);
         }
 
-        private IEnumerable<Sprite> LoadLayer(TiledLayer layer, IBindableVertexBuffer buffer, string name, int depth = 0)
+        public IEnumerable<Sprite> LoadAllLayers(IBindableVertexBuffer buffer, Func<TiledLayer, int> depthFunction)
+        {
+            return lazyLayers.Value.Values.SelectMany((layer) =>
+                _LoadLayer(layer, buffer, layer.Name, depthFunction(layer))
+            );
+        }
+
+        public IEnumerable<Sprite> LoadLayer(IBindableVertexBuffer buffer, string name, int depth = 0)
+        {
+            return _LoadLayer(lazyLayers.Value[name], buffer, name, depth);
+        }
+
+        private IEnumerable<Sprite> _LoadLayer(TiledLayer layer, IBindableVertexBuffer buffer, string name, int depth = 0)
         {
             TiledMap tileMap = lazyTileMap.Value;
             SpriteLoader loader = new SpriteLoader(BufferUsageHint.DynamicDraw, buffer);
