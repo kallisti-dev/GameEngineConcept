@@ -150,8 +150,8 @@ namespace GameEngineConcept
             base.OnLoad(e);
             Debug.Assert(mainWindow == null);
             mainWindow = this;
-            //UseGraphicsMode(new ResizeMode(Width, Height));
-            //UseGraphicsMode(new Texturing2DMode());
+            UseGraphicsMode(new ResizeMode(Width, Height));
+            UseGraphicsMode(new Texturing2DMode());
         }
 
         protected override void OnUnload(EventArgs e)

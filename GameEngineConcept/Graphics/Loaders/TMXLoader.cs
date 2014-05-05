@@ -20,7 +20,7 @@ namespace GameEngineConcept.Graphics.Loaders
         string fileName;
 
         Lazy<TiledMap> lazyTileMap;
-        Lazy<SortedSet<TiledTileset>> lazyTileSets;
+        Lazy<TiledTilesetCollection> lazyTileSets;
         Lazy<Dictionary<string, TiledLayer>> lazyLayers;
         Dictionary<int, Texture> textures;
 
@@ -32,9 +32,6 @@ namespace GameEngineConcept.Graphics.Loaders
             lazyTileMap = 
                 new Lazy<TiledMap>(
                     () => (new TiledReader()).Read(fileName));
-            lazyTileSets = 
-                new Lazy<SortedSet<TiledTileset>>( 
-                    () => new SortedSet<TiledTileset>(lazyTileMap.Value.Tilesets, tileSetComparer));
             lazyLayers = 
                 new Lazy<Dictionary<string, TiledLayer>>(
                     () => lazyTileMap.Value.Layers.ToDictionary(ts => ts.Name, ts => ts));            
@@ -42,7 +39,7 @@ namespace GameEngineConcept.Graphics.Loaders
 
         private TiledTileset findTileSet(int gId, out int localId)
         {
-            var tileSet = lazyTileSets.Value.First((ts) => ts.FirstId <= gId);
+            var tileSet = lazyTileMap.Value.Tilesets.Reverse<TiledTileset>().First((ts) => ts.FirstId <= gId);
             localId = gId - tileSet.FirstId;
             return tileSet;
         }
