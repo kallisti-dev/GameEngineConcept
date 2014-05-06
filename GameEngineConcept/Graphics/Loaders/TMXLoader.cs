@@ -58,7 +58,7 @@ namespace GameEngineConcept.Graphics.Loaders
         public override IEnumerable<Sprite> Load()
         {
             LoadBuffer();
-            return AddedLayers.Values.Join();
+            return AddedLayers.Values.Join().Concat(ConsumeAddedStates());
         }
 
         private async Task<IEnumerable<Sprite>> _AddLayer(TiledLayer layer, string name, int depth = 0)
