@@ -22,12 +22,12 @@ namespace GameEngineConcept.Scenes
             this.scenes = scenes;
         }
 
-        public override Task Load(VertexBufferPool pool)
+        public override Task Load(Pool<VertexBuffer> pool)
         {
             return Task.WhenAll(scenes.Select((scene) => scene.Load(pool)));      
         }
 
-        public override void Unload(VertexBufferPool pool)
+        public override void Unload(Pool<VertexBuffer> pool)
         {
             foreach(var scene in scenes.Reverse<IScene>()) { scene.Unload(pool); }
         }

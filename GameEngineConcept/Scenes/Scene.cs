@@ -18,16 +18,16 @@ namespace GameEngineConcept.Scenes
         public static IScene operator+(Scene s1, IScene s2) { return new JoinScenes(s1, s2); }
         public static IScene operator+(IScene s1, Scene s2) { return new JoinScenes(s1, s2); }
 
-        public static Task LoadInBackground(IScene scene, VertexBufferPool pool)
+        public static Task LoadInBackground(IScene scene, Pool<VertexBuffer> pool)
         {
             return Task.Run(async () => await scene.Load(pool));
         }
 
         public abstract bool IsLoaded { get; }
 
-        public abstract Task Load(VertexBufferPool pool);
+        public abstract Task Load(Pool<VertexBuffer> pool);
 
-        public abstract void Unload(VertexBufferPool pool);
+        public abstract void Unload(Pool<VertexBuffer> pool);
 
         public abstract void Activate(EngineWindow window);
 

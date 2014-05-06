@@ -71,7 +71,6 @@
     <Compile Include="Graphics\Tileset.cs" />
     <Compile Include="Graphics\VertexBuffers\VertexIndices.cs" />
     <Compile Include="Graphics\Loaders\VertexLoader.cs" />
-    <Compile Include="Graphics\VertexBuffers\VertexBufferPool.cs" />
     <Compile Include="Graphics\VertexSet.cs" />
     <Compile Include="Graphics\Interfaces.cs" />
     <Compile Include="Graphics\VertexBuffers\AttributedVertexBuffer.cs" />
@@ -83,6 +82,7 @@
     <Compile Include="Graphics\VertexBuffers\VertexAttribute.cs" />
     <Compile Include="Graphics\VertexBuffers\VertexBuffer.cs" />
     <Compile Include="EngineWindow.cs" />
+    <Compile Include="Pool.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Graphics\Texture.cs" />
     <Compile Include="Graphics\TexturedVertex2.cs" />

@@ -13,9 +13,9 @@ namespace GameEngineConcept.Scenes
     {
         bool IsLoaded { get; }
 
-        Task Load(VertexBufferPool pool);
+        Task Load(Pool<VertexBuffer> pool);
 
-        void Unload(VertexBufferPool pool);
+        void Unload(Pool<VertexBuffer> pool);
 
         void Activate(EngineWindow window);
 

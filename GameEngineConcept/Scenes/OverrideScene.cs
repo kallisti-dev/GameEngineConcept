@@ -14,9 +14,9 @@ namespace GameEngineConcept.Scenes
 
         public abstract override bool IsLoaded { get; }
 
-        public override abstract Task Load(VertexBufferPool pool);
+        public override abstract Task Load(Pool<VertexBuffer> pool);
 
-        public override abstract void Unload(VertexBufferPool pool);
+        public override abstract void Unload(Pool<VertexBuffer> pool);
 
         public override void Activate(EngineWindow w)
         {

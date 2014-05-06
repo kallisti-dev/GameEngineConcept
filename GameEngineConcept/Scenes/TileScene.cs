@@ -30,13 +30,13 @@ namespace GameEngineConcept.Scenes
             sprites = null;
         }
 
-        public async override Task Load(VertexBufferPool vPool)
+        public async override Task Load(Pool<VertexBuffer> vPool)
         {
             buffer = await vPool.Request();
             sprites = tileSet.LoadTileMap(buffer, mapIndices, depth);
         }
 
-        public override void Unload(VertexBufferPool vPool)
+        public override void Unload(Pool<VertexBuffer> vPool)
         {
             vPool.Release(buffer);
             sprites = null;
