@@ -25,25 +25,29 @@ namespace GameEngineConcept.Graphics
             }
         }
 
-        public Vector2 Position
+        TexturedVertex2 StartVertex
         {
-            get { return startVertex.Value.position; }
-            set 
+            get
             {
-                var previous = startVertex.Value.position;
+                if (startVertex.HasValue)
+                    return startVertex.Value;
+                var v = VBuffer.GetData<TexturedVertex2>(BufferIndex, 4)[0];
+                startVertex = v;
+                return v;
+            }
+            set
+            {
+                startVertex = value;
             }
         }
 
-        Lazy<TexturedVertex2> startVertex;
+        TexturedVertex2? startVertex = null;
 
         public Sprite(Texture tex, IBindableVertexBuffer buffer, int bufferInd, int depth = 0)
             : base(tex, PrimitiveType.Quads, new AttributedVertexBuffer(buffer, vAttributes), VertexIndices.Create(bufferInd, 4), null)
         {
             DrawDepth = depth;
             index = bufferInd;
-            startVertex = new Lazy<TexturedVertex2>(() =>
-                VBuffer.GetData<TexturedVertex2>(BufferIndex, 4)[0]
-            );
         }
     }
 }
