@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using OpenTK.Graphics.OpenGL;
 using System.Diagnostics;
 using System.Drawing;
@@ -11,19 +13,37 @@ namespace GameEngineConcept.Graphics
 
         private int textureId;
 
-        public int Width {get; set;}
-        public int Height {get; set;}
-        public TextureTarget Target { get; set; }
+        public int Width {get; protected set;}
+        public int Height {get; protected set;}
+        public TextureTarget? Target { get; set; }
 
         public bool IsNull { get { return textureId == 0; } }
 
-        private Texture(int width, int height, TextureTarget target)
+        private Texture(int id, TextureTarget? target = null, int width = 0, int height = 0)
         {
-            textureId = GL.GenTexture();
+            textureId = id;
             Width = width;
             Height = height;
             Target = target;
         }
+
+        public static Texture Allocate()
+        {
+            return new Texture(GL.GenTexture());
+        }
+
+        public static IEnumerable<Texture> Allocate(int n)
+        {
+            int[] texIds = new int[n];
+            GL.GenBuffers(n, texIds);
+            return texIds.Select((id) => new Texture(id));
+        }
+
+        public static IEnumerable<Texture> Allocate(uint n)
+        {
+            return Allocate(Convert.ToInt32(n));
+        }
+
 
         private static void Set2DTextureParameters()
         {
@@ -45,25 +65,25 @@ namespace GameEngineConcept.Graphics
 
         public void Bind(Action inner)
         {
-            GL.BindTexture(Target, textureId);
+            GL.BindTexture(Target.Value, textureId);
             try { inner(); }
-            finally { GL.BindTexture(Target, 0); }
+            finally { GL.BindTexture(Target.Value, 0); }
         }
 
 
-        public static Texture FromFile(string path)
+        public void LoadImageFile(string path)
         {
-            return FromBitmap(new Bitmap(path));
+            LoadBitmap(new Bitmap(path));
         }
 
-        public static Texture FromBitmap(Bitmap bitmap)
+        public void LoadBitmap(Bitmap bitmap)
         {
           Img.BitmapData data = bitmap.LockBits(
             new Rectangle(0, 0, bitmap.Width, bitmap.Height),
             Img.ImageLockMode.ReadOnly,
             Img.PixelFormat.Format32bppArgb);
-          Texture tex = new Texture(data.Width, data.Height, TextureTarget.Texture2D);
-          tex.Bind(() => {
+          Target = TextureTarget.Texture2D;
+          Bind(() => {
             GL.TexImage2D(
                 TextureTarget.Texture2D,
                 0,
@@ -76,7 +96,6 @@ namespace GameEngineConcept.Graphics
             bitmap.UnlockBits(data);
             Set2DTextureParameters();
           });
-          return tex;
         }
 
         public void Release()

@@ -31,12 +31,12 @@ namespace GameEngineConcept.Graphics
             t = new Lazy<Texture>(() => tex);
         }
 
-        public TileSet(string fileName, int tileWidth, int tileHeight)
+        public TileSet(Texture t, string fileName, int tileWidth, int tileHeight)
         {
             this.fileName = fileName;
             TileWidth = tileWidth;
             TileHeight = tileHeight;
-            t = new Lazy<Texture>(() => Texture.FromFile(fileName));
+            this.t = new Lazy<Texture>(() => { t.LoadImageFile(fileName); return t; });
 
         }
 
@@ -49,14 +49,14 @@ namespace GameEngineConcept.Graphics
                 for (int j = 0; i < mapIndices.GetLength(1); ++j)
                 {
                     Point tileCoord = mapIndices[i, j];
-                    loader.Add(
+                    loader.AddSprite(
                         Texture,
                         new Rectangle(tileCoord.X * TileWidth, tileCoord.Y * TileHeight, TileWidth, TileHeight),
                         new Vector2(i * TileWidth, j * TileHeight),
                         depth);
                 }
             }
-            return loader.LoadBuffer();
+            return loader.Load();
         }
     }
 }

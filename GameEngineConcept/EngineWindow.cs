@@ -34,7 +34,7 @@ namespace GameEngineConcept
         DrawableDepthSet depthSet = new DrawableDepthSet();
         BufferBlock<IRelease> releaseQueue = new BufferBlock<IRelease>();
 
-        VertexBufferPool vPool = new VertexBufferPool();
+        Pool<VertexBuffer> vPool = Pool.CreateBufferPool();
 
         public IGraphicsMode CurrentGraphicsMode { get; private set; }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using OpenTK.Graphics.OpenGL;
 
 using GameEngineConcept.Graphics.VertexBuffers;
@@ -30,7 +31,7 @@ namespace GameEngineConcept.Graphics.Loaders
 
         protected override VertexSet CreateVertexOutput(State s) 
         {
-            return new VertexSet(s.mode, buffer, s.indices, s.enabledAttribs);
+            return new VertexSet(s.mode, VBuffer, s.indices, s.enabledAttribs);
         }
     }
 }

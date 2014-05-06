@@ -7,12 +7,12 @@ using GameEngineConcept.Graphics.VertexBuffers;
 
 namespace GameEngineConcept.Graphics.Loaders
 {
-    public abstract class BaseVertexLoader<BufferType, VIn, VState, VOut>
+    public abstract class BaseVertexLoader<BufferType, VIn, VState, VOut> : IHasVertexBuffer<BufferType>
         where BufferType : IVertexBuffer
         where VIn : struct
     {
 
-        protected BufferType buffer;
+        public BufferType VBuffer {get; set;}
         protected int currentIndex;
         private BufferUsageHint hint;
         private DynamicArray<VIn> vList;
@@ -20,9 +20,15 @@ namespace GameEngineConcept.Graphics.Loaders
 
         protected abstract VOut CreateVertexOutput(VState state);
 
-        public BaseVertexLoader(BufferUsageHint hint, BufferType buffer)
+        public virtual IEnumerable<VOut> Load()
         {
-            this.buffer = buffer;
+            LoadBuffer();
+            return ConsumeAddedStates();
+        }
+
+        protected BaseVertexLoader(BufferUsageHint hint, BufferType buffer)
+        {
+            this.VBuffer = buffer;
             vList = new DynamicArray<VIn>();
             stateList = new List<VState>();
             currentIndex = 0;
@@ -44,10 +50,16 @@ namespace GameEngineConcept.Graphics.Loaders
         }
 
 
-        public IEnumerable<VOut> LoadBuffer()
+        protected IEnumerable<VOut> ConsumeAddedStates()
         {
-            buffer.LoadData(hint, vList.InternalArray);
-            return stateList.Select(CreateVertexOutput);
+            var outs = stateList.Select(CreateVertexOutput);
+            stateList.Clear();
+            return outs;
+        }
+
+        protected void LoadBuffer()
+        {
+            VBuffer.LoadData(hint, vList.InternalArray);
         }
     }
 }

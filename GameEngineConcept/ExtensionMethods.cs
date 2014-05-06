@@ -14,5 +14,12 @@ namespace GameEngineConcept
                 yield return list[i];
             }
         }
+
+        public static IEnumerable<J> Join<J>(this IEnumerable<IEnumerable<J>> @this)
+        {
+            foreach (var js in @this)
+                foreach (var j in js)
+                    yield return j;
+        }
     }
 }

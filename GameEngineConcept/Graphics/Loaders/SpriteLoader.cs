@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 
 using OpenTK;
@@ -24,7 +25,7 @@ namespace GameEngineConcept.Graphics.Loaders
         public SpriteLoader(BufferUsageHint hint, IBindableVertexBuffer buffer) 
             : base(hint, new AttributedVertexBuffer(buffer, TexturedVertex2.vAttributes)) { }
 
-        public void Add(Texture tex, Rectangle rect, Vector2 pos, int depth = 0, int[] enabledAttribs = null)
+        public void AddSprite(Texture tex, Rectangle rect, Vector2 pos, int depth = 0, int[] enabledAttribs = null)
         {
             AddState(new State {
                 tex = tex,
@@ -44,7 +45,7 @@ namespace GameEngineConcept.Graphics.Loaders
 
         protected override Sprite CreateVertexOutput(State state)
         {
-            return new Sprite(state.tex, buffer, state.index, state.depth);
+            return new Sprite(state.tex, VBuffer, state.index, state.depth);
         }
     }
 }
