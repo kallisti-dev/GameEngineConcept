@@ -33,8 +33,7 @@ namespace GameEngineConcept
         SortedSet<IDrawable> drawSet;
         DrawableDepthSet depthSet = new DrawableDepthSet();
         BufferBlock<IRelease> releaseQueue = new BufferBlock<IRelease>();
-
-        Pool<VertexBuffer> vPool = Pool.CreateBufferPool();
+        Pool<VertexBuffer> vPool;
 
         public IGraphicsMode CurrentGraphicsMode { get; private set; }
 
@@ -168,6 +167,7 @@ namespace GameEngineConcept
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+            vPool = Pool.CreateBufferPool();
             Debug.Assert(mainWindow == null);
             mainWindow = this;
             UseGraphicsMode(new ResizeMode(Width, Height));

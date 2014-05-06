@@ -22,6 +22,7 @@ namespace GameEngineTest
             using (TestWindow window = new TestWindow())
             {
                 window.AddTest<TestWindowTest>();
+                window.AddTest<BroadcastTestComponent>();
                 window.Run(60, 60);
             }
         }

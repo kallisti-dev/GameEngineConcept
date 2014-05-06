@@ -9,7 +9,7 @@ using GameEngineConcept;
 
 namespace GameEngineTest
 {
-    class TestWindow : EngineWindow
+    public class TestWindow : EngineWindow
     {
         Queue<BaseTester> tests = new Queue<BaseTester>();
         BaseTester currentTest = null;
@@ -49,12 +49,12 @@ namespace GameEngineTest
         {
             if (currentTest != null)
             {
-                currentTest.OnUnload();
+                currentTest.OnUnload(this);
                 currentTest.TestComplete -= TestCompleteHandler;
             }
             currentTest = tests.Dequeue();
             currentTest.TestComplete += TestCompleteHandler;
-            currentTest.OnLoad();
+            currentTest.OnLoad(this);
         }
 
         protected override void OnLoad(EventArgs e)

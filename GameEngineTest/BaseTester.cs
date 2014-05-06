@@ -18,8 +18,8 @@ namespace GameEngineTest
             TestComplete(this, false);
         }
 
-        public virtual void OnLoad() { }
-        public virtual void OnUnload() { }
+        public virtual void OnLoad(TestWindow window) { }
+        public virtual void OnUnload(TestWindow window) { }
         public virtual void OnRenderFrame(FrameEventArgs e) { }
         public virtual void OnUpdateFrame(FrameEventArgs e) { }
         public virtual void OnResize() { }

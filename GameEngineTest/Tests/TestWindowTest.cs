@@ -10,7 +10,7 @@ namespace GameEngineTest.Tests
         static int maxCount = 10;
         int count = 0;
 
-        public  override void OnLoad() { count++; }
+        public  override void OnLoad(TestWindow window) { count++; }
         public  override void OnRenderFrame(FrameEventArgs e) { count++; }
         public  override void OnUpdateFrame(FrameEventArgs e) 
         { 

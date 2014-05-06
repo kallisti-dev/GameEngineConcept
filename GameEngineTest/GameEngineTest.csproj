@@ -45,7 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseTester.cs" />
-    <Compile Include="TestComponents\BroadcastTestComponent.cs" />
+    <Compile Include="Tests\BroadcastTestComponent.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\TestWindowTest.cs" />
