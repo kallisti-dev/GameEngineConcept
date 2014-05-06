@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using GameEngineConcept.Graphics.VertexBuffers;
+
 namespace GameEngineConcept.Scenes
 {
     //TODO: progress meters?
@@ -11,9 +13,9 @@ namespace GameEngineConcept.Scenes
     {
         bool IsLoaded { get; }
 
-        void Load();
+        Task Load(VertexBufferPool pool);
 
-        void Unload();
+        void Unload(VertexBufferPool pool);
 
         void Activate(EngineWindow window);
 

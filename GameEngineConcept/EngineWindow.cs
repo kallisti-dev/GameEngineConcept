@@ -13,6 +13,7 @@ using OpenTK.Graphics.OpenGL;
 using GameEngineConcept.Scenes;
 using GameEngineConcept.Graphics;
 using GameEngineConcept.Graphics.Modes;
+using GameEngineConcept.Graphics.VertexBuffers;
 using GameEngineConcept.Components;
 
 namespace GameEngineConcept
@@ -32,6 +33,8 @@ namespace GameEngineConcept
         HashSet<IDrawable> drawSet;
         DrawableDepthSet depthSet = new DrawableDepthSet();
         BufferBlock<IRelease> releaseQueue = new BufferBlock<IRelease>();
+
+        VertexBufferPool vPool = new VertexBufferPool();
 
         public IGraphicsMode CurrentGraphicsMode { get; private set; }
 
@@ -71,22 +74,17 @@ namespace GameEngineConcept
             updateSet.ExceptWith(components);
         }
 
-        public void AddScene(IScene scene)
+        public async Task AddScene(IScene scene)
         {
             if(scene.IsLoaded)
-                scene.Load();
+                await scene.Load(vPool);
             scene.Activate(this);
             sceneSet.Add(scene);
         }
 
-        public void AddScenes(IEnumerable<IScene> scenes)
+        public Task AddScenes(IEnumerable<IScene> scenes)
         {
-            foreach (var s in scenes) { AddScene(s); }
-        }
-
-        public async void AddSceneAsync(Task<IScene> sceneTask)
-        {
-            AddScene(await sceneTask);
+            return Task.WhenAll(scenes.Select(AddScene));
         }
 
         public void RemoveScene(IScene scene)

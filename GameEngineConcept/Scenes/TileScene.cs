@@ -14,7 +14,7 @@ namespace GameEngineConcept.Scenes
 {
     class TileScene : Scene
     {
-        IBindableVertexBuffer buffer;
+        VertexBuffer buffer;
         TileSet tileSet;
         Point[,] mapIndices;
         int depth;
@@ -22,22 +22,23 @@ namespace GameEngineConcept.Scenes
 
         public override bool IsLoaded { get { return sprites != null; } }
 
-        public TileScene(IBindableVertexBuffer buffer, TileSet tileSet, Point[,] mapIndices, int depth = 0)
+        public TileScene(TileSet tileSet, Point[,] mapIndices, int depth = 0)
         {
-            this.buffer = buffer;
             this.tileSet = tileSet;
             this.mapIndices = mapIndices;
             this.depth = depth;
             sprites = null;
         }
 
-        public override void Load()
+        public async override Task Load(VertexBufferPool vPool)
         {
+            buffer = await vPool.Request();
             sprites = tileSet.LoadTileMap(buffer, mapIndices, depth);
         }
 
-        public override void Unload()
+        public override void Unload(VertexBufferPool vPool)
         {
+            vPool.Release(buffer);
             sprites = null;
         }
 

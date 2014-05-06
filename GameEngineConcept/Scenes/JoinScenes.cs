@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-using GameEngineConcept;
+using GameEngineConcept.Graphics.VertexBuffers;
 
 namespace GameEngineConcept.Scenes
 {
@@ -23,14 +22,14 @@ namespace GameEngineConcept.Scenes
             this.scenes = scenes;
         }
 
-        public override void Load()
+        public override Task Load(VertexBufferPool pool)
         {
-            foreach(var scene in scenes) { scene.Load(); }
+            return Task.WhenAll(scenes.Select((scene) => scene.Load(pool)));      
         }
 
-        public override void Unload()
+        public override void Unload(VertexBufferPool pool)
         {
-            foreach(var scene in scenes.Reverse<IScene>()) { scene.Unload(); }
+            foreach(var scene in scenes.Reverse<IScene>()) { scene.Unload(pool); }
         }
 
         public override void Activate(EngineWindow w)

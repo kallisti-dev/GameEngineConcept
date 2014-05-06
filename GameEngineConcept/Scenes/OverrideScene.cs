@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using OpenTK;
+
+using GameEngineConcept.Graphics.VertexBuffers;
 
 namespace GameEngineConcept.Scenes
 {
@@ -11,9 +14,9 @@ namespace GameEngineConcept.Scenes
 
         public abstract override bool IsLoaded { get; }
 
-        public override abstract void Load();
+        public override abstract Task Load(VertexBufferPool pool);
 
-        public override abstract void Unload();
+        public override abstract void Unload(VertexBufferPool pool);
 
         public override void Activate(EngineWindow w)
         {

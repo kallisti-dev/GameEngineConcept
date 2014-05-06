@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using GameEngineConcept.Graphics.VertexBuffers;
+
 namespace GameEngineConcept.Scenes
 {
     //abstract base class for Scenes
@@ -16,16 +18,16 @@ namespace GameEngineConcept.Scenes
         public static IScene operator+(Scene s1, IScene s2) { return new JoinScenes(s1, s2); }
         public static IScene operator+(IScene s1, Scene s2) { return new JoinScenes(s1, s2); }
 
-        public static Task LoadInBackground(IScene scene)
+        public static Task LoadInBackground(IScene scene, VertexBufferPool pool)
         {
-            return Task.Run(() => scene.Load());
+            return Task.Run(async () => await scene.Load(pool));
         }
 
         public abstract bool IsLoaded { get; }
 
-        public abstract void Load();
+        public abstract Task Load(VertexBufferPool pool);
 
-        public abstract void Unload();
+        public abstract void Unload(VertexBufferPool pool);
 
         public abstract void Activate(EngineWindow window);
 
