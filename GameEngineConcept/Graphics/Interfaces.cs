@@ -1,4 +1,5 @@
-﻿using OpenTK.Graphics.OpenGL;
+﻿using System;
+using OpenTK.Graphics.OpenGL;
 using GameEngineConcept.Graphics.VertexBuffers;
 
 namespace GameEngineConcept.Graphics
@@ -15,7 +16,7 @@ namespace GameEngineConcept.Graphics
     }
 
     //interface for objects with external openGL resources.
-    public interface IRelease
+    public interface IRelease : IDisposable
     {
         void Release();
     }

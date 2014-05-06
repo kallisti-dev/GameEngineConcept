@@ -6,7 +6,7 @@ using Img = System.Drawing.Imaging;
 
 namespace GameEngineConcept.Graphics
 {
-    public class Texture : IRelease, IDisposable
+    public class Texture : IRelease
     {
 
         private int textureId;

@@ -5,7 +5,7 @@ using OpenTK.Graphics.OpenGL;
 
 namespace GameEngineConcept.Graphics.VertexBuffers
 {
-    public class VertexBuffer : IRelease, IDisposable, IBindableVertexBuffer
+    public class VertexBuffer : IRelease, IBindableVertexBuffer
     {
         [ThreadStaticAttribute]
         static VertexBuffer[] bindTable = new VertexBuffer[Enum.GetNames(typeof(BufferTarget)).Length];
