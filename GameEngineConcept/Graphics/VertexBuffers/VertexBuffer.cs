@@ -11,12 +11,10 @@ namespace GameEngineConcept.Graphics.VertexBuffers
         static VertexBuffer[] bindTable = new VertexBuffer[Enum.GetNames(typeof(BufferTarget)).Length];
 
         int vboId;
-        VertexBufferPool bufferPool;
 
-        protected VertexBuffer(int id, VertexBufferPool pool = null)
+        protected VertexBuffer(int id)
         {
             vboId = id;
-            bufferPool = pool;
         }
 
         public static VertexBuffer Allocate()
@@ -43,10 +41,7 @@ namespace GameEngineConcept.Graphics.VertexBuffers
 
         public void Release() 
         {
-            if (bufferPool == null)
-                GL.DeleteBuffer(vboId);
-            else
-                bufferPool.Release(this);
+            GL.DeleteBuffer(vboId);
         }
 
         private void Bind(BufferTarget target)
