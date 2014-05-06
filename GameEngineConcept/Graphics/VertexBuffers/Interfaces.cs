@@ -10,14 +10,16 @@ namespace GameEngineConcept.Graphics.VertexBuffers
         VertexAttribute[] VertexAttributes { get; }
     }
 
-    public interface IHasVertexBuffer<B> where B : IVertexBuffer
+    public interface IHasVertexBuffer<out B> where B : IVertexBuffer
     {
         B VBuffer { get; }
     }
 
-    public interface IVertexBuffer
+    public interface IVertexBuffer : IComparable<int>, IComparable<IVertexBuffer>
     {
         void LoadData<T>(BufferUsageHint hint, T[] data) where T : struct;
+        T[] GetData<T>(int offset, int size) where T : struct;
+        void SetData<T>(int offset, T[] data) where T : struct;
     }
 
     public interface IDrawableVertexBuffer : IVertexBuffer

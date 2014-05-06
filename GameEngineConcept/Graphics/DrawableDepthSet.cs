@@ -2,14 +2,27 @@
 using System.Collections;
 using System.Collections.Generic;
 
+using GameEngineConcept.Graphics.VertexBuffers;
+
 namespace GameEngineConcept.Graphics
 {
     [Serializable]
-    public class DrawableDepthSet : SortedSet<IDrawableDepth>, IDrawable
+    public class DrawableDepthSet : SortedSet<IDrawableDepth>, IDrawableDepth
     {
-       static IComparer<IDrawableDepth> comparer = Comparer<IDrawableDepth>.Create((a, b) => a.DrawDepth.CompareTo(b.DrawDepth));
+       static IComparer<IDrawableDepth> comparer = Comparer<IDrawableDepth>.Create((a, b) => {
+           var cmp = a.DrawDepth.CompareTo(b.DrawDepth);
+           if (cmp == 0)
+               return a.CompareTo(b);
+           else
+               return cmp;
+       });
 
-        public DrawableDepthSet() : base(comparer) { }
+       public int DrawDepth { get; protected set; }
+
+        public DrawableDepthSet(int depth = 0) : base(comparer) 
+        {
+            DrawDepth = depth;
+        }
 
         public void Draw()
         {
@@ -17,6 +30,16 @@ namespace GameEngineConcept.Graphics
             {
                 obj.Draw();
             }
+        }
+
+        public int CompareTo(IVertexBuffer b)
+        {
+            return -b.CompareTo(DrawDepth);
+        }
+
+        public int CompareTo(IDrawable d)
+        {
+            return 0;
         }
     }
 }

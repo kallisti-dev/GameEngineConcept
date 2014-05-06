@@ -4,7 +4,7 @@ using GameEngineConcept.Graphics.VertexBuffers;
 
 namespace GameEngineConcept.Graphics
 {
-    public class VertexSet : IDrawable, IHasVertexBuffer<IAttributedVertexBuffer>, IHasVertexAttributes
+    public class VertexSet : IDrawable, IHasVertexAttributes, IHasVertexBuffer<IAttributedVertexBuffer>
     {
         public IAttributedVertexBuffer VBuffer { get; protected set; }
         public PrimitiveType DrawMode { get; protected set; }
@@ -41,6 +41,16 @@ namespace GameEngineConcept.Graphics
             VBuffer = buffer;
             EnabledAttributes = enabledAttribs;
             this.indices = indices;
+        }
+
+        public int CompareTo(IDrawable d)
+        {
+            return -d.CompareTo(VBuffer);
+        }
+
+        public int CompareTo(IVertexBuffer b)
+        {
+            return VBuffer.CompareTo(b);
         }
          
         public virtual void Draw()

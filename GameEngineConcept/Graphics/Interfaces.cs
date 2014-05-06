@@ -5,7 +5,7 @@ using GameEngineConcept.Graphics.VertexBuffers;
 namespace GameEngineConcept.Graphics
 {
     //object that can draw with no extra parameters needed
-    public interface IDrawable
+    public interface IDrawable : IComparable<IDrawable>, IComparable<IVertexBuffer>
     {
         void Draw();
     }

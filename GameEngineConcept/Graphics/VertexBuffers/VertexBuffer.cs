@@ -34,9 +34,31 @@ namespace GameEngineConcept.Graphics.VertexBuffers
             return Allocate(Convert.ToInt32(n));
         }
 
+        public int CompareTo(int i)
+        {
+            return vboId.CompareTo(i);
+        }
+
+        public int CompareTo(IVertexBuffer b)
+        {
+            return b.CompareTo(vboId);
+        }
+
         public void LoadData<T>(BufferUsageHint hint, T[] data) where T : struct
         {
             Bind(BufferTarget.ArrayBuffer, (b) => b.LoadData(hint, data));
+        }
+
+        public T[] GetData<T>(int offset, int size) where T : struct
+        {
+            T[] @out = null;
+            Bind(BufferTarget.ArrayBuffer, (b) => { @out = b.GetData<T>(offset, size); });
+            return @out;
+        }
+
+        public void SetData<T>(int offset, T[] data) where T : struct
+        {
+            Bind(BufferTarget.ArrayBuffer, (b) => b.SetData(offset, data));
         }
 
         public void Release() 
@@ -57,15 +79,10 @@ namespace GameEngineConcept.Graphics.VertexBuffers
         {
             VertexBuffer previousBind = bindTable[(uint)target];
             Bind(target);
-            try { handler(new BoundVertexBuffer(target)); }
+            try { handler(new BoundVertexBuffer(this, target)); }
             finally
             {
                 if (previousBind == null)
-                {
-                    bindTable[(uint)target] = null;
-                    GL.BindBuffer(target, 0);
-                }
-                else
                     previousBind.Bind(target);
             }
         }

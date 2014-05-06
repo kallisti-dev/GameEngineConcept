@@ -8,13 +8,23 @@ namespace GameEngineConcept.Graphics.VertexBuffers
 {
     public struct BoundVertexBuffer : IBoundVertexBuffer
     {
-        //private VertexBuffer buffer;
-        private BufferTarget target;
+        IVertexBuffer buffer;
+        BufferTarget target;
 
-        internal BoundVertexBuffer(BufferTarget target)
+        internal BoundVertexBuffer(IVertexBuffer buffer, BufferTarget target)
         {
-            //this.buffer = buffer;
+            this.buffer = buffer;
             this.target = target;
+        }
+
+        public int CompareTo(int i)
+        {
+            return buffer.CompareTo(i);
+        }
+
+        public int CompareTo(IVertexBuffer b)
+        {
+            return buffer.CompareTo(b);
         }
 
         public void LoadData<T>(BufferUsageHint hint, T[] data) where T : struct
@@ -22,6 +32,17 @@ namespace GameEngineConcept.Graphics.VertexBuffers
             GL.BufferData<T>(target, new IntPtr(data.Length * Marshal.SizeOf(typeof(T))), data, hint);
         }
 
+        public T[] GetData<T>(int offset, int nElements) where T : struct
+        {
+            T[] @out = new T[nElements];
+            GL.GetBufferSubData(target, new IntPtr(offset), new IntPtr(nElements * Marshal.SizeOf(typeof(T))), @out);
+            return @out;
+        }
+
+        public void SetData<T>(int offset, T[] data) where T : struct
+        {
+            GL.BufferSubData(target, new IntPtr(offset), new IntPtr(data.Length * Marshal.SizeOf(typeof(T))), data);
+        }
 
         public void Draw(PrimitiveType type, VertexIndices indices)
         {

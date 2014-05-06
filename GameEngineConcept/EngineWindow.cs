@@ -30,7 +30,7 @@ namespace GameEngineConcept
 
         HashSet<IScene> sceneSet = new HashSet<IScene>();
         ComponentCollection updateSet = new ComponentCollection();
-        HashSet<IDrawable> drawSet;
+        SortedSet<IDrawable> drawSet;
         DrawableDepthSet depthSet = new DrawableDepthSet();
         BufferBlock<IRelease> releaseQueue = new BufferBlock<IRelease>();
 
@@ -40,7 +40,7 @@ namespace GameEngineConcept
 
         public EngineWindow() : base(800, 600, GraphicsMode.Default, "foo", GameWindowFlags.Default, null, 4, 2, GraphicsContextFlags.Debug) 
         {
-            drawSet = new HashSet<IDrawable> { depthSet };
+            drawSet = new SortedSet<IDrawable> { depthSet };
             CurrentGraphicsMode = null;
         }
 
@@ -116,7 +116,6 @@ namespace GameEngineConcept
             CurrentGraphicsMode = mode;
             if (CurrentGraphicsMode != null)
                 CurrentGraphicsMode.Initialize();
-
         }
 
         public void WithGraphicsMode(IGraphicsMode mode, Action inner)

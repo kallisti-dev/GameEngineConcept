@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using GameEngineConcept.Graphics;
+using GameEngineConcept.Graphics.VertexBuffers;
+
 namespace GameEngineConcept
 {
     //extension methods to external classes
@@ -20,6 +23,16 @@ namespace GameEngineConcept
             foreach (var js in @this)
                 foreach (var j in js)
                     yield return j;
+        }
+
+        public static int CompareTo(this int i, IVertexBuffer b)
+        {
+            return -b.CompareTo(i);
+        }
+
+        public static int CompareTo(this IVertexBuffer b, IDrawable d)
+        {
+            return -d.CompareTo(b);
         }
     }
 }

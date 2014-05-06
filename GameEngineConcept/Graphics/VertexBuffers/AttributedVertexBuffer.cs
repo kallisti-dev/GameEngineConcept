@@ -15,9 +15,34 @@ namespace GameEngineConcept.Graphics.VertexBuffers
             VertexAttributes = attributes;
         }
 
+        public int CompareTo(int i)
+        {
+            return VBuffer.CompareTo(i);
+        }
+
+        public int CompareTo(IVertexBuffer b)
+        {
+            return VBuffer.CompareTo(b);
+        }
+
         public void LoadData<T>(BufferUsageHint hint, T[] data) where T : struct
         {
             VBuffer.LoadData(hint, data);
+        }
+
+        public T[] GetData<T>(int offset, int size) where T : struct
+        {
+            T[] @out = null;
+            Bind(BufferTarget.ArrayBuffer, (b) =>
+            {
+                @out = b.GetData<T>(offset, size);
+            });
+            return @out;
+        }
+
+        public void SetData<T>(int offset, T[] data) where T : struct
+        {
+            Bind(BufferTarget.ArrayBuffer, (b) => b.SetData(offset, data));
         }
 
         public void Bind(BufferTarget target, IEnumerable<int> enabledAttributes, Action<IBoundVertexBuffer> inner)

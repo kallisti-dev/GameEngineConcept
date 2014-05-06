@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using OpenTK.Graphics.OpenGL;
 
 namespace GameEngineConcept.Graphics.VertexBuffers
@@ -33,8 +34,9 @@ namespace GameEngineConcept.Graphics.VertexBuffers
         }
         public static VertexIndices Create(int first, int count) 
         {
-            return new VertexIndices((t) => 
-                GL.DrawArrays(t, first, count));
+            return Create(Enumerable.Range(first, count).Select(Convert.ToUInt32).ToArray());
+            //Old implementation uses GL.DrawArrays, but GL.DrawElements exhibits better cache performance
+            //return new VertexIndices((t) => GL.DrawArrays(t, first, count));
         }
         public static VertexIndices Create(VertexBuffer indexBuffer, int count, DrawElementsType indexType)
         {
