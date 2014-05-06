@@ -63,6 +63,7 @@
     <Compile Include="Graphics\AnimatedSprite.cs" />
     <Compile Include="Graphics\DrawableDepthSet.cs" />
     <Compile Include="Graphics\Loaders\BaseVertexLoader.cs" />
+    <Compile Include="Graphics\Loaders\Interfaces.cs" />
     <Compile Include="Graphics\Loaders\SpriteLoader.cs" />
     <Compile Include="Graphics\Loaders\TMXLoader.cs" />
     <Compile Include="Graphics\Modes\Interfaces.cs" />

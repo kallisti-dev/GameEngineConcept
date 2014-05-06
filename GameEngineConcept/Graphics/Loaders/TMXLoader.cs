@@ -18,10 +18,9 @@ namespace GameEngineConcept.Graphics.Loaders
         Lazy<TiledMap> lazyTileMap;
         Lazy<Dictionary<string, TiledLayer>> lazyLayers;
         Dictionary<int, Texture> textures;
+        Pool<Texture> texPool;
 
         public Dictionary<string, IEnumerable<Sprite>> AddedLayers {get; private set;}
-
-        Pool<Texture> texPool;
 
         public TMXLoader(IBindableVertexBuffer buffer, Pool<Texture> texPool, string fileName)
             : base(BufferUsageHint.DynamicDraw, buffer)
