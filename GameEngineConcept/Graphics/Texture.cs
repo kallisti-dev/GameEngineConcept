@@ -6,7 +6,7 @@ using Img = System.Drawing.Imaging;
 
 namespace GameEngineConcept.Graphics
 {
-    public class Texture
+    public class Texture : IRelease, IDisposable
     {
 
         private int textureId;
@@ -77,6 +77,17 @@ namespace GameEngineConcept.Graphics
             Set2DTextureParameters();
           });
           return tex;
+        }
+
+        public void Release()
+        {
+            GL.DeleteTexture(textureId);
+        }
+
+        public void Dispose()
+        {
+            EngineWindow.ReleaseOnMainThread(this);
+            GC.SuppressFinalize(this);
         }
     }
 }
