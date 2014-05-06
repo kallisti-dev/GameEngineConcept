@@ -8,7 +8,7 @@ using GameEngineConcept.Graphics.VertexBuffers;
 namespace GameEngineConcept.Graphics.Loaders
 {
     public abstract class BaseVertexLoader<BufferType, VIn, VState, VOut> 
-        : ILoader<VOut>, IHasVertexBuffer<BufferType>
+        : ILoader<IEnumerable<VOut>>, IHasVertexBuffer<BufferType>
         where BufferType : IVertexBuffer
         where VIn : struct
     {

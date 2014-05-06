@@ -6,6 +6,6 @@ namespace GameEngineConcept.Graphics.Loaders
 {
     interface ILoader<T>
     {
-        IEnumerable<T> Load();
+        T Load();
     }
 }
