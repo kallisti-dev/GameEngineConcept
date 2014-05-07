@@ -10,8 +10,6 @@ namespace GameEngineTest.Tests
     /* tests message broadcasting functionality of ComponentCollection */
     public class BroadcastTestComponent : BaseTester, IComponent, IReceiverComponent<ComponentCollection>
     {
-        static bool success = false;
-
         public void Update() { }
         public void Receive(ComponentCollection c)
         {
