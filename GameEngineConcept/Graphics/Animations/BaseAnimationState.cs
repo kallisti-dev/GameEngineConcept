@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 namespace GameEngineConcept.Graphics.Animations
 {
     public abstract class BaseAnimationState<Subject, Animation> : IAnimatable
-        where Animation : IAnimation<Subject, Animation>
     {
-        protected IAnimator<Subject, Animation> animator;
+        protected IAnimator<Subject> animator;
         protected Animation animation;
 
         //currently animated frame
@@ -17,7 +16,7 @@ namespace GameEngineConcept.Graphics.Animations
         //next frame to animate
         public int NextFrame { get; protected set; }
 
-        public BaseAnimationState(IAnimator<Subject, Animation> ator, Animation ation) 
+        public BaseAnimationState(IAnimator<Subject> ator, Animation ation) 
         {
             CurrentFrame = NextFrame = 0;
             animator = ator;

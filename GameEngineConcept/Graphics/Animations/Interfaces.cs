@@ -28,17 +28,15 @@ namespace GameEngineConcept.Graphics.Animations
         }
     }
 
-    public interface IAnimation<Subject, Animation>
-        where Animation : IAnimation<Subject, Animation>
+    public interface IAnimation<Subject>
     {
-        IAnimatable CreateState(IAnimator<Subject, Animation> animator); 
+        IAnimatable CreateState(IAnimator<Subject> animator); 
     }
 
-    public interface IAnimator<S, A> : IAnimatable
-        where A : IAnimation<S, A>
+    public interface IAnimator<S> : IAnimatable
     {
         S Subject { get; }
-        A Animation { get; }
+        IAnimation<S> Animation { get; }
         IAnimatable State { get; }
     }
 }

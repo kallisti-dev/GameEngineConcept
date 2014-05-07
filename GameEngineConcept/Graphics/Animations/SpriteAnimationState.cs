@@ -11,7 +11,7 @@ namespace GameEngineConcept.Graphics.Animations
         Point frameOffset;
 
 
-        public SpriteAnimationState(IAnimator<Sprite, SpriteAnimation> ator, SpriteAnimation ation) : base(ator, ation)
+        public SpriteAnimationState(IAnimator<Sprite> ator, SpriteAnimation ation) : base(ator, ation)
         {
             nextTexCoord = currentTexCoord = animation.StartPoint;
             frameOffset = animation.Slider.Multiply(animator.Subject.GetSize());

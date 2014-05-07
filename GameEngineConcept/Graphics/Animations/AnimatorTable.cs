@@ -4,15 +4,14 @@ using System.Linq;
 
 namespace GameEngineConcept.Graphics.Animations
 {
-    class AnimationTable<Key, S, A> : Animator<S, A>
-        where A : IAnimation<S, A>
+    class AnimationTable<Key, S> : Animator<S>
     {
         private struct TableInfo
         {
-            public A animation;
+            public IAnimation<S> animation;
             public IAnimatable state;
 
-            public TableInfo(IAnimator<S, A> ator, A ation)
+            public TableInfo(IAnimator<S> ator, IAnimation<S> ation)
             {
                 animation = ation;
                 state = ation.CreateState(ator);
@@ -21,7 +20,7 @@ namespace GameEngineConcept.Graphics.Animations
 
         Dictionary<Key, TableInfo> stateTable;
 
-        public AnimationTable(S subject, IEnumerable<KeyValuePair<Key, A>> animations, Key initialKey)
+        public AnimationTable(S subject, IEnumerable<KeyValuePair<Key, IAnimation<S>>> animations, Key initialKey)
         {
             Subject = subject;
             stateTable = animations.ToDictionary(
@@ -31,7 +30,7 @@ namespace GameEngineConcept.Graphics.Animations
             SetCurrent(initialKey);
         }
 
-        public void Add(Key key, A animation)
+        public void Add(Key key, IAnimation<S> animation)
         {
             stateTable[key] = new TableInfo(this, animation);  
         }

@@ -7,13 +7,12 @@ using System.Diagnostics;
 namespace GameEngineConcept.Graphics.Animations
 {
 
-    public class Animator<S, A> : IAnimator<S, A>
-        where A : IAnimation<S, A>
+    public class Animator<S> : IAnimator<S>
     {
 
         public S Subject { get; protected set; }
 
-        public A Animation { get; protected set; }
+        public IAnimation<S> Animation { get; protected set; }
 
         public IAnimatable State {get; protected set; }
 
@@ -23,7 +22,7 @@ namespace GameEngineConcept.Graphics.Animations
 
         protected Animator() { }
 
-        public Animator(S subject, A animation)
+        public Animator(S subject, IAnimation<S> animation)
         {
             Subject = subject;
             Animation = animation;
