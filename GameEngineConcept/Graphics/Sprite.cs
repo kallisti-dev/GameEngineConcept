@@ -27,10 +27,10 @@ namespace GameEngineConcept.Graphics
         public int DrawDepth { get; protected set; }
 
         int index;
-        public int BufferIndex
+        protected int BufferIndex
         {
             get { return index; }
-            protected set
+            set
             {
                 index = value;
                 indices =  VertexIndices.Create(value, 4);
