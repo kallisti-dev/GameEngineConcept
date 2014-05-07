@@ -12,7 +12,7 @@ namespace GameEngineConcept.Graphics.VertexBuffers
 
         private VertexIndices(Action<PrimitiveType> f) { drawFunc = f; }
 
-        internal void DrawVerticies(PrimitiveType mode)
+        internal void DrawVertices(PrimitiveType mode)
         {
             drawFunc(mode);
         }

@@ -51,8 +51,8 @@ namespace GameEngineConcept.Graphics
                     Point tileCoord = mapIndices[i, j];
                     loader.AddSprite(
                         Texture,
-                        new Rectangle(tileCoord.X * TileWidth, tileCoord.Y * TileHeight, TileWidth, TileHeight),
                         new Vector2(i * TileWidth, j * TileHeight),
+                        new Rectangle(tileCoord.X * TileWidth, tileCoord.Y * TileHeight, TileWidth, TileHeight),
                         depth);
                 }
             }

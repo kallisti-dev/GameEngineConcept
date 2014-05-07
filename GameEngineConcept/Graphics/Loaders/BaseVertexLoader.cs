@@ -36,13 +36,13 @@ namespace GameEngineConcept.Graphics.Loaders
             this.hint = hint;
         }
 
-        protected void AddVerticies(VIn[] verticies)
+        protected void AddVertices(VIn[] vertices)
         {
-            for (int i = 0; i < verticies.Length; ++i)
+            for (int i = 0; i < vertices.Length; ++i)
             {
-                vList.Add(verticies[i]);
+                vList.Add(vertices[i]);
             }
-            currentIndex += verticies.Length;
+            currentIndex += vertices.Length;
         }
 
         protected void AddState(VState s)

@@ -7,8 +7,15 @@ namespace GameEngineConcept.Graphics.VertexBuffers
 {
     public class VertexBuffer : IRelease, IBindableVertexBuffer
     {
+
         [ThreadStaticAttribute]
-        static VertexBuffer[] bindTable = new VertexBuffer[Enum.GetNames(typeof(BufferTarget)).Length];
+        static BindData[] bindTable = new BindData[Enum.GetNames(typeof(BufferTarget)).Length];
+
+        private struct BindData
+        {
+            public VertexBuffer buffer;
+            public int depth;
+        }
 
         int vboId;
 
@@ -68,22 +75,26 @@ namespace GameEngineConcept.Graphics.VertexBuffers
 
         private void Bind(BufferTarget target)
         {
-            if (bindTable[(uint)target] != this) //prevent unnecessary openGL calls
+            uint t = (uint)target;
+            if (bindTable[t].buffer != this) //prevent unnecessary openGL calls
             {
                 GL.BindBuffer(target, vboId);
-                bindTable[(uint)target] = this;
+                bindTable[t].buffer = this;
             }
         }
 
         public void Bind(BufferTarget target, Action<IBoundVertexBuffer> handler)
         {
-            VertexBuffer previousBind = bindTable[(uint)target];
+            uint t = (uint) target;
+            BindData previousBind = bindTable[t];
             Bind(target);
+            bindTable[t].depth++;
             try { handler(new BoundVertexBuffer(this, target)); }
             finally
             {
-                if (previousBind == null)
-                    previousBind.Bind(target);
+                if (previousBind.depth > 0)
+                    previousBind.buffer.Bind(target);
+                bindTable[t].depth--;
             }
         }
 

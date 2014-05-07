@@ -46,7 +46,7 @@ namespace GameEngineConcept.Graphics.VertexBuffers
 
         public void Draw(PrimitiveType type, VertexIndices indices)
         {
-            indices.DrawVerticies(type);
+            indices.DrawVertices(type);
         }
 
         public void WithAttributes(VertexAttribute[] attrs, Action inner)

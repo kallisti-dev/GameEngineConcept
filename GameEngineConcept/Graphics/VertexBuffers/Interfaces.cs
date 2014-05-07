@@ -18,7 +18,7 @@ namespace GameEngineConcept.Graphics.VertexBuffers
     public interface IVertexBuffer : IComparable<int>, IComparable<IVertexBuffer>
     {
         void LoadData<T>(BufferUsageHint hint, T[] data) where T : struct;
-        T[] GetData<T>(int offset, int size) where T : struct;
+        T[] GetData<T>(int offset, int nElements) where T : struct;
         void SetData<T>(int offset, T[] data) where T : struct;
     }
 

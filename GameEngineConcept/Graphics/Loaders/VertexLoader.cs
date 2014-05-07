@@ -18,15 +18,15 @@ namespace GameEngineConcept.Graphics.Loaders
 
         public VertexLoader(BufferUsageHint hint, IAttributedVertexBuffer buffer) : base(hint, buffer) { }
 
-        public void AddVertexSet(PrimitiveType mode, V[] verticies, int[] enabledAttribs = null)
+        public void AddVertexSet(PrimitiveType mode, V[] vertices, int[] enabledAttribs = null)
         {
             AddState(new State
             {
                 mode = mode,
-                indices = VertexIndices.Create(currentIndex, verticies.Length),
+                indices = VertexIndices.Create(currentIndex, vertices.Length),
                 enabledAttribs = enabledAttribs
             });
-            AddVerticies(verticies);
+            AddVertices(vertices);
         }
 
         protected override VertexSet CreateVertexOutput(State s) 

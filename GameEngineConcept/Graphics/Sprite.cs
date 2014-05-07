@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Diagnostics;
 using System.Drawing;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
@@ -11,10 +12,21 @@ namespace GameEngineConcept.Graphics
 {
     public class Sprite : TexturedVertexSet, IDrawableDepth
     {
-        static VertexAttribute[] vAttributes = TexturedVertex2.vAttributes;
+        public static VertexAttribute[] vAttributes = TexturedVertex2.vAttributes;
 
-        private int index;
+        public static TexturedVertex2[] CreateVertices (Vector2 pos, Rectangle texRect)
+        {
+            return new[] {
+                new TexturedVertex2(pos,                                                        new Vector2(texRect.Left, texRect.Top)),
+                new TexturedVertex2(new Vector2(pos.X, pos.Y + texRect.Height),                 new Vector2(texRect.Left, texRect.Bottom)),
+                new TexturedVertex2(new Vector2(pos.X + texRect.Width, pos.Y + texRect.Height), new Vector2(texRect.Right, texRect.Bottom)),
+                new TexturedVertex2(new Vector2(pos.X + texRect.Width, pos.Y),                  new Vector2(texRect.Right, texRect.Top))
+            };
+        }
+
         public int DrawDepth { get; protected set; }
+
+        int index;
         public int BufferIndex
         {
             get { return index; }
@@ -25,29 +37,69 @@ namespace GameEngineConcept.Graphics
             }
         }
 
-        TexturedVertex2 StartVertex
+        public Vector2 Position
         {
-            get
-            {
-                if (startVertex.HasValue)
-                    return startVertex.Value;
-                var v = VBuffer.GetData<TexturedVertex2>(BufferIndex, 4)[0];
-                startVertex = v;
-                return v;
-            }
+            get { return Vertices[0].position; }
             set
             {
-                startVertex = value;
+                TexturedVertex2[] vs = Vertices;
+                Vector2 pos = vs[0].position;
+                Vector2 posDiff = pos - value;
+                vs[0].position = value;
+                for(int i = 1; i < 4; ++i)
+                {
+                    vs[i].position += posDiff;
+                }
+                Vertices = vs;
             }
         }
 
-        TexturedVertex2? startVertex = null;
+        TexturedVertex2[] vertices;
+        TexturedVertex2[] Vertices
+        {
+            get
+            {
+                if (vertices != null)
+                    return vertices;
+                return vertices = VBuffer.GetData<TexturedVertex2>(BufferIndex, 4);
+            }
+            set
+            {
+                Debug.Assert(value.Length == 4);
+                vertices = value;
+                VBuffer.SetData<TexturedVertex2>(BufferIndex, vertices);
+            }
+        }
 
         public Sprite(Texture tex, IBindableVertexBuffer buffer, int bufferInd, int depth = 0)
             : base(tex, PrimitiveType.Quads, new AttributedVertexBuffer(buffer, vAttributes), VertexIndices.Create(bufferInd, 4), null)
         {
             DrawDepth = depth;
             index = bufferInd;
+        }
+
+        //translates texture coordinates of the sprite by a given vector
+        public void TranslateTexels(Vector2 v)
+        {
+            TexturedVertex2[] vs = Vertices;
+            for(int i = 0; i < 4; ++i)
+            {
+                vs[i].texel += v;
+            }
+            Vertices = vs;
+        }
+
+        //basically the same as sprite.Position += v, but slightly more efficient
+        public void TranslatePosition(Vector2 v)
+        {
+            {
+                TexturedVertex2[] vs = Vertices;
+                for (int i = 0; i < 4; ++i)
+                {
+                    vs[i].position += v;
+                }
+                Vertices = vs;
+            }
         }
     }
 }

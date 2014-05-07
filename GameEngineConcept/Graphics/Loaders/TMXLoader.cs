@@ -72,7 +72,7 @@ namespace GameEngineConcept.Graphics.Loaders
                 var tileSet = findTileSet(Int32.Parse(strValue), out localId);
                 int tileX = localId % tileMap.Height,
                     tileY = localId / tileMap.Height;
-                AddSprite(await getTexture(tileSet), new Rectangle(tileX, tileY, width, height), new Vector2(mapX, mapY), depth);
+                AddSprite(await getTexture(tileSet), new Vector2(mapX, mapY), new Rectangle(tileX, tileY, width, height), depth);
                 if (mapX >= layer.Width)
                 {
                     mapX = 0;
