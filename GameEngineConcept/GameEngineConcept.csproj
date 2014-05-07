@@ -71,9 +71,9 @@
     <Compile Include="Graphics\Modes\Interfaces.cs" />
     <Compile Include="Graphics\Modes\ResizeMode.cs" />
     <Compile Include="Graphics\Modes\Texturing2DMode.cs" />
-    <Compile Include="Graphics\Sprites\SpriteSheetAnimation.cs" />
+    <Compile Include="Graphics\Sprites\SpriteAnimation.cs" />
     <Compile Include="Graphics\Animator.cs" />
-    <Compile Include="Graphics\Sprites\SpriteSheetAnimationState.cs" />
+    <Compile Include="Graphics\Sprites\SpriteAnimationState.cs" />
     <Compile Include="Graphics\Sprites\Tileset.cs" />
     <Compile Include="Graphics\VertexBuffers\VertexIndices.cs" />
     <Compile Include="Graphics\Loaders\VertexLoader.cs" />

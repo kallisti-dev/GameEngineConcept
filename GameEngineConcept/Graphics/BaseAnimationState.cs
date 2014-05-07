@@ -6,24 +6,20 @@ using System.Threading.Tasks;
 
 namespace GameEngineConcept.Graphics
 {
-    public abstract class BaseAnimationState<S, A, AS> : IAnimationState<S, A, AS>
-        where AS : IAnimationState<S, A, AS>, new()
+    public abstract class BaseAnimationState<Subject, Animation> : IAnimationState<Subject, Animation>
+        where Animation : IAnimation<Subject, Animation>
     {
-        protected IAnimator<S, A, AS> animator;
-        protected A animation;
+        protected IAnimator<Subject, Animation> animator;
+        protected Animation animation;
 
         //currently animated frame
         public int CurrentFrame { get; protected set; }
         //next frame to animate
         public int NextFrame { get; protected set; }
 
-        public BaseAnimationState() 
+        public BaseAnimationState(IAnimator<Subject, Animation> ator, Animation ation) 
         {
             CurrentFrame = NextFrame = 0;
-        }
-
-        public virtual void Initialize(IAnimator<S, A, AS> ator, A ation)
-        {
             animator = ator;
             animation = ation;
         }

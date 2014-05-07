@@ -7,22 +7,21 @@ using System.Diagnostics;
 namespace GameEngineConcept.Graphics
 {
 
-    public class Animator<S, A, AS> : IAnimator<S, A, AS>
-        where AS : IAnimationState<S, A, AS>, new()
+    public class Animator<S, A> : IAnimator<S, A>
+        where A : IAnimation<S, A>
     {
 
         public S Subject { get; private set; }
 
         public A Animation { get; private set; }
 
-        public AS State {get; private set; }
+        public IAnimationState<S, A> State {get; private set; }
 
         public Animator(S subject, A animation)
         {
             Subject = subject;
             Animation = animation;
-            State = new AS();
-            State.Initialize(this, animation);
+            State = animation.CreateState(this);
         }
 
         public void Forward(int nFrames = 1)

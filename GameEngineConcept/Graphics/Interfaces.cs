@@ -23,23 +23,28 @@ namespace GameEngineConcept.Graphics
         T Height { get; }
     }
 
-    public interface IAnimationState<S, A, AS>
-        where AS : IAnimationState<S, A, AS>, new()
+    public interface IAnimationState<Subject, Animation>
+        where Animation : IAnimation<Subject, Animation>
     {
         int CurrentFrame { get; }
         int NextFrame { get; }
 
-        void Initialize(IAnimator<S, A, AS> animator, A animation);
         void ToFrame(int n);
         bool Animate();
     }
 
-    public interface IAnimator<S, A, AS>
-        where AS : IAnimationState<S, A, AS>, new()
+    public interface IAnimation<Subject, Animation>
+        where Animation : IAnimation<Subject, Animation>
+    {
+        IAnimationState<Subject, Animation> CreateState(IAnimator<Subject, Animation> animator);
+    }
+
+    public interface IAnimator<S, A>
+        where A : IAnimation<S, A>
     {
         S Subject { get; }
         A Animation { get; }
-        AS State { get; }
+        IAnimationState<S, A> State { get; }
 
         void Forward(int n);
         void Reverse(int n);

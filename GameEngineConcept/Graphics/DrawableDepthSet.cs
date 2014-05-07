@@ -2,10 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 
-using GameEngineConcept.Graphics.VertexBuffers;
-
 namespace GameEngineConcept.Graphics
 {
+    using VertexBuffers;
+
     [Serializable]
     public class DrawableDepthSet : SortedSet<IDrawableDepth>, IDrawableDepth
     {

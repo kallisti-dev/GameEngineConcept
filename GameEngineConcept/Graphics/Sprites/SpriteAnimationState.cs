@@ -5,15 +5,14 @@ using System.Drawing;
 
 namespace GameEngineConcept.Graphics.Sprites
 {
-    public class SpriteSheetAnimationState : BaseAnimationState<Sprite, SpriteSheetAnimation, SpriteSheetAnimationState>
+    public class SpriteAnimationState : BaseAnimationState<Sprite, SpriteAnimation>
     {
         Point currentTexCoord, nextTexCoord;
         Point frameOffset;
 
 
-        public override void Initialize(IAnimator<Sprite, SpriteSheetAnimation, SpriteSheetAnimationState> ator, SpriteSheetAnimation ation)
+        public SpriteAnimationState(IAnimator<Sprite, SpriteAnimation> ator, SpriteAnimation ation) : base(ator, ation)
         {
-            base.Initialize(ator, ation);
             nextTexCoord = currentTexCoord = animation.StartPoint;
             frameOffset = animation.Slider.Multiply(animator.Subject.GetSize());
         }

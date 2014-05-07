@@ -7,7 +7,7 @@ using System.Diagnostics;
 namespace GameEngineConcept.Graphics.Sprites
 {
     //describes the animation of a sprite via sprite sheet manipulations
-    public class SpriteSheetAnimation
+    public class SpriteAnimation : IAnimation<Sprite, SpriteAnimation>
     {
         public static readonly Point
             rightSlider = new Point(1, 0),
@@ -21,24 +21,29 @@ namespace GameEngineConcept.Graphics.Sprites
         //multiplied with FrameOffset to determine frame movement within the sprite texture
         public Point Slider { get; protected set; }
 
-        public SpriteSheetAnimation(int totalFrames, Point startPoint = default(Point)) 
+        public SpriteAnimation(int totalFrames, Point startPoint = default(Point)) 
             : this(totalFrames, startPoint, rightSlider) { }
 
-        public SpriteSheetAnimation(Sprite sprite, Point startPoint = default(Point))
+        public SpriteAnimation(Sprite sprite, Point startPoint = default(Point))
             : this(sprite, startPoint, rightSlider) { }
 
-        public SpriteSheetAnimation(int totalFrames, Point startPoint, Point slider)
+        public SpriteAnimation(int totalFrames, Point startPoint, Point slider)
         {
             TotalFrames = totalFrames;
             StartPoint = startPoint;
             Slider = slider;
         }
 
-        public SpriteSheetAnimation(Sprite sprite, Point startPoint, Point slider)
+        public SpriteAnimation(Sprite sprite, Point startPoint, Point slider)
             : this(0, startPoint, slider)
         {
             Point frameOffset = Slider.Multiply(sprite.GetSize());
             TotalFrames = sprite.Texture.Width / frameOffset.X;
+        }
+
+        public IAnimationState<Sprite, SpriteAnimation> CreateState(IAnimator<Sprite, SpriteAnimation> animator)
+        {
+            return new SpriteAnimationState(animator, this);
         }
     }
 }
