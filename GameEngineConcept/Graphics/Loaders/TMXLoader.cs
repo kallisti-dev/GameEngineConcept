@@ -10,7 +10,6 @@ using NTiled;
 
 namespace GameEngineConcept.Graphics.Loaders
 {
-    using Graphics.Sprites;
     using Graphics.VertexBuffers;
 
     public class TMXLoader : SpriteLoader

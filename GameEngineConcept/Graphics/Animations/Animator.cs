@@ -4,7 +4,7 @@ using System.Linq;
 using System.Drawing;
 using System.Diagnostics;
 
-namespace GameEngineConcept.Graphics
+namespace GameEngineConcept.Graphics.Animations
 {
 
     public class Animator<S, A> : IAnimator<S, A>

@@ -6,7 +6,7 @@ using System.Drawing;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
-namespace GameEngineConcept.Graphics.Sprites
+namespace GameEngineConcept.Graphics
 {
     using VertexBuffers;
 

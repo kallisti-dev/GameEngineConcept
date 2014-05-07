@@ -4,7 +4,7 @@ using System.Linq;
 using System.Drawing;
 using System.Diagnostics;
 
-namespace GameEngineConcept.Graphics.Sprites
+namespace GameEngineConcept.Graphics.Animations
 {
     //describes the animation of a sprite via sprite sheet manipulations
     public class SpriteAnimation : IAnimation<Sprite, SpriteAnimation>

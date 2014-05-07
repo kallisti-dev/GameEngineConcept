@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Drawing;
 
-namespace GameEngineConcept.Graphics.Sprites
+namespace GameEngineConcept.Graphics.Animations
 {
     public class SpriteAnimationState : BaseAnimationState<Sprite, SpriteAnimation>
     {

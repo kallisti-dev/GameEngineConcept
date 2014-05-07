@@ -8,9 +8,9 @@ using OpenTK.Graphics.OpenGL;
 
 namespace GameEngineConcept.Scenes
 {
+    using Graphics;
     using Graphics.Loaders;
     using Graphics.VertexBuffers;
-    using Graphics.Sprites;
 
     class TileScene : Scene
     {

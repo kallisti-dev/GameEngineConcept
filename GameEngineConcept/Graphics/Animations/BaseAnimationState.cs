@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameEngineConcept.Graphics
+namespace GameEngineConcept.Graphics.Animations
 {
     public abstract class BaseAnimationState<Subject, Animation> : IAnimationState<Subject, Animation>
         where Animation : IAnimation<Subject, Animation>
