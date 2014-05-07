@@ -17,10 +17,10 @@ namespace GameEngineConcept.Graphics
         public static TexturedVertex2[] CreateVertices (Vector2 pos, Rectangle texRect)
         {
             return new[] {
-                new TexturedVertex2(pos,                                                        new Vector2(texRect.Left, texRect.Top)),
-                new TexturedVertex2(new Vector2(pos.X, pos.Y + texRect.Height),                 new Vector2(texRect.Left, texRect.Bottom)),
-                new TexturedVertex2(new Vector2(pos.X + texRect.Width, pos.Y + texRect.Height), new Vector2(texRect.Right, texRect.Bottom)),
-                new TexturedVertex2(new Vector2(pos.X + texRect.Width, pos.Y),                  new Vector2(texRect.Right, texRect.Top))
+                new TexturedVertex2(pos,                                                        new Point(texRect.Left, texRect.Top)),
+                new TexturedVertex2(new Vector2(pos.X, pos.Y + texRect.Height),                 new Point(texRect.Left, texRect.Bottom)),
+                new TexturedVertex2(new Vector2(pos.X + texRect.Width, pos.Y),                  new Point(texRect.Right, texRect.Top)),
+                new TexturedVertex2(new Vector2(pos.X + texRect.Width, pos.Y + texRect.Height), new Point(texRect.Right, texRect.Bottom))
             };
         }
 
@@ -54,6 +54,23 @@ namespace GameEngineConcept.Graphics
             }
         }
 
+        int? width = null, height = null;
+        public int Width 
+        { 
+            get {
+                if (!width.HasValue) CalcDimensions();
+                return width.Value;
+
+            } 
+        }
+        public int Height 
+        { 
+            get {
+                if (!height.HasValue) CalcDimensions();
+                return height.Value;
+
+            } 
+        }
         TexturedVertex2[] vertices;
         TexturedVertex2[] Vertices
         {
@@ -78,13 +95,13 @@ namespace GameEngineConcept.Graphics
             index = bufferInd;
         }
 
-        //translates texture coordinates of the sprite by a given vector
-        public void TranslateTexels(Vector2 v)
+        //translates texture coordinates of the sprite by a given coordinate pair
+        public void TranslateTexels(Point v)
         {
             TexturedVertex2[] vs = Vertices;
             for(int i = 0; i < 4; ++i)
             {
-                vs[i].texel += v;
+                vs[i].texel.Offset(v);
             }
             Vertices = vs;
         }
@@ -100,6 +117,14 @@ namespace GameEngineConcept.Graphics
                 }
                 Vertices = vs;
             }
+        }
+
+        private void CalcDimensions()
+        {
+            var t1 = Vertices[0].texel;
+            var t2 = Vertices[3].texel;
+            width = Math.Abs(t1.X - t2.X);
+            height = Math.Abs(t1.Y - t2.Y);
         }
     }
 }

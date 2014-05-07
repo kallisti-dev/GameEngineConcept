@@ -2,6 +2,7 @@
 using System.Runtime.InteropServices;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
+using System.Drawing;
 
 using GameEngineConcept.Graphics.VertexBuffers;
 
@@ -19,24 +20,24 @@ namespace GameEngineConcept.Graphics
             int size = Marshal.SizeOf(t);
             vAttributes = new[] {
                 new VertexAttribute(0, 2, VertexAttribPointerType.Float, false, size, (int)Marshal.OffsetOf(t, "position")),
-                new VertexAttribute(1, 2, VertexAttribPointerType.Float, false, size, (int)Marshal.OffsetOf(t, "texel"))
+                new VertexAttribute(1, 2, VertexAttribPointerType.Int, false, size, (int)Marshal.OffsetOf(t, "texel"))
             };
         }
 
         public VertexAttribute[] VertexAttributes { get { return vAttributes; } }
 
         public Vector2 position;
-        public Vector2 texel;
+        public Point texel;
 
-        public TexturedVertex2(Vector2 pos, Vector2 tex) {
+        public TexturedVertex2(Vector2 pos, Point tex) {
             position = pos;
             texel = tex;
         }
 
-        public TexturedVertex2(float posX, float posY, float texX, float texY)
+        public TexturedVertex2(float posX, float posY, int texX, int texY)
         {
             position = new Vector2(posX, posY);
-            texel    = new Vector2(texX, texY);
+            texel    = new Point(texX, texY);
         }
     }
 }
