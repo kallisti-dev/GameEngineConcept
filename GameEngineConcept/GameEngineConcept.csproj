@@ -59,7 +59,7 @@
   <ItemGroup>
     <Compile Include="Components\Interfaces.cs" />
     <Compile Include="Components\MiscellaneousComponent.cs" />
-    <Compile Include="ExtensionMethods\GameEngineExtensions.cs" />
+    <Compile Include="ExtensionMethods\ComparisonExtensions.cs" />
     <Compile Include="ExtensionMethods\IEnumerableExtensions.cs" />
     <Compile Include="ExtensionMethods\PointSizeExtensions.cs" />
     <Compile Include="Graphics\Animations\BaseAnimationState.cs" />

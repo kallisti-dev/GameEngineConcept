@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameEngineConcept.Graphics.Animations
 {
-    public abstract class BaseAnimationState<Subject, Animation> : IAnimationState<Subject, Animation>
+    public abstract class BaseAnimationState<Subject, Animation> : IAnimatable
         where Animation : IAnimation<Subject, Animation>
     {
         protected IAnimator<Subject, Animation> animator;

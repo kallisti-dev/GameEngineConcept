@@ -10,7 +10,7 @@ namespace GameEngineConcept.Graphics.Animations
         private struct TableInfo
         {
             public A animation;
-            public IAnimationState<S, A> state;
+            public IAnimatable state;
 
             public TableInfo(IAnimator<S, A> ator, A ation)
             {

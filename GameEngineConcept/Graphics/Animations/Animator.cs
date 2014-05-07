@@ -15,7 +15,11 @@ namespace GameEngineConcept.Graphics.Animations
 
         public A Animation { get; protected set; }
 
-        public IAnimationState<S, A> State {get; protected set; }
+        public IAnimatable State {get; protected set; }
+
+        public int CurrentFrame { get { return State.CurrentFrame; } }
+
+        public int NextFrame { get { return State.NextFrame; } }
 
         protected Animator() { }
 
@@ -24,16 +28,6 @@ namespace GameEngineConcept.Graphics.Animations
             Subject = subject;
             Animation = animation;
             State = animation.CreateState(this);
-        }
-
-        public void Forward(int nFrames = 1)
-        {
-            ToFrame(State.CurrentFrame + nFrames);
-        }
-
-        public void Reverse(int nFrames = 1)
-        {
-            ToFrame(State.CurrentFrame + nFrames);
         }
 
         public void ToFrame(int n)

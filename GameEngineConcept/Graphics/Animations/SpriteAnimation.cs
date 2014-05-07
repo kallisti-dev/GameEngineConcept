@@ -41,7 +41,7 @@ namespace GameEngineConcept.Graphics.Animations
             TotalFrames = sprite.Texture.Width / frameOffset.X;
         }
 
-        public IAnimationState<Sprite, SpriteAnimation> CreateState(IAnimator<Sprite, SpriteAnimation> animator)
+        public IAnimatable CreateState(IAnimator<Sprite, SpriteAnimation> animator)
         {
             return new SpriteAnimationState(animator, this);
         }

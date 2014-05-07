@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
 namespace GameEngineConcept.Graphics
@@ -21,6 +22,20 @@ namespace GameEngineConcept.Graphics
     {
         T Width { get; }
         T Height { get; }
+    }
+
+    public static class IHasDimensionsExtensions
+    {
+        //get Size/Vector2 from dimension-having objects
+        public static Size GetSize(this IHasDimensions<int> @this)
+        {
+            return new Size(@this.Width, @this.Height);
+        }
+
+        public static Vector2 GetSize(this IHasDimensions<float> @this)
+        {
+            return new Vector2(@this.Width, @this.Height);
+        }
     }
 
     public interface IHasPosition<T> where T : struct

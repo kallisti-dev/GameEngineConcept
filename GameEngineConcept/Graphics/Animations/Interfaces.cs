@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameEngineConcept.Graphics.Animations
 {
-    public interface IAnimationState<Subject, Animation>
-        where Animation : IAnimation<Subject, Animation>
+    public interface IAnimatable
     {
         int CurrentFrame { get; }
         int NextFrame { get; }
@@ -16,23 +15,30 @@ namespace GameEngineConcept.Graphics.Animations
         bool Animate();
     }
 
+    public static class IAnimatableExtensions
+    {
+        public static void Forward(this IAnimatable @this, int nFrames = 1)
+        {
+            @this.ToFrame(@this.CurrentFrame + nFrames);
+        }
+
+        public static void Reverse(this IAnimatable @this, int nFrames = 1)
+        {
+            @this.ToFrame(@this.CurrentFrame + nFrames);
+        }
+    }
+
     public interface IAnimation<Subject, Animation>
         where Animation : IAnimation<Subject, Animation>
     {
-        IAnimationState<Subject, Animation> CreateState(IAnimator<Subject, Animation> animator); 
+        IAnimatable CreateState(IAnimator<Subject, Animation> animator); 
     }
 
-    public interface IAnimator<S, A>
+    public interface IAnimator<S, A> : IAnimatable
         where A : IAnimation<S, A>
     {
         S Subject { get; }
         A Animation { get; }
-        IAnimationState<S, A> State { get; }
-
-        void Forward(int n);
-        void Reverse(int n);
-
-        void ToFrame(int n);
-        bool Animate();
+        IAnimatable State { get; }
     }
 }
