@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Drawing;
 using OpenTK;
 
-using GameEngineConcept.Graphics;
-using GameEngineConcept.Graphics.VertexBuffers;
-
 namespace GameEngineConcept
 {
+    using Graphics;
+    using Graphics.VertexBuffers;
+
     //extension methods for in-library interfaces
     public static class GameEngineExtensions
     {

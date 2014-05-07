@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
-using GameEngineConcept.Graphics;
-using GameEngineConcept.Graphics.Loaders;
-using GameEngineConcept.Graphics.VertexBuffers;
-
 namespace GameEngineConcept.Scenes
 {
+    using Graphics.Loaders;
+    using Graphics.VertexBuffers;
+    using Graphics.Sprites;
+
     class TileScene : Scene
     {
         VertexBuffer buffer;

@@ -8,10 +8,10 @@ using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using NTiled;
 
-using GameEngineConcept.Graphics.VertexBuffers;
-
 namespace GameEngineConcept.Graphics.Loaders
 {
+    using Graphics.Sprites;
+    using Graphics.VertexBuffers;
 
     public class TMXLoader : SpriteLoader
     {

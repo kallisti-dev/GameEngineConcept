@@ -7,7 +7,7 @@ namespace GameEngineConcept
 
  
 
-    //this struct allows implicit conversion between Point and Size from System.Drawing within our extension methods
+    //this struct allows semi-implicit conversion between Point and Size from System.Drawing within our extension methods
     public struct PointSizeConverter
     {
         internal Point p;

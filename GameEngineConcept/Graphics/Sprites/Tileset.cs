@@ -7,7 +7,7 @@ using OpenTK;
 using GameEngineConcept.Graphics.Loaders;
 using GameEngineConcept.Graphics.VertexBuffers;
 
-namespace GameEngineConcept.Graphics
+namespace GameEngineConcept.Graphics.Sprites
 {
     public class TileSet
     {

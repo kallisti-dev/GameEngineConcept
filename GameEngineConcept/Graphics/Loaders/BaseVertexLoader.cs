@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using OpenTK.Graphics.OpenGL;
 
-using GameEngineConcept.Graphics.VertexBuffers;
-
 namespace GameEngineConcept.Graphics.Loaders
 {
+    using VertexBuffers;
+
     public abstract class BaseVertexLoader<BufferType, VIn, VState, VOut> 
         : ILoader<IEnumerable<VOut>>, IHasVertexBuffer<BufferType>
         where BufferType : IVertexBuffer

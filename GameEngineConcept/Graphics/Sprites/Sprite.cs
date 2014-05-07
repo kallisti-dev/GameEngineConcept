@@ -6,10 +6,10 @@ using System.Drawing;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
-using GameEngineConcept.Graphics.VertexBuffers;
-
-namespace GameEngineConcept.Graphics
+namespace GameEngineConcept.Graphics.Sprites
 {
+    using VertexBuffers;
+
     public class Sprite : TexturedVertexSet, IDrawableDepth, IHasPosition<Vector2>, IHasDimensions<int>
     {
         public static VertexAttribute[] vAttributes = TexturedVertex2.vAttributes;

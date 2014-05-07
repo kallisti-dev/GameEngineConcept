@@ -4,10 +4,12 @@ using System.Drawing;
 
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
-using GameEngineConcept.Graphics.VertexBuffers;
 
 namespace GameEngineConcept.Graphics.Loaders
 {
+    using Sprites;
+    using VertexBuffers;
+
     public class SpriteLoader : BaseVertexLoader<AttributedVertexBuffer, TexturedVertex2, SpriteLoader.State, Sprite>
     {
 

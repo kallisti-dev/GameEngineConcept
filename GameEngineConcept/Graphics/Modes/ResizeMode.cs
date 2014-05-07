@@ -1,5 +1,6 @@
 ﻿using System;
 using OpenTK.Graphics.OpenGL;
+
 namespace GameEngineConcept.Graphics.Modes
 {
     public class ResizeMode : IGraphicsMode
