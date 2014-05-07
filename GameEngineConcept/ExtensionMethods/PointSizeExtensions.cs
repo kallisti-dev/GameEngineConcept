@@ -4,9 +4,6 @@ using System.Drawing;
 
 namespace GameEngineConcept
 {
-
- 
-
     //this struct allows semi-implicit conversion between Point and Size from System.Drawing within our extension methods
     public struct PointSizeConverter
     {
