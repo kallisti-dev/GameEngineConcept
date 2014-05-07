@@ -20,7 +20,7 @@ namespace GameEngineConcept.Graphics.Animations
 
         Dictionary<Key, TableInfo> stateTable;
 
-        public AnimationTable(S subject, IEnumerable<KeyValuePair<Key, IAnimation<S>>> animations, Key initialKey)
+        public AnimationTable(S subject, Key initialKey, IEnumerable<KeyValuePair<Key, IAnimation<S>>> animations)
         {
             Subject = subject;
             stateTable = animations.ToDictionary(
