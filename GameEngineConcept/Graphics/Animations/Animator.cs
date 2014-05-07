@@ -11,11 +11,13 @@ namespace GameEngineConcept.Graphics.Animations
         where A : IAnimation<S, A>
     {
 
-        public S Subject { get; private set; }
+        public S Subject { get; protected set; }
 
-        public A Animation { get; private set; }
+        public A Animation { get; protected set; }
 
-        public IAnimationState<S, A> State {get; private set; }
+        public IAnimationState<S, A> State {get; protected set; }
+
+        protected Animator() { }
 
         public Animator(S subject, A animation)
         {
@@ -44,8 +46,6 @@ namespace GameEngineConcept.Graphics.Animations
         {
             return State.Animate();
         }
-
-
 
     }
 }

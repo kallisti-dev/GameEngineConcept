@@ -64,6 +64,7 @@
     <Compile Include="ExtensionMethods\PointSizeExtensions.cs" />
     <Compile Include="Graphics\Animations\BaseAnimationState.cs" />
     <Compile Include="Graphics\Animations\Interfaces.cs" />
+    <Compile Include="Graphics\Animations\AnimatorTable.cs" />
     <Compile Include="Graphics\DrawableDepthSet.cs" />
     <Compile Include="Graphics\Loaders\BaseVertexLoader.cs" />
     <Compile Include="Graphics\Loaders\Interfaces.cs" />

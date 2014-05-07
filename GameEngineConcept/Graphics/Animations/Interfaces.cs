@@ -19,7 +19,7 @@ namespace GameEngineConcept.Graphics.Animations
     public interface IAnimation<Subject, Animation>
         where Animation : IAnimation<Subject, Animation>
     {
-        IAnimationState<Subject, Animation> CreateState(IAnimator<Subject, Animation> animator);
+        IAnimationState<Subject, Animation> CreateState(IAnimator<Subject, Animation> animator); 
     }
 
     public interface IAnimator<S, A>
