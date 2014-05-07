@@ -8,7 +8,7 @@ using Img = System.Drawing.Imaging;
 
 namespace GameEngineConcept.Graphics
 {
-    public class Texture : IRelease
+    public class Texture : IRelease, IHasDimensions<int>
     {
 
         private int textureId;

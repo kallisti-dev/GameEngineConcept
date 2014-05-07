@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-
-using GameEngineConcept.Graphics;
-using GameEngineConcept.Graphics.VertexBuffers;
+using System.Linq;
 
 namespace GameEngineConcept
 {
-    //extension methods to external classes
-    public static class ExtensionMethods
+    public static class IEnumerableExtensions
     {
+        
         //a more efficient Reverse<T>() method for IList<T>
         public static IEnumerable<T> Reverse<T>(this IList<T> list)
         {
@@ -18,6 +16,7 @@ namespace GameEngineConcept
             }
         }
 
+        //flattens nested IEnumerables
         public static IEnumerable<J> Join<J>(this IEnumerable<IEnumerable<J>> @this)
         {
             foreach (var js in @this)
@@ -25,14 +24,5 @@ namespace GameEngineConcept
                     yield return j;
         }
 
-        public static int CompareTo(this int i, IVertexBuffer b)
-        {
-            return -b.CompareTo(i);
-        }
-
-        public static int CompareTo(this IVertexBuffer b, IDrawable d)
-        {
-            return -d.CompareTo(b);
-        }
     }
 }
