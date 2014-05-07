@@ -15,6 +15,17 @@ namespace GameEngineConcept.Graphics
         int DrawDepth { get; }
     }
 
+    public interface IHasDimensions<T> where T : struct
+    {
+        T Width { get; }
+        T Height { get; }
+    }
+
+    public interface IHasPosition<T> where T : struct
+    {
+        T Position { get; set; }
+    }
+
     //interface for objects with external openGL resources.
     public interface IRelease : IDisposable
     {

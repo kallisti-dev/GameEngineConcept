@@ -10,7 +10,7 @@ using GameEngineConcept.Graphics.VertexBuffers;
 
 namespace GameEngineConcept.Graphics
 {
-    public class Sprite : TexturedVertexSet, IDrawableDepth
+    public class Sprite : TexturedVertexSet, IDrawableDepth, IHasPosition<Vector2>, IHasDimensions<int>
     {
         public static VertexAttribute[] vAttributes = TexturedVertex2.vAttributes;
 
