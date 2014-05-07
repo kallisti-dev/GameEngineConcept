@@ -71,6 +71,7 @@ namespace GameEngineConcept.Graphics
 
             } 
         }
+
         TexturedVertex2[] vertices;
         TexturedVertex2[] Vertices
         {
@@ -102,6 +103,19 @@ namespace GameEngineConcept.Graphics
             for(int i = 0; i < 4; ++i)
             {
                 vs[i].texel.Offset(v);
+            }
+            Vertices = vs;
+        }
+
+        public void SetTexCoord(Point coord)
+        {
+            TexturedVertex2[] vs = Vertices;
+            Point tex = vs[0].texel;
+            Point texDiff = tex.Subtract(coord);
+            vs[0].texel = coord;
+            for (int i = 1; i < 4; ++i)
+            {
+                vs[i].texel.Offset(texDiff);
             }
             Vertices = vs;
         }
