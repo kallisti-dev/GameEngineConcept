@@ -30,7 +30,7 @@ namespace GameEngineConcept.Graphics.Animations
 
         public abstract void ToFrame(int n);
 
-        public abstract bool Animate();
+        public abstract void Animate();
 
     }
 }

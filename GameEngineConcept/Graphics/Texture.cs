@@ -10,7 +10,6 @@ namespace GameEngineConcept.Graphics
 {
     public class Texture : IRelease, IHasDimensions<int>
     {
-
         private int textureId;
 
         public int Width {get; protected set;}

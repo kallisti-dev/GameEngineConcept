@@ -33,14 +33,11 @@ namespace GameEngineConcept.Graphics.Animations
         }
 
         //make NextFrame the CurrentFrame
-        public override bool Animate()
+        public override void Animate()
         {
-            if (CurrentFrame == NextFrame)
-                return false;
             currentTexCoord = nextTexCoord;
             CurrentFrame = NextFrame;
             Subject.SetTexCoord(currentTexCoord);
-            return true;
         }
     }
 }

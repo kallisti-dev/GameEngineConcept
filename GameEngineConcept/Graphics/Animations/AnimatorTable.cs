@@ -22,6 +22,12 @@ namespace GameEngineConcept.Graphics.Animations
 
         public S Subject { get; private set; }
 
+        IAnimator<S> this[Key key]
+        {
+            get { return stateTable[key]; }
+            set { stateTable[key] = value; }
+        }
+
         public AnimatorTable(S subject, Key initialKey, IEnumerable<KeyValuePair<Key, IAnimatable<S>>> animations)
         {
             Subject = subject;
@@ -52,9 +58,9 @@ namespace GameEngineConcept.Graphics.Animations
             animator.ToFrame(n);
         }
 
-        public bool Animate()
+        public void Animate()
         {
-            return animator.Animate();
+            animator.Animate();
         }
 
     }

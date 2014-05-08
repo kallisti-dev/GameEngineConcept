@@ -20,7 +20,7 @@ namespace GameEngineConcept.Graphics.Animations
         int NextFrame { get; }
 
         void ToFrame(int n);
-        bool Animate();
+        void Animate();
     }
 
     public static class IAnimatorExtensions
