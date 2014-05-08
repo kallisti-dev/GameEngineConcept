@@ -37,6 +37,5 @@ namespace GameEngineConcept.Graphics.Animations
     {
         S Subject { get; }
         IAnimation<S> Animation { get; }
-        IAnimatable State { get; }
     }
 }
