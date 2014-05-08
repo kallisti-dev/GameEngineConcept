@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Components\AnimationComponent.cs" />
     <Compile Include="Components\Interfaces.cs" />
+    <Compile Include="Components\Message.cs" />
     <Compile Include="Components\MiscellaneousComponent.cs" />
     <Compile Include="ExtensionMethods\ComparisonExtensions.cs" />
     <Compile Include="ExtensionMethods\IEnumerableExtensions.cs" />

@@ -7,11 +7,13 @@ using GameEngineConcept.Components;
 
 namespace GameEngineTest.Tests
 {
+
     /* tests message broadcasting functionality of ComponentCollection */
-    public class BroadcastTestComponent : BaseTester, IComponent, IReceiverComponent<ComponentCollection>
+    public class BroadcastTestComponent : BaseTester, IComponent, IReceiverComponent<BroadcastTestComponent.TestMessage>
     {
+        public class TestMessage : Message { }
         public void Update() { }
-        public void Receive(ComponentCollection c)
+        public void Receive(TestMessage m)
         {
             TestSuccess();
         }
@@ -22,7 +24,7 @@ namespace GameEngineTest.Tests
             BroadcastTestComponent c = new BroadcastTestComponent();
             collection.Add(c);
             window.AddComponents(new[] {c});
-            collection.Broadcast(collection);
+            collection.Broadcast(new TestMessage());
         }
     }
 }

@@ -26,7 +26,7 @@ namespace GameEngineConcept.Components
                 }
             }
         }
-        public void Broadcast<T>(T obj)
+        public void Broadcast<T>(T obj) where T : Message
         {
             foreach (IComponent c in this)
             {

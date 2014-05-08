@@ -16,6 +16,7 @@ namespace GameEngineConcept.Components
 
     //a component that can receive an object of type T
     public interface IReceiverComponent<in T> : IComponent
+        where T : Message
     {
         void Receive(T obj);
     }
@@ -24,7 +25,7 @@ namespace GameEngineConcept.Components
     public interface IComponentCollection : IComponent, ICollection<IComponent>
     {
         //broadcasts a state of type T to all inner components that implement IReceiverComponent<T>
-        void Broadcast<T>(T state);
+        void Broadcast<T>(T state) where T : Message;
         //update all inner components that match type C
         void Update<C>() where C : IComponent;
     }

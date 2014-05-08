@@ -8,16 +8,16 @@ namespace GameEngineConcept.Components
 
     /* AnimationComponent message types */
 
-    public class BeginAnimation<S>
+    public class BeginAnimation<S> : Message
     {
         public IAnimatable<S> animation;
         public BeginAnimation(IAnimatable<S> a) { animation = a; }
     }
 
     //indicates animation should be paused
-    public class PauseAnimation { }
+    public class PauseAnimation : Message { }
 
-    public class ResumeAnimation { }
+    public class ResumeAnimation : Message { }
 
     /* Base AnimationComponent for use with the phased update system:
      * 
