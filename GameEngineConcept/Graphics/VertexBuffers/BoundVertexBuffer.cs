@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 
 namespace GameEngineConcept.Graphics.VertexBuffers
 {

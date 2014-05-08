@@ -9,13 +9,12 @@ namespace GameEngineConcept.Components
     //basic game component interface
     public interface IComponent
     {
-        
         //update 1 frame
         void Update();
     }
 
     //a component that can receive an object of type T
-    public interface IReceiverComponent<in T> : IComponent
+    public interface IReceiver<in T> : IComponent
         where T : Message
     {
         void Receive(T obj);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using OpenTK;
+using OpenTK.Graphics.OpenGL4;
 
 using GameEngineConcept.Graphics.Loaders;
 using GameEngineConcept.Graphics.VertexBuffers;
@@ -43,7 +44,7 @@ namespace GameEngineConcept.Graphics
         public IEnumerable<Sprite> LoadTileMap(IBindableVertexBuffer buffer, Point[,] mapIndices, int depth)
         {
 
-            SpriteLoader loader = new SpriteLoader(OpenTK.Graphics.OpenGL.BufferUsageHint.DynamicDraw, buffer);
+            SpriteLoader loader = new SpriteLoader(BufferUsageHint.DynamicDraw, buffer);
             for (int i = 0; i < mapIndices.GetLength(0); ++i)
             {
                 for (int j = 0; i < mapIndices.GetLength(1); ++j)

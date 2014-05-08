@@ -106,6 +106,7 @@
     <Compile Include="Scenes\OverrideScene.cs" />
     <Compile Include="Scenes\Scene.cs" />
     <Compile Include="Scenes\TileScene.cs" />
+    <Compile Include="Util.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -1,12 +1,10 @@
 ﻿using System;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 
 namespace GameEngineConcept.Graphics.Modes
 {
     public class ResizeMode : IGraphicsMode
     {
-        public MatrixMode? PrimaryMatrixMode { get { return MatrixMode.Projection; } }
-
         int width;
         int height;
 
@@ -18,9 +16,7 @@ namespace GameEngineConcept.Graphics.Modes
 
         public void Initialize()
         {
-            GL.LoadIdentity();
             double ar = (double)width / (double)height; //aspect ratio
-            GL.Ortho(-2 * ar, 2 * ar, -2, 2, -1, 1);
             GL.Viewport(0, 0, width, height);
         }
 

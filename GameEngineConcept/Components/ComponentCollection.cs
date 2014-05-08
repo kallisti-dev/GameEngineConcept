@@ -30,13 +30,13 @@ namespace GameEngineConcept.Components
         {
             foreach (IComponent c in this)
             {
-                IReceiverComponent<T> rc;
+                IReceiver<T> rc;
                 IComponentCollection coll;
                 if ((coll = c as IComponentCollection) != null)
                 {
                     coll.Broadcast<T>(obj);
                 }
-                else if ((rc = c as IReceiverComponent<T>) != null)
+                else if ((rc = c as IReceiver<T>) != null)
                 {
                     rc.Receive(obj);
                 }

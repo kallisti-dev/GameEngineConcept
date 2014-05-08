@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 
 namespace GameEngineConcept.Graphics.VertexBuffers
 {
@@ -43,7 +43,7 @@ namespace GameEngineConcept.Graphics.VertexBuffers
             return new VertexIndices((t) =>
             {
                 indexBuffer.Bind(BufferTarget.ElementArrayBuffer, (b) =>
-                    GL.DrawElements(t, count, indexType, 0));
+                    GL.DrawElements(t, count, indexType, IntPtr.Zero));
             });
         }
     }

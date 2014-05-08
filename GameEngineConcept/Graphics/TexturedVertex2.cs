@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using OpenTK;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 using System.Drawing;
 
 using GameEngineConcept.Graphics.VertexBuffers;

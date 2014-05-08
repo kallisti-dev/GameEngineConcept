@@ -9,7 +9,7 @@ namespace GameEngineTest.Tests
 {
 
     /* tests message broadcasting functionality of ComponentCollection */
-    public class BroadcastTestComponent : BaseTester, IComponent, IReceiverComponent<BroadcastTestComponent.TestMessage>
+    public class BroadcastTestComponent : BaseTester, IComponent, IReceiver<BroadcastTestComponent.TestMessage>
     {
         public class TestMessage : Message { }
         public void Update() { }

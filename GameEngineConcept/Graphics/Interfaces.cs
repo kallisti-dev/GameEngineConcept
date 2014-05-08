@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using OpenTK;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 
 namespace GameEngineConcept.Graphics
 {

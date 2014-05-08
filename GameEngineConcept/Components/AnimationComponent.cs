@@ -13,28 +13,24 @@ namespace GameEngineConcept.Components
         public IAnimatable<S> animation;
         public BeginAnimation(IAnimatable<S> a) { animation = a; }
     }
-
-    //indicates animation should be paused
     public class PauseAnimation : Message { }
-
     public class ResumeAnimation : Message { }
 
     /* Base AnimationComponent for use with the phased update system:
      * 
      * collection.Update<AnimationComponent>();
      */
-
-    public abstract class AnimationComponent : IComponent 
+    public abstract class AnimationComponent : IComponent
     {
         public abstract void Update();
     }
 
-    /* Component of a game object that manages animation of a given subject */
+    /* Game component that manages animation of a given subject */
     public class AnimationComponent<S> :
         AnimationComponent,
-        IReceiverComponent<BeginAnimation<S>>,
-        IReceiverComponent<PauseAnimation>, 
-        IReceiverComponent<ResumeAnimation>
+        IReceiver<BeginAnimation<S>>,
+        IReceiver<PauseAnimation>,
+        IReceiver<ResumeAnimation>
     {
         S subject;
         IAnimator<S> animator = null;
@@ -63,8 +59,7 @@ namespace GameEngineConcept.Components
 
         public override void Update()
         {
-            if(animator != null && !paused)
-            {
+            if (animator != null && !paused) {
                 animator.Forward();
                 animator.Animate();
             }

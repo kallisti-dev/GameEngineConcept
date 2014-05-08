@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 
 using OpenTK;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 using NTiled;
 
 namespace GameEngineConcept.Graphics.Loaders
