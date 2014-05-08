@@ -189,6 +189,7 @@ namespace GameEngineConcept
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             processReleaseQueue();
+            updateSet.Update<AnimationComponent>();
             updateSet.Update<MiscellaneousComponent>();
             base.OnUpdateFrame(e);
         }

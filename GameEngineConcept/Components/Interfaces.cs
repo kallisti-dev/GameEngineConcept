@@ -9,6 +9,7 @@ namespace GameEngineConcept.Components
     //basic game component interface
     public interface IComponent
     {
+        
         //update 1 frame
         void Update();
     }
