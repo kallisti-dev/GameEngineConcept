@@ -8,16 +8,16 @@ namespace GameEngineConcept.Graphics.Animations
     {
 
         Dictionary<Key, IAnimator<S>> stateTable;
-        IAnimator<S> animator;
+        IAnimator<S> currentAnimator;
 
         public int CurrentFrame
         {
-            get { return animator.CurrentFrame;  }
+            get { return currentAnimator.CurrentFrame;  }
         }
 
         public int NextFrame
         {
-            get { return animator.NextFrame; }
+            get { return currentAnimator.NextFrame; }
         }
 
         public S Subject { get; private set; }
@@ -43,24 +43,24 @@ namespace GameEngineConcept.Graphics.Animations
             stateTable[key] = animation.CreateAnimator(Subject);
         }
 
-        public void Remove(Key key)
+        public bool Remove(Key key)
         {
-            stateTable.Remove(key);
+            return stateTable.Remove(key);
         }
 
         public void SetCurrent(Key key)
         {
-            animator = stateTable[key];
+            currentAnimator = stateTable[key];
         }
 
         public void ToFrame(int n)
         {
-            animator.ToFrame(n);
+            currentAnimator.ToFrame(n);
         }
 
         public void Animate()
         {
-            animator.Animate();
+            currentAnimator.Animate();
         }
 
     }
