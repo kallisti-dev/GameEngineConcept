@@ -5,7 +5,7 @@ using System.Drawing;
 
 namespace GameEngineConcept.Graphics.Animations
 {
-    public class SpriteAnimator : Animator<Sprite, SpriteAnimation>
+    public class SpriteAnimator : BaseAnimator<Sprite, SpriteAnimation>
     {
         Point currentTexCoord, nextTexCoord;
         Point frameOffset;

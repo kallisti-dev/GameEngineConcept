@@ -7,8 +7,8 @@ using System.Diagnostics;
 namespace GameEngineConcept.Graphics.Animations
 {
 
-    public abstract class Animator<S, A> : IAnimator<S, A>
-        where A : IAnimation<S, A>
+    public abstract class BaseAnimator<S, A> : IAnimator<S>
+        where A : IAnimatable<S>
     {
 
         public S Subject { get; protected set; }
@@ -19,9 +19,9 @@ namespace GameEngineConcept.Graphics.Animations
 
         public int NextFrame { get; protected set;}
 
-        protected Animator() { }
+        protected BaseAnimator() { }
 
-        public Animator(S subject, A animation)
+        public BaseAnimator(S subject, A animation)
         {
             CurrentFrame = NextFrame = 0;
             Subject = subject;

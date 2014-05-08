@@ -7,7 +7,7 @@ using System.Diagnostics;
 namespace GameEngineConcept.Graphics.Animations
 {
     //describes the animation of a sprite via sprite sheet manipulations
-    public class SpriteAnimation : IAnimation<Sprite, SpriteAnimation>
+    public class SpriteAnimation : IAnimatable<Sprite>
     {
         public static readonly Point
             rightSlider = new Point(1, 0),
@@ -41,7 +41,7 @@ namespace GameEngineConcept.Graphics.Animations
             TotalFrames = sprite.Texture.Width / frameOffset.X;
         }
 
-        public  IAnimator<Sprite, SpriteAnimation> CreateAnimator(Sprite sprite)
+        public  IAnimator<Sprite> CreateAnimator(Sprite sprite)
         {
             return new SpriteAnimator(sprite, this);
         }

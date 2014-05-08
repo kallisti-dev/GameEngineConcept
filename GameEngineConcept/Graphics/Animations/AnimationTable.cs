@@ -4,12 +4,11 @@ using System.Linq;
 
 namespace GameEngineConcept.Graphics.Animations
 {
-    class AnimationTable<Key, S, A> : IAnimator<S, A>
-        where A : IAnimation<S, A>
+    class AnimationTable<Key, S, A> : IAnimator<S>
     {
 
-        Dictionary<Key, IAnimator<S, A>> stateTable;
-        IAnimator<S, A> animator;
+        Dictionary<Key, IAnimator<S>> stateTable;
+        IAnimator<S> animator;
 
         public int CurrentFrame
         {
@@ -25,7 +24,7 @@ namespace GameEngineConcept.Graphics.Animations
 
         public A Animation { get; private set; }
 
-        public AnimationTable(S subject, Key initialKey, IEnumerable<KeyValuePair<Key, IAnimation<S, A>>> animations)
+        public AnimationTable(S subject, Key initialKey, IEnumerable<KeyValuePair<Key, IAnimatable<S>>> animations)
         {
             Subject = subject;
             stateTable = animations.ToDictionary(
@@ -35,7 +34,7 @@ namespace GameEngineConcept.Graphics.Animations
             SetCurrent(initialKey);
         }
 
-        public void Add(Key key, IAnimation<S, A> animation)
+        public void Add(Key key, IAnimatable<S> animation)
         {
             stateTable[key] = animation.CreateAnimator(Subject);
         }
@@ -48,7 +47,6 @@ namespace GameEngineConcept.Graphics.Animations
         public void SetCurrent(Key key)
         {
             animator = stateTable[key];
-            Animation = animator.Animation;
         }
 
         public void ToFrame(int n)
