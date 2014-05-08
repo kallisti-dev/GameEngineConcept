@@ -31,6 +31,7 @@ namespace GameEngineConcept.Graphics.Loaders
         {
             textures = new Dictionary<int,Texture>();
             this.texPool = texPool;
+            Layers = new Dictionary<string, IEnumerable<Sprite>>();
            _lazyTileMap = 
                 new Lazy<TiledMap>(
                     () => (new TiledReader()).Read(fileName));
