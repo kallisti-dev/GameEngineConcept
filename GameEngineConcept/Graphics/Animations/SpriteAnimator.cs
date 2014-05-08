@@ -29,15 +29,15 @@ namespace GameEngineConcept.Graphics.Animations
 
             var diff = n - CurrentFrame;
             nextTexCoord.Offset(frameOffset.Multiply(new Point(diff)));
-            NextFrame = n;
+            base.ToFrame(n);
         }
 
         //make NextFrame the CurrentFrame
         public override void Animate()
         {
             currentTexCoord = nextTexCoord;
-            CurrentFrame = NextFrame;
             Subject.SetTexCoord(currentTexCoord);
+            base.Animate();
         }
     }
 }

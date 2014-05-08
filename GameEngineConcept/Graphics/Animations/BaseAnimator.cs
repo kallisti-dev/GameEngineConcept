@@ -28,9 +28,15 @@ namespace GameEngineConcept.Graphics.Animations
             Animation = animation;
         }
 
-        public abstract void ToFrame(int n);
+        public virtual void ToFrame(int n)
+        {
+            NextFrame = n;
+        }
 
-        public abstract void Animate();
+        public virtual void Animate()
+        {
+            CurrentFrame = NextFrame;
+        }
 
     }
 }
