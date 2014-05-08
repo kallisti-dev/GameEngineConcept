@@ -11,9 +11,9 @@ namespace GameEngineConcept.Graphics.Animations
         where A : IAnimatable<S>
     {
 
-        public S Subject { get; protected set; }
+        public virtual S Subject { get; protected set; }
 
-        public A Animation { get; protected set; }
+        public virtual A Animation { get; protected set; }
 
         public int CurrentFrame { get; protected set; }
 
