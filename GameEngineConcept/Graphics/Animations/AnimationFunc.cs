@@ -8,28 +8,25 @@ namespace GameEngineConcept.Graphics.Animations
 {
     public enum FrameRoundingType { Floor, Round, Truncate, Ceiling };
 
-    //static functions for creating transformations on existing animations
+    //static extension methods for creating transformations on existing animations
     public static class AnimationFunc
     {
-        public static AnimationFunc<S> ScaleFrames<S>(IAnimatable<S> animation, float scale, FrameRoundingType roundingType = FrameRoundingType.Round)
+        //applies a transformation function on each frame of the given animation
+        public static AnimationFunc <S> TransformFrames<S>(this IAnimatable<S> a, Func<int, int> f)
         {
-            Func<float, float> rounder = null;
-            switch(roundingType)
-            {
-                case FrameRoundingType.Round:
-                    rounder = FloatMath.Round;
-                    break;
-                case FrameRoundingType.Truncate:
-                    rounder = FloatMath.Truncate;
-                    break;
-                case FrameRoundingType.Floor:
-                    rounder = FloatMath.Floor;
-                    break;
-                case FrameRoundingType.Ceiling:
-                    rounder = FloatMath.Ceiling;
-                    break;
-            }
-            return new AnimationFunc<S>(animation, toFrame: (inner, n) => { inner.ToFrame((int)rounder(scale * n)); });
+            return new AnimationFunc<S>(a, (inner, n) => { inner.ToFrame(f(n)); });
+        }
+
+        //scales the frames of an animation by a given floating point value
+        public static AnimationFunc<S> ScaleFrames<S>(this IAnimatable<S> animation, float scale, Func<float, float> rounder = null)
+        {
+            if(rounder==null) rounder = FloatMath.Round;
+            return TransformFrames(animation, (n) => (int) rounder(scale * n));
+        }
+
+        public static AnimationFunc<S> OffsetFrames<S>(this IAnimatable<S> animation, int offset)
+        {
+            return TransformFrames(animation, (n) => n + offset);
         }
     }
 
@@ -61,8 +58,8 @@ namespace GameEngineConcept.Graphics.Animations
         private class Animator : IAnimator<S>
         {
             public S Subject {get {return inner.Subject;}}
-            public int CurrentFrame { get; protected set; }
-            public int NextFrame { get; protected set; }
+            public int CurrentFrame { get; private set; }
+            public int NextFrame { get; private set; }
 
             public AnimationFunc<S> parent;
             public IAnimator<S> inner;
