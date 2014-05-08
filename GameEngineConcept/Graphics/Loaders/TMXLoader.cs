@@ -14,24 +14,29 @@ namespace GameEngineConcept.Graphics.Loaders
 
     public class TMXLoader : SpriteLoader
     {
-        Lazy<TiledMap> lazyTileMap;
-        Lazy<Dictionary<string, TiledLayer>> lazyLayers;
+        Lazy<TiledMap> _lazyTileMap;
+        Lazy<Dictionary<string, TiledLayer>> _lazyLayers;
+
         Dictionary<int, Texture> textures;
         Pool<Texture> texPool;
 
-        public Dictionary<string, IEnumerable<Sprite>> AddedLayers {get; private set;}
+        TiledMap TileMap { get { return _lazyTileMap.Value;  } }
+        Dictionary<string, TiledLayer> TiledLayers { get { return _lazyLayers.Value; } }
+
+
+        public Dictionary<string, IEnumerable<Sprite>> Layers {get; private set;}
 
         public TMXLoader(IBindableVertexBuffer buffer, Pool<Texture> texPool, string fileName)
             : base(BufferUsageHint.DynamicDraw, buffer)
         {
             textures = new Dictionary<int,Texture>();
             this.texPool = texPool;
-            lazyTileMap = 
+           _lazyTileMap = 
                 new Lazy<TiledMap>(
                     () => (new TiledReader()).Read(fileName));
-            lazyLayers = 
+            _lazyLayers = 
                 new Lazy<Dictionary<string, TiledLayer>>(
-                    () => lazyTileMap.Value.Layers.ToDictionary(ts => ts.Name, ts => ts));            
+                    () => TileMap.Layers.ToDictionary(ts => ts.Name, ts => ts));            
         }
 
         public Task AddAllLayers(int depth = 0)
@@ -41,27 +46,27 @@ namespace GameEngineConcept.Graphics.Loaders
 
         public async Task AddAllLayers(Func<TiledLayer, int> depthFunction)
         {
-            foreach(var layer in lazyTileMap.Value.Layers)
+            foreach(var layer in TileMap.Layers)
             {
-                if (!AddedLayers.ContainsKey(layer.Name))
+                if (!Layers.ContainsKey(layer.Name))
                     await AddLayer(layer.Name, depthFunction(layer));
             }
         }
 
         public Task AddLayer(string name, int depth = 0)
         {
-            return _AddLayer(lazyLayers.Value[name], name, depth);
+            return _AddLayer(TiledLayers[name], name, depth);
         }
 
         public override IEnumerable<Sprite> Load()
         {
             LoadBuffer();
-            return AddedLayers.Values.Join().Concat(ConsumeAddedStates());
+            return Layers.Values.Join().Concat(ConsumeAddedStates());
         }
 
         private async Task<IEnumerable<Sprite>> _AddLayer(TiledLayer layer, string name, int depth = 0)
         {
-            TiledMap tileMap = lazyTileMap.Value;
+            TiledMap tileMap = TileMap;
             int mapX = 0, mapY = 0,
                 width = tileMap.TileWidth,
                 height = tileMap.TileHeight;
@@ -80,12 +85,12 @@ namespace GameEngineConcept.Graphics.Loaders
                 else
                     mapX += width;
             }
-            return AddedLayers[name] = ConsumeAddedStates();
+            return Layers[name] = ConsumeAddedStates();
         }
 
         private TiledTileset findTileSet(int gId, out int localId)
         {
-            var tileSet = lazyTileMap.Value.Tilesets.Reverse<TiledTileset>().First((ts) => ts.FirstId <= gId);
+            var tileSet = TileMap.Tilesets.Reverse<TiledTileset>().First((ts) => ts.FirstId <= gId);
             localId = gId - tileSet.FirstId;
             return tileSet;
         }
