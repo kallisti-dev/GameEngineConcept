@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace GameEngineConcept.Graphics.Animations
 {
-    class AnimationTable<Key, S, A> : IAnimator<S>
+    class AnimatorTable<Key, S> : IAnimator<S>
     {
 
         Dictionary<Key, IAnimator<S>> stateTable;
@@ -22,9 +22,7 @@ namespace GameEngineConcept.Graphics.Animations
 
         public S Subject { get; private set; }
 
-        public A Animation { get; private set; }
-
-        public AnimationTable(S subject, Key initialKey, IEnumerable<KeyValuePair<Key, IAnimatable<S>>> animations)
+        public AnimatorTable(S subject, Key initialKey, IEnumerable<KeyValuePair<Key, IAnimatable<S>>> animations)
         {
             Subject = subject;
             stateTable = animations.ToDictionary(
