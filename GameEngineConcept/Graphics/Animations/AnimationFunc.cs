@@ -21,7 +21,7 @@ namespace GameEngineConcept.Graphics.Animations
         public static AnimationFunc<S> ScaleFrames<S>(this IAnimatable<S> animation, float scale, Func<float, float> rounder = null)
         {
             if(rounder==null) rounder = FloatMath.Round;
-            return TransformFrames(animation, (n) => (int) rounder((1/scale) * n));
+            return TransformFrames(animation, (n) => (int) rounder(n/scale));
         }
 
         public static AnimationFunc<S> OffsetFrames<S>(this IAnimatable<S> animation, int offset)
