@@ -4,35 +4,40 @@ using System.Linq;
 
 namespace GameEngineConcept.Graphics.Animations
 {
-    class AnimationTable<Key, S> : Animator<S>
+    class AnimationTable<Key, S, A> : IAnimator<S, A>
+        where A : IAnimation<S, A>
     {
-        private struct TableInfo
-        {
-            public IAnimation<S> animation;
-            public IAnimatable state;
 
-            public TableInfo(IAnimator<S> ator, IAnimation<S> ation)
-            {
-                animation = ation;
-                state = ation.CreateState(ator);
-            }
+        Dictionary<Key, IAnimator<S, A>> stateTable;
+        IAnimator<S, A> animator;
+
+        public int CurrentFrame
+        {
+            get { return animator.CurrentFrame;  }
         }
 
-        Dictionary<Key, TableInfo> stateTable;
+        public int NextFrame
+        {
+            get { return animator.NextFrame; }
+        }
 
-        public AnimationTable(S subject, Key initialKey, IEnumerable<KeyValuePair<Key, IAnimation<S>>> animations)
+        public S Subject { get; private set; }
+
+        public A Animation { get; private set; }
+
+        public AnimationTable(S subject, Key initialKey, IEnumerable<KeyValuePair<Key, IAnimation<S, A>>> animations)
         {
             Subject = subject;
             stateTable = animations.ToDictionary(
                 (pair) => pair.Key,
-                (pair) => new TableInfo (this, pair.Value)
+                (pair) => pair.Value.CreateAnimator(subject)
             );
             SetCurrent(initialKey);
         }
 
-        public void Add(Key key, IAnimation<S> animation)
+        public void Add(Key key, IAnimation<S, A> animation)
         {
-            stateTable[key] = new TableInfo(this, animation);  
+            stateTable[key] = animation.CreateAnimator(Subject);
         }
 
         public void Remove(Key key)
@@ -42,9 +47,18 @@ namespace GameEngineConcept.Graphics.Animations
 
         public void SetCurrent(Key key)
         {
-            var info = stateTable[key];
-            Animation = info.animation;
-            State = info.state;
+            animator = stateTable[key];
+            Animation = animator.Animation;
+        }
+
+        public void ToFrame(int n)
+        {
+            animator.ToFrame(n);
+        }
+
+        public bool Animate()
+        {
+            return animator.Animate();
         }
 
     }

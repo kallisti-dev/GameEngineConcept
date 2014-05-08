@@ -5,26 +5,26 @@ using System.Drawing;
 
 namespace GameEngineConcept.Graphics.Animations
 {
-    public class SpriteAnimationState : BaseAnimationState<Sprite, SpriteAnimation>
+    public class SpriteAnimator : Animator<Sprite, SpriteAnimation>
     {
         Point currentTexCoord, nextTexCoord;
         Point frameOffset;
 
 
-        public SpriteAnimationState(IAnimator<Sprite> ator, SpriteAnimation ation) : base(ator, ation)
+        public SpriteAnimator(Sprite sprite, SpriteAnimation animation) : base(sprite, animation)
         {
             nextTexCoord = currentTexCoord = animation.StartPoint;
-            frameOffset = animation.Slider.Multiply(animator.Subject.GetSize());
+            frameOffset = animation.Slider.Multiply(sprite.GetSize());
         }
 
         //shift NextFrame to n
         public override void ToFrame(int n)
         {
             //normalize frame input to [0,TotalFrames]
-            n %= animation.TotalFrames;
+            n %= Animation.TotalFrames;
             if (n < 0)
             {
-                n = animation.TotalFrames - n;
+                n = Animation.TotalFrames - n;
             }
 
             var diff = n - CurrentFrame;
@@ -39,7 +39,7 @@ namespace GameEngineConcept.Graphics.Animations
                 return false;
             currentTexCoord = nextTexCoord;
             CurrentFrame = NextFrame;
-            animator.Subject.SetTexCoord(currentTexCoord);
+            Subject.SetTexCoord(currentTexCoord);
             return true;
         }
     }

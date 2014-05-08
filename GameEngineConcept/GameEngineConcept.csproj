@@ -62,7 +62,6 @@
     <Compile Include="ExtensionMethods\ComparisonExtensions.cs" />
     <Compile Include="ExtensionMethods\IEnumerableExtensions.cs" />
     <Compile Include="ExtensionMethods\PointSizeExtensions.cs" />
-    <Compile Include="Graphics\Animations\BaseAnimationState.cs" />
     <Compile Include="Graphics\Animations\Interfaces.cs" />
     <Compile Include="Graphics\Animations\AnimationTable.cs" />
     <Compile Include="Graphics\DrawableDepthSet.cs" />
@@ -74,8 +73,8 @@
     <Compile Include="Graphics\Modes\ResizeMode.cs" />
     <Compile Include="Graphics\Modes\Texturing2DMode.cs" />
     <Compile Include="Graphics\Animations\SpriteAnimation.cs" />
-    <Compile Include="Graphics\Animations\Animator.cs" />
-    <Compile Include="Graphics\Animations\SpriteAnimationState.cs" />
+    <Compile Include="Graphics\Animations\BaseAnimator.cs" />
+    <Compile Include="Graphics\Animations\SpriteAnimator.cs" />
     <Compile Include="Graphics\Tileset.cs" />
     <Compile Include="Graphics\VertexBuffers\VertexIndices.cs" />
     <Compile Include="Graphics\Loaders\VertexLoader.cs" />
