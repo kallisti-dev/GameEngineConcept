@@ -8,7 +8,13 @@ namespace GameEngineConcept.Components
     //abstract base class for component messages
     public abstract class Message
     {
-        public StackTrace senderStackTrace = new StackTrace(1, true);
-        public Thread senderThread = Thread.CurrentThread;
+        public StackTrace StackTrace {get; private set;}
+        public Thread SenderThread {get; private set; }
+
+        public Message()
+        {
+            StackTrace = new StackTrace(1, true);
+            SenderThread = Thread.CurrentThread;
+        }
     }
 }
