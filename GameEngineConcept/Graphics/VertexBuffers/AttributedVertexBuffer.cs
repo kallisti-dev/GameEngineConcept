@@ -32,17 +32,12 @@ namespace GameEngineConcept.Graphics.VertexBuffers
 
         public T[] GetData<T>(int offset, int size) where T : struct
         {
-            T[] @out = null;
-            Bind(BufferTarget.ArrayBuffer, (b) =>
-            {
-                @out = b.GetData<T>(offset, size);
-            });
-            return @out;
+            return VBuffer.GetData<T>(offset, size);
         }
 
         public void SetData<T>(int offset, T[] data) where T : struct
         {
-            Bind(BufferTarget.ArrayBuffer, (b) => b.SetData(offset, data));
+            VBuffer.SetData<T>(offset, data);
         }
 
         public void Bind(BufferTarget target, IEnumerable<int> enabledAttributes, Action<IBoundVertexBuffer> inner)
