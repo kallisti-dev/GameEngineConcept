@@ -23,6 +23,11 @@ namespace GameEngineConcept.Graphics
             DrawDepth = depth;
         }
 
+        public DrawableDepthSet(IEnumerable<IDrawableDepth> e, int depth = 0) : base(e, comparer)
+        {
+            DrawDepth = depth;
+        }
+
         public void Draw()
         {
             foreach(var obj in this) 

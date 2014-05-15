@@ -1,6 +1,4 @@
-﻿using System;
-using OpenTK.Graphics.OpenGL4;
-
+﻿
 namespace GameEngineConcept.Graphics.Modes
 {
     //an interface for handling different openGL initializations
