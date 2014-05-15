@@ -37,8 +37,11 @@ namespace GameEngineTest.Tests
             //in the future it would be nice if this step is automatically handled somewhere in the engine. Unfortunately,
             //since interfaces cannot have static members we would have to use reflection libraries to auto-generate VertexAttributes.
 
-            //we use a loader to load vertices into an (attributed) vertex buffer.
+            //we use a loader to load vertices into an vertex buffer.
             VertexLoader<Vector2> loader = new VertexLoader<Vector2>(BufferUsageHint.DynamicDraw, aBuffer);
+            //For VertexLoader, we must manually specify attributes for the buffer. However, higher-level loaders
+            //such as SpriteLoader will automatically associate attributes to the buffer.
+            //
             //the "dynamic draw" usage hint tells openGL that we only intend to write data to the buffer.
             //the usage hint only affects the performance of the buffer, not its behavior.
 
@@ -60,10 +63,10 @@ namespace GameEngineTest.Tests
                     new Vector2(-1, -1)
             });
 
-            //once all the vertices have been added to the loader, we allocate vertices into the VertexBuffer in video memory.
+            //once all the vertices have been added to the loader, we load the vertex buffer
             loadedVertexSets = loader.Load();
             //The result is an enumeration of VertexSet objects, which represents
-            //logically associated sets of vertices within the vertex buffer.
+            //a drawable set of vertices within the vertex buffer.
             //In this test, a VertexSet represents a single 2D triangle.
         }
         public override void OnRenderFrame(FrameEventArgs e) 
