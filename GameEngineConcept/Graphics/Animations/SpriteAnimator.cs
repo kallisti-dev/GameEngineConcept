@@ -10,6 +10,13 @@ namespace GameEngineConcept.Graphics.Animations
         Point currentTexCoord, nextTexCoord;
         Point frameOffset;
 
+        public override int TotalFrames
+        {
+            get
+            {
+                return Animation.TotalFrames;
+            }
+        }
 
         public SpriteAnimator(Sprite sprite, SpriteAnimation animation) : base(sprite, animation)
         {

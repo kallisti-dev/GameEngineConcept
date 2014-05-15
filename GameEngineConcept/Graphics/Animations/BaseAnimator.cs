@@ -19,6 +19,8 @@ namespace GameEngineConcept.Graphics.Animations
 
         public int NextFrame { get; protected set;}
 
+        public abstract int TotalFrames { get; }
+
         protected BaseAnimator() { }
 
         public BaseAnimator(S subject, A animation)

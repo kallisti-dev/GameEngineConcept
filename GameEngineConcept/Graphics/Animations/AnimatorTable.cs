@@ -20,6 +20,11 @@ namespace GameEngineConcept.Graphics.Animations
             get { return currentAnimator.NextFrame; }
         }
 
+        public int TotalFrames
+        {
+            get { return currentAnimator.TotalFrames; }
+        }
+
         public S Subject { get; private set; }
 
         IAnimator<S> this[Key key]

@@ -18,6 +18,7 @@ namespace GameEngineConcept.Graphics.Animations
 
         int CurrentFrame { get; }
         int NextFrame { get; }
+        int TotalFrames { get; }
 
         void ToFrame(int n);
         void Animate();
