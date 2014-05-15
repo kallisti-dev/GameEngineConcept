@@ -42,7 +42,7 @@ namespace GameEngineTest.Tests
             //the "dynamic draw" usage hint tells openGL that we only intend to write data to the buffer.
             //the usage hint only affects the performance of the buffer, not its behavior.
 
-            //add a single triangle
+            //add a single triangle.
             loader.AddVertexSet(
                 PrimitiveType.Triangles,
                 new[] {
@@ -53,8 +53,9 @@ namespace GameEngineTest.Tests
 
             //once all the vertices have been added to the loader, we allocate vertices into the VertexBuffer in video memory.
             loadedVertexSets = loader.Load();
-            //The result is an enumeration of VertexSet objects, which represent
-            //a collection of vertices in video memory.
+            //The result is an enumeration of VertexSet objects, which represents
+            //logically associated sets of vertices within the vertex buffer.
+            //In this test, a VertexSet represents a single 2D triangle.
         }
         public override void OnRenderFrame(FrameEventArgs e) 
         {
