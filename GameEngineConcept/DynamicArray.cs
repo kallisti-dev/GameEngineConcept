@@ -12,7 +12,7 @@ namespace GameEngineConcept
         const int defaultCapacity = 10;
         static Func<int, int> defaultResizer = (n) => n == 0 ? defaultCapacity : (2 * n);
 
-        T[] array;        
+        T[] array;
         Func<int, int> resizer;
 
         public int Count { get; protected set; }

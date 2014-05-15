@@ -11,7 +11,7 @@ namespace GameEngineConcept
             var err = GL.GetError();
             if (err != ErrorCode.NoError) {
 
-                Debug.Print("GL Error found: err.ToString()");
+                Debug.Print("GL Error found: " + err.ToString());
                 Debug.Print(new StackTrace(1, true).ToString());
                 Debugger.Break();
             }
