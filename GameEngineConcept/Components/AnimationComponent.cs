@@ -30,24 +30,30 @@ namespace GameEngineConcept.Components
     /* Base AnimationComponent for use with the phased update system:
      * 
      * collection.Update<AnimationComponent>();
+     * collection.OfType<AnimationComponent>().Select(...);
      */
-    public abstract class AnimationComponent : IComponent
+    public abstract class AnimationComponent :
+        IReceiver<PauseAnimation>,
+        IReceiver<ResumeAnimation>,
+        IReceiver<LoopAnimation>
     {
         public abstract void Update();
+        public abstract bool Paused {get; set; }
+        public abstract bool Loop{get; set;}
+        public abstract void Receive(PauseAnimation msg);
+        public abstract void Receive(ResumeAnimation msg);
+        public abstract void Receive(LoopAnimation msg);
     }
 
     /* Game component that manages animation of a given subject */
     public class AnimationComponent<S> :
         AnimationComponent,
-        IReceiver<BeginAnimation<S>>,
-        IReceiver<PauseAnimation>,
-        IReceiver<ResumeAnimation>,
-        IReceiver<LoopAnimation>
+        IReceiver<BeginAnimation<S>>
     {
         S subject;
         IAnimator<S> animator = null;
-        public bool Paused { get; set; }
-        public bool Loop {get; set;}
+        public override bool Paused { get; set; }
+        public override bool Loop {get; set;}
 
         public AnimationComponent(S subject)
         {
@@ -84,17 +90,17 @@ namespace GameEngineConcept.Components
             BeginAnimation(msg.animation);
         }
 
-        public void Receive(PauseAnimation msg)
+        public override void Receive(PauseAnimation msg)
         {
             Paused = true;
         }
 
-        public void Receive(ResumeAnimation msg)
+        public override void Receive(ResumeAnimation msg)
         {
             Paused = false;
         }
 
-        public void Receive(LoopAnimation msg)
+        public override void Receive(LoopAnimation msg)
         {
             Loop = msg.loop;
         }

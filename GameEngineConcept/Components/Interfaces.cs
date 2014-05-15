@@ -25,6 +25,7 @@ namespace GameEngineConcept.Components
     {
         //broadcasts a state of type T to all inner components that implement IReceiverComponent<T>
         void Broadcast<T>(T state) where T : Message;
+
         //update all inner components that match type C
         void Update<C>() where C : IComponent;
     }

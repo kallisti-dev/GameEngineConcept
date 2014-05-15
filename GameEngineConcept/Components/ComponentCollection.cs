@@ -13,31 +13,26 @@ namespace GameEngineConcept.Components
         /* IComponentCollection interface */
         public void Update<C>() where C : IComponent
         {
-            foreach (IComponent c in this)
-            {
+            foreach (IComponent c in this) {
                 IComponentCollection collection;
-                if (c is C)
-                {
+                if (c is C) {
                     c.Update();
                 }
-                else if ((collection = c as IComponentCollection) != null)
-                {
+                else if ((collection = c as IComponentCollection) != null) {
                     collection.Update<C>();
                 }
             }
         }
+
         public void Broadcast<T>(T obj) where T : Message
         {
-            foreach (IComponent c in this)
-            {
+            foreach (IComponent c in this) {
                 IReceiver<T> rc;
                 IComponentCollection coll;
-                if ((coll = c as IComponentCollection) != null)
-                {
+                if ((coll = c as IComponentCollection) != null) {
                     coll.Broadcast<T>(obj);
                 }
-                else if ((rc = c as IReceiver<T>) != null)
-                {
+                else if ((rc = c as IReceiver<T>) != null) {
                     rc.Receive(obj);
                 }
             }
