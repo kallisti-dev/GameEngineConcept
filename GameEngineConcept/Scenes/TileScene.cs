@@ -33,7 +33,9 @@ namespace GameEngineConcept.Scenes
         public async override Task Load(Pool<VertexBuffer> vPool)
         {
             buffer = await vPool.Request();
-            sprites = tileSet.LoadTileMap(buffer, mapIndices, depth);
+            var loader = new SpriteLoader(BufferUsageHint.DynamicDraw, buffer);
+            tileSet.LoadTileMap(loader, mapIndices, depth);
+            sprites = loader.Load();
         }
 
         public override void Unload(Pool<VertexBuffer> vPool)

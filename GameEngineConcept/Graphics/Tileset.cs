@@ -41,10 +41,9 @@ namespace GameEngineConcept.Graphics
 
         }
 
-        public IEnumerable<Sprite> LoadTileMap(IBindableVertexBuffer buffer, Point[,] mapIndices, int depth)
+        public void LoadTileMap(SpriteLoader loader, Point[,] mapIndices, int depth)
         {
 
-            SpriteLoader loader = new SpriteLoader(BufferUsageHint.DynamicDraw, buffer);
             for (int i = 0; i < mapIndices.GetLength(0); ++i)
             {
                 for (int j = 0; i < mapIndices.GetLength(1); ++j)
@@ -57,7 +56,6 @@ namespace GameEngineConcept.Graphics
                         depth);
                 }
             }
-            return loader.Load();
         }
     }
 }
