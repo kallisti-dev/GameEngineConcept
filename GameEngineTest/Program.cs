@@ -23,6 +23,7 @@ namespace GameEngineTest
             {
                 window.AddTest<TestWindowTest>();
                 window.AddTest<BroadcastTestComponent>();
+                window.AddTest<Triangle2DDrawTest>();
                 window.Run();
             }
         }
