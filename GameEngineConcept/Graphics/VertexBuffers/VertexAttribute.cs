@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using OpenTK.Graphics.OpenGL4;
+﻿using OpenTK.Graphics.OpenGL4;
 
 namespace GameEngineConcept.Graphics.VertexBuffers
 {

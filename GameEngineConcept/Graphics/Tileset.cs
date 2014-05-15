@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using OpenTK;
-using OpenTK.Graphics.OpenGL4;
 
 using GameEngineConcept.Graphics.Loaders;
-using GameEngineConcept.Graphics.VertexBuffers;
 
 namespace GameEngineConcept.Graphics
 {
