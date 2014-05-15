@@ -9,22 +9,36 @@ namespace GameEngineTest.Tests
 {
 
     /* tests message broadcasting functionality of ComponentCollection */
-    public class BroadcastTestComponent : BaseTester, IComponent, IReceiver<BroadcastTestComponent.TestMessage>
+    public class BroadcastTestComponent : BaseTester, IReceiver<BroadcastTestComponent.TestMessage>
     {
+        int count = 0;
+
+        //dummy message (message content not important)
         public class TestMessage : Message { }
+        
+        //dummy component update (not used)
         public void Update() { }
-        public void Receive(TestMessage m)
-        {
-            TestSuccess();
-        }
 
         public override void OnLoad(TestWindow window)
         {
-            ComponentCollection collection = new ComponentCollection();
-            BroadcastTestComponent c = new BroadcastTestComponent();
-            collection.Add(c);
-            window.AddComponents(new[] {c});
-            collection.Broadcast(new TestMessage());
+            //create a component structure that references our test component
+            //at multiple levels of nesting.
+            var c = new ComponentCollection() {
+                this,
+                new ComponentCollection() { 
+                    this,
+                    new ComponentCollection() { this }
+                }
+            };
+            window.AddComponent(c);
+            c.Broadcast(new TestMessage());
+        }
+
+        public void Receive(TestMessage m)
+        {
+            if (++count == 3) {
+                TestSuccess();
+            }
         }
     }
 }

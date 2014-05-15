@@ -61,6 +61,11 @@ namespace GameEngineConcept
             drawSet.ExceptWith(drawables);
         }
 
+        public void AddComponent(IComponent component)
+        {
+            updateSet.Add(component);
+        }
+
         public void AddComponents(IEnumerable<IComponent> components)
         {
             updateSet.UnionWith(components);
@@ -69,6 +74,11 @@ namespace GameEngineConcept
         public void RemoveComponents(IEnumerable<IComponent> components)
         {
             updateSet.ExceptWith(components);
+        }
+
+        public void RemoveComponent(IComponent components)
+        {
+            updateSet.Remove(components);
         }
 
         public async Task AddScene(IScene scene)
