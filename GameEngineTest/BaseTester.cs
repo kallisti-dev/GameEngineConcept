@@ -6,7 +6,8 @@ namespace GameEngineTest
     public abstract class BaseTester
     {
 
-        public event Action<BaseTester, bool> TestComplete;
+        public event Action<BaseTester, bool> TestComplete = (sender,result) => { };
+
 
         public void TestSuccess()
         {
