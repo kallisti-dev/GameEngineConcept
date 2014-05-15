@@ -23,10 +23,49 @@ namespace GameEngineConcept.Components
     //a collection of game components, which itself acts as a component
     public interface IComponentCollection : IComponent, ICollection<IComponent>
     {
-        //broadcasts a state of type T to all inner components that implement IReceiverComponent<T>
-        void Broadcast<T>(T state) where T : Message;
+    }
 
-        //update all inner components that match type C
-        void Update<C>() where C : IComponent;
+    //component collection extensions
+    public static class IComponentCollectionExtensions
+    {
+
+        public static IEnumerable<C> Fetch<C>(this IEnumerable<IComponent> @this) where C : IComponent
+        {
+            foreach (var c in @this) {
+                IComponentCollection coll;
+                if (c is C)
+                    yield return (C)c;
+                if ((coll = c as IComponentCollection) != null) {
+                    foreach (var c2 in coll.Fetch<C>()) {
+                        yield return c2;
+                    }
+                }
+            }
+        }
+
+        //Fetch all descendent components
+        public static IEnumerable<IComponent> Fetch(this IEnumerable<IComponent> @this)
+        {
+            return @this.Fetch<IComponent>();
+        }
+
+        //Broadcast a message of type T to all descendents that implement IReceiver<T>
+        public static void Broadcast<T>(this IEnumerable<IComponent> @this, T obj) 
+            where T : Message
+        {
+            foreach (var c in @this.Fetch<IReceiver<T>>()) {
+                c.Receive(obj);
+            }
+        }
+
+        //Update all components whose type matchs C
+        public static void Update<C>(this IEnumerable<IComponent> @this) 
+            where C : IComponent
+        {
+            foreach (var c in @this.Fetch<C>()) {
+                c.Update();
+            }
+        }
+
     }
 }
