@@ -42,13 +42,22 @@ namespace GameEngineTest.Tests
             //the "dynamic draw" usage hint tells openGL that we only intend to write data to the buffer.
             //the usage hint only affects the performance of the buffer, not its behavior.
 
-            //add a single triangle.
+            //add a triangle.
             loader.AddVertexSet(
                 PrimitiveType.Triangles,
                 new[] {
                     new Vector2(0, 0),  //for simple position vertices, we use Vector2 struct from OpenTK library.
                     new Vector2(0, 1),  //
                     new Vector2(1, 1)   //for textured vertices we would use the engine's TexturedVertex2 struct
+            });
+
+            //add a second triangle
+            loader.AddVertexSet(
+                PrimitiveType.Triangles,
+                new[] {
+                    new Vector2(0, 0),
+                    new Vector2(0, -1),
+                    new Vector2(-1, -1)
             });
 
             //once all the vertices have been added to the loader, we allocate vertices into the VertexBuffer in video memory.
