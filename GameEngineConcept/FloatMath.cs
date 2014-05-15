@@ -29,7 +29,7 @@ namespace GameEngineConcept
 
         public static float Round(float n)
         {
-           return (int) n + Math.Sign(n)*0.5f;
+           return (int) n + 0.5f;
         }
     }
 }
