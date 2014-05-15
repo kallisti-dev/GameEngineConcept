@@ -3,8 +3,14 @@ using OpenTK.Graphics.OpenGL;
 
 namespace GameEngineConcept
 {
-    class Util
+    using Graphics;
+    using Graphics.VertexBuffers;
+
+    public class Util
     {
+
+        public static VertexAttribute[] vector2Attributes = new[] { TexturedVertex2.vAttributes[0] } ;
+
         //convenience function for debugging GL errors
         public static ErrorCode TraceGLError()
         {
