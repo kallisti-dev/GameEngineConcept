@@ -14,7 +14,7 @@ using GameEngineConcept.Graphics.VertexBuffers;
 namespace GameEngineTest.Tests
 {
     //draws a sprite on screen
-    public class SpriteDrawTest : BaseTester
+    public class SpriteDrawTest : DrawTester
     {
         DrawableDepthSet sprites;
 

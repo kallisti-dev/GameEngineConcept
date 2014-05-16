@@ -11,7 +11,7 @@ using GameEngineConcept.Graphics.VertexBuffers;
 
 namespace GameEngineTest.Tests
 {
-    class Triangle2DDrawTest : BaseTester
+    class Triangle2DDrawTest : DrawTester
     {
         IEnumerable<VertexSet> loadedVertexSets;
 
