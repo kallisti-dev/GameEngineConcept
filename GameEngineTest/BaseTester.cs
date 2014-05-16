@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Diagnostics;
 using OpenTK;
 
 namespace GameEngineTest
@@ -37,7 +38,7 @@ namespace GameEngineTest
         public virtual void OnResize() { }
         public virtual void Timeout()
         {
-            Console.Out.WriteLine("Timeout is called" + timeoutCounter);
+            Debug.Print("Timeout is called " + timeoutCounter);
             if (timeoutCounter <= 0)
             {
                 if (SucceedOnTimeout)
