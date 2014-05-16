@@ -8,13 +8,6 @@ namespace GameEngineConcept.Graphics.Loaders
     public class VertexLoader<V> : BaseVertexLoader<IAttributedVertexBuffer, V, VertexSet>
         where V : struct
     {
-        public class State 
-        {
-            public PrimitiveType mode;
-            public VertexIndices indices;
-            public int[] enabledAttribs;
-        }
-
         public VertexLoader(BufferUsageHint hint, IAttributedVertexBuffer buffer) : base(hint, buffer) { }
 
         public void AddVertexSet(PrimitiveType mode, V[] vertices, int[] enabledAttribs = null)
