@@ -36,7 +36,8 @@ namespace GameEngineTest
             Timeout();
         }
         public virtual void OnResize() { }
-        public virtual void Timeout()
+
+        private virtual void Timeout()
         {
             Debug.Print("Timeout is called " + timeoutCounter);
             if (timeoutCounter <= 0)
