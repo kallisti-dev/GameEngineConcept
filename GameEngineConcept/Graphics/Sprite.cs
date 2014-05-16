@@ -6,11 +6,13 @@ using OpenTK.Graphics.OpenGL4;
 
 namespace GameEngineConcept.Graphics
 {
+    using ExtensionMethods;
     using VertexBuffers;
+    using VertexAttributes;
 
     public class Sprite : TexturedVertexSet, IDrawableDepth, IHasPosition<Vector2>, IHasDimensions<int>
     {
-        public static VertexAttribute[] vAttributes = TexturedVertex2.vAttributes;
+        public static VertexAttributeSet vAttributes = TexturedVertex2.vAttributes;
 
         //create an array of sprite vertices given a position vector and a texture sampling rectangle
         public static TexturedVertex2[] CreateVertices (Vector2 pos, Rectangle texRect)

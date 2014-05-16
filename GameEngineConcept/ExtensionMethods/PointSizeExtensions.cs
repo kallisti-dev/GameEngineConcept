@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace GameEngineConcept
+namespace GameEngineConcept.ExtensionMethods
 {
     //this struct allows semi-implicit conversion between Point and Size from System.Drawing within our extension methods
     public struct PointSizeConverter

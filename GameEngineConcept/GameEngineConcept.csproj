@@ -67,6 +67,7 @@
     <Compile Include="ExtensionMethods\ComparisonExtensions.cs" />
     <Compile Include="ExtensionMethods\IEnumerableExtensions.cs" />
     <Compile Include="ExtensionMethods\PointSizeExtensions.cs" />
+    <Compile Include="ExtensionMethods\TypeExtensions.cs" />
     <Compile Include="Graphics\Animations\AnimationFunc.cs" />
     <Compile Include="Graphics\Animations\Interfaces.cs" />
     <Compile Include="Graphics\Animations\AnimatorTable.cs" />
@@ -82,6 +83,13 @@
     <Compile Include="Graphics\Animations\BaseAnimator.cs" />
     <Compile Include="Graphics\Animations\SpriteAnimator.cs" />
     <Compile Include="Graphics\Tileset.cs" />
+    <Compile Include="Graphics\VertexAttributes\ComponentType.cs" />
+    <Compile Include="Graphics\VertexAttributes\Interfaces.cs" />
+    <Compile Include="Graphics\VertexAttributes\VertexAttribute.cs" />
+    <Compile Include="Graphics\VertexAttributes\NumberOfComponents.cs" />
+    <Compile Include="Graphics\VertexAttributes\NormalizeComponents.cs" />
+    <Compile Include="Graphics\VertexAttributes\VertexAttributeSet.cs" />
+    <Compile Include="Graphics\VertexAttributes\VertexStruct.cs" />
     <Compile Include="Graphics\VertexBuffers\VertexIndices.cs" />
     <Compile Include="Graphics\Loaders\VertexLoader.cs" />
     <Compile Include="Graphics\VertexSet.cs" />
@@ -92,7 +100,7 @@
     <Compile Include="Components\ComponentCollection.cs" />
     <Compile Include="Graphics\Sprite.cs" />
     <Compile Include="Graphics\TexturedVertexSet.cs" />
-    <Compile Include="Graphics\VertexBuffers\VertexAttribute.cs" />
+    <Compile Include="Graphics\VertexAttributes\AttributeDescriptor.cs" />
     <Compile Include="Graphics\VertexBuffers\VertexBuffer.cs" />
     <Compile Include="EngineWindow.cs" />
     <Compile Include="FloatMath.cs" />

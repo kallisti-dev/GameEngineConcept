@@ -4,12 +4,15 @@ using OpenTK.Graphics.OpenGL4;
 
 namespace GameEngineConcept.Graphics.VertexBuffers
 {
+
+    using VertexAttributes;
+
     public class AttributedVertexBuffer : IAttributedVertexBuffer, IHasVertexBuffer<IBindableVertexBuffer>, IHasVertexAttributes
     {
         public IBindableVertexBuffer VBuffer { get; private set; }
-        public VertexAttribute[] VertexAttributes { get; private set; }
+        public VertexAttributeSet VertexAttributes { get; private set; }
 
-        public AttributedVertexBuffer(IBindableVertexBuffer buffer, VertexAttribute[] attributes)
+        public AttributedVertexBuffer(IBindableVertexBuffer buffer, VertexAttributeSet attributes)
         {
             VBuffer = buffer;
             VertexAttributes = attributes;
@@ -59,14 +62,6 @@ namespace GameEngineConcept.Graphics.VertexBuffers
             {
                 b.WithAttributes(VertexAttributes, () => inner(b));
             });
-        }
-
-        public int[] GetAttributeIndices() 
-        {
-            int[] indices = new int[VertexAttributes.Length];
-            for (int i = 0; i < indices.Length; ++i)
-                indices[i] = VertexAttributes[i].index;
-            return indices;
         }
     }
 }

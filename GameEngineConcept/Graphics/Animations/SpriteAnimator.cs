@@ -2,6 +2,8 @@
 
 namespace GameEngineConcept.Graphics.Animations
 {
+    using ExtensionMethods;
+
     public class SpriteAnimator : BaseAnimator<Sprite, SpriteAnimation>
     {
         Point currentTexCoord, nextTexCoord;

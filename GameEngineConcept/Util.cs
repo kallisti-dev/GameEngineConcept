@@ -1,15 +1,21 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Reflection;
 using OpenTK.Graphics.OpenGL4;
 
 namespace GameEngineConcept
 {
     using Graphics;
     using Graphics.VertexBuffers;
+    using Graphics.VertexAttributes;
 
     public class Util
     {
 
-        public static VertexAttribute[] vector2Attributes = new[] { TexturedVertex2.vAttributes[0] } ;
+        public const BindingFlags AllInstanceFields = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.GetField;
+
+        public static VertexAttributeSet vector2Attributes = TexturedVertex2.vAttributes;
 
         //convenience function for debugging GL errors
         public static ErrorCode TraceGLError()
@@ -23,5 +29,12 @@ namespace GameEngineConcept
             }
             return err;
         }
+
+        public static Comparer<A> CompareBy<A,B>(Func<A,B> f) where
+            B : IComparable<B>
+        {
+            return Comparer<A>.Create((x, y) => f(x).CompareTo(f(y)));
+        }
+
     }
 }

@@ -2,6 +2,8 @@
 
 namespace GameEngineConcept.Graphics.Animations
 {
+    using ExtensionMethods;
+
     //describes the animation of a sprite via sprite sheet manipulations
     public class SpriteAnimation : IAnimatable<Sprite>
     {

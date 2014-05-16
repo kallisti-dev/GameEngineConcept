@@ -27,7 +27,7 @@ namespace GameEngineConcept
 
         HashSet<IScene> sceneSet = new HashSet<IScene>();
         ComponentCollection updateSet = new ComponentCollection();
-        SortedSet<IDrawable> drawSet;
+        HashSet<IDrawable> drawSet;
         DrawableDepthSet depthSet = new DrawableDepthSet();
         BufferBlock<IRelease> releaseQueue = new BufferBlock<IRelease>();
         Pool<VertexBuffer> vPool;
@@ -37,7 +37,7 @@ namespace GameEngineConcept
         public EngineWindow()
             : base(800, 600, GraphicsMode.Default, "foo", GameWindowFlags.Default, null, 3, 0, GraphicsContextFlags.Default)
         {
-            drawSet = new SortedSet<IDrawable> { depthSet };
+            drawSet = new HashSet<IDrawable> { depthSet };
             CurrentGraphicsMode = null;
         }
 
@@ -182,7 +182,7 @@ namespace GameEngineConcept
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
-            WithGraphicsMode(new ResizeMode(Width, Height), () => { });
+            //WithGraphicsMode(new ResizeMode(Width, Height), () => { });
         }
 
         private void processReleaseQueue()

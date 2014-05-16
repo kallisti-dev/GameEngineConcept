@@ -1,4 +1,5 @@
-﻿using OpenTK.Graphics.OpenGL4;
+﻿using System.Collections.Generic;
+using OpenTK.Graphics.OpenGL4;
 
 using GameEngineConcept.Graphics.VertexBuffers;
 
@@ -10,7 +11,7 @@ namespace GameEngineConcept.Graphics
 
         protected TexturedVertexSet() : base() { }
 
-        public TexturedVertexSet(Texture tex, PrimitiveType mode, IAttributedVertexBuffer buffer, VertexIndices indices, int[] enabledAttribs = null)
+        public TexturedVertexSet(Texture tex, PrimitiveType mode, IAttributedVertexBuffer buffer, VertexIndices indices, ISet<int> enabledAttribs = null)
             : base(mode, buffer, indices, enabledAttribs)
         {
             Texture = tex;

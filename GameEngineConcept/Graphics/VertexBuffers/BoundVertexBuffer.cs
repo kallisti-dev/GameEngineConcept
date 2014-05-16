@@ -6,6 +6,9 @@ using OpenTK.Graphics.OpenGL4;
 
 namespace GameEngineConcept.Graphics.VertexBuffers
 {
+
+    using VertexAttributes;
+
     public struct BoundVertexBuffer : IBoundVertexBuffer
     {
         IVertexBuffer buffer;
@@ -49,14 +52,14 @@ namespace GameEngineConcept.Graphics.VertexBuffers
             indices.DrawVertices(type);
         }
 
-        public void WithAttributes(VertexAttribute[] attrs, Action inner)
+        public void WithAttributes(VertexAttributeSet attrs, Action inner)
         {
             EnableAttributes(attrs);
             try { inner(); }
-            finally { DisableAttributes(Enumerable.Range(0, attrs.Length)); }
+            finally { DisableAttributes(attrs.Indices); }
         }
 
-        public void WithAttributes(VertexAttribute[] attrs, IEnumerable<int> indices, Action inner)
+        public void WithAttributes(VertexAttributeSet attrs, IEnumerable<int> indices, Action inner)
         {
             EnableAttributes(attrs, indices);
             try { inner(); }
@@ -64,23 +67,19 @@ namespace GameEngineConcept.Graphics.VertexBuffers
         }
 
 
-        private void EnableAttributes(VertexAttribute[] attrs)
+        private void EnableAttributes(VertexAttributeSet attrs)
         {
-            for (int i = 0; i < attrs.Length; ++i)
-            {
-                GL.EnableVertexAttribArray(i);
-                GL.VertexAttribPointer(i, attrs[i].nComponents, attrs[i].type, attrs[i].normalized, attrs[i].stride, attrs[i].offset);
+            foreach (var attr in attrs) {
+                attr.Load();
             }
         }
 
-        private void EnableAttributes(VertexAttribute[] attrs, IEnumerable<int> indices)
+        private void EnableAttributes(VertexAttributeSet attrs, IEnumerable<int> indices)
         {
-            for (int i = 0; i < attrs.Length; ++i)
-            {
-                GL.VertexAttribPointer(i, attrs[i].nComponents, attrs[i].type, attrs[i].normalized, attrs[i].stride, attrs[i].offset);
+            foreach(var attr in attrs) {
+                attr.Load();
             }
-            foreach (uint i in indices)
-            {
+            foreach(int i in indices) {
                 GL.EnableVertexAttribArray(i);
             }
         }

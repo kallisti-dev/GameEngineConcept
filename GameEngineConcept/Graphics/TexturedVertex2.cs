@@ -8,25 +8,22 @@ using GameEngineConcept.Graphics.VertexBuffers;
 
 namespace GameEngineConcept.Graphics
 {
+
+    using VertexAttributes;
+
     [StructLayout(LayoutKind.Sequential)]
+    [VertexAttributeDefaults]
     public struct TexturedVertex2 : IHasVertexAttributes
     {
 
-        public static VertexAttribute[] vAttributes;
+        public static VertexAttributeSet vAttributes = VertexAttributeSet.Create(typeof(TexturedVertex2));
 
-        //static constructor
-        static TexturedVertex2() {
-            Type t = typeof(TexturedVertex2);
-            int size = Marshal.SizeOf(t);
-            vAttributes = new[] {
-                new VertexAttribute(0, 2, VertexAttribPointerType.Float, false, size, (int)Marshal.OffsetOf(t, "position")),
-                new VertexAttribute(1, 2, VertexAttribPointerType.Int, false, size, (int)Marshal.OffsetOf(t, "texel"))
-            };
-        }
+        public VertexAttributeSet VertexAttributes { get { return vAttributes; } }
 
-        public VertexAttribute[] VertexAttributes { get { return vAttributes; } }
-
+        [NormalizeComponents(true)]
         public Vector2 position;
+
+        [NormalizeComponents(false)]
         public Point texel;
 
         public TexturedVertex2(Vector2 pos, Point tex) {

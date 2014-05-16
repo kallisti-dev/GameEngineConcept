@@ -4,11 +4,7 @@ using OpenTK.Graphics.OpenGL4;
 
 namespace GameEngineConcept.Graphics.VertexBuffers
 {
-
-    public interface IHasVertexAttributes
-    {
-        VertexAttribute[] VertexAttributes { get; }
-    }
+    using VertexAttributes;
 
     public interface IHasVertexBuffer<out B> where B : IVertexBuffer
     {
@@ -35,12 +31,11 @@ namespace GameEngineConcept.Graphics.VertexBuffers
     public interface IAttributedVertexBuffer : IHasVertexAttributes, IBindableVertexBuffer
     {
         void Bind(BufferTarget target, IEnumerable<int> enabledAttributes, Action<IBoundVertexBuffer> inner);
-        int[] GetAttributeIndices();
     }
 
     public interface IBoundVertexBuffer : IDrawableVertexBuffer
     {
-        void WithAttributes(VertexAttribute[] attrs, Action inner);
-        void WithAttributes(VertexAttribute[] attrs, IEnumerable<int> indices, Action inner);
+        void WithAttributes(VertexAttributeSet attrs, Action inner);
+        void WithAttributes(VertexAttributeSet attrs, IEnumerable<int> indices, Action inner);
     }
 }

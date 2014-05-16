@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GameEngineConcept
+namespace GameEngineConcept.ExtensionMethods
 {
     using Graphics;
     using Graphics.VertexBuffers;

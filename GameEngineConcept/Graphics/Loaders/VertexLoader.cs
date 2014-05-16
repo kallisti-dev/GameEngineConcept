@@ -10,7 +10,7 @@ namespace GameEngineConcept.Graphics.Loaders
     {
         public VertexLoader(BufferUsageHint hint, IAttributedVertexBuffer buffer) : base(hint, buffer) { }
 
-        public void AddVertexSet(PrimitiveType mode, V[] vertices, int[] enabledAttribs = null)
+        public void AddVertexSet(PrimitiveType mode, V[] vertices, ISet<int> enabledAttribs = null)
         {
             AddState(new VertexSet(mode, VBuffer, VertexIndices.FromRange(currentIndex, vertices.Length), enabledAttribs));
             AddVertices(vertices);
