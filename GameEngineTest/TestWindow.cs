@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using OpenTK;
+using OpenTK.Graphics.OpenGL4;
 
 using GameEngineConcept;
 
@@ -84,8 +85,14 @@ namespace GameEngineTest
             try { testAction(); }
             catch (Exception ex) {
                 Debug.Print(ex.StackTrace.ToString());
+                Debugger.Break();
+                currentTest.TestFailure();
+                return;
+            }
+            if (ErrorCode.NoError != Util.TraceGLError()) {
                 currentTest.TestFailure();
             }
+            
         }
     }
 }
