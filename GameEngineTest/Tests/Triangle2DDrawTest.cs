@@ -17,6 +17,7 @@ namespace GameEngineTest.Tests
 
         public override void OnLoad(TestWindow window) 
         {
+            base.OnLoad(window);
             //a vertex buffer is an array of vertices within video memory
             //
             //In this test we allocate a VertexBuffer directly. However, for performance in-game we use a Pool<VertexBuffer>
@@ -69,6 +70,7 @@ namespace GameEngineTest.Tests
         }
         public override void OnRenderFrame(FrameEventArgs e) 
         {
+            base.OnRenderFrame(e);
             //our loaded vertex sets now represent on-screen objects that can be drawn
             foreach (VertexSet v in loadedVertexSets) {
                 v.Draw();

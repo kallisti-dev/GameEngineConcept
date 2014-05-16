@@ -21,6 +21,7 @@ namespace GameEngineTest.Tests
         //see Triangle2DDrawTest for a general tutorial of the resource loading pattern
         public override void OnLoad(TestWindow window)
         {
+            base.OnLoad(window);
             var tex = Texture.Allocate();
             tex.LoadImageFile("assets/sprite-example.png");
 
@@ -37,6 +38,7 @@ namespace GameEngineTest.Tests
         }
         public  override void OnRenderFrame(FrameEventArgs e) 
         {
+            base.OnRenderFrame(e);
             sprites.Draw();
         }
     }

@@ -18,6 +18,7 @@ namespace GameEngineTest.Tests
 
         public override void OnLoad(TestWindow window)
         {
+            base.OnLoad(window);
             //create a component structure that references our test component
             //at multiple levels of nesting.
             var c = new ComponentCollection() {
