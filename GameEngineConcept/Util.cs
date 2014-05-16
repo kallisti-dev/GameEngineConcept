@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
+using OpenTK;
 using OpenTK.Graphics.OpenGL4;
 
 namespace GameEngineConcept
@@ -15,7 +16,7 @@ namespace GameEngineConcept
 
         public const BindingFlags AllInstanceFields = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.GetField;
 
-        public static VertexAttributeSet vector2Attributes = TexturedVertex2.vAttributes;
+        public static VertexAttributeSet vector2Attributes = VertexAttributeSet.Create<Vector2>();
 
         //convenience function for debugging GL errors
         public static ErrorCode TraceGLError()

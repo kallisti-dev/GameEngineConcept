@@ -35,7 +35,9 @@ namespace GameEngineConcept.ExtensionMethods
 
         public static VertexAttribPointerType? GetComponentAttribPointerType(this Type t)
         {
-            VertexAttribPointerType? aType = null;
+            VertexAttribPointerType? aType = t.GetVertexAttribPointerType();
+            if (aType.HasValue)
+                return aType.Value;
             foreach (var field in t.GetFields(Util.AllInstanceFields)) {
                 var fieldAType = field.FieldType.GetVertexAttribPointerType();
                 if (aType == null) {

@@ -23,6 +23,11 @@ namespace GameEngineConcept.Graphics.VertexAttributes
         public VertexAttributeSet() : base(cmp) { }
         public VertexAttributeSet(IEnumerable<VertexAttribute> e) : base(e, cmp) { }
 
+        public static VertexAttributeSet Create<T>() where T : struct
+        {
+            return Create(typeof(T));
+        }
+
         public static VertexAttributeSet Create(Type t)
         {
             if (t.IsPrimitive || !t.IsValueType)
@@ -48,7 +53,7 @@ namespace GameEngineConcept.Graphics.VertexAttributes
                     }
 
                     if (!foundComponentType) {  //if attr.type was never initialized...
-                        var maybeType = field.FieldType.GetComponentAttribPointerType();
+                        var maybeType = field.FieldType.GetComponentAttribPointerType(); //attempt to determine component types
                         if (maybeType.HasValue)
                             attr.type = maybeType.Value;
                         else
