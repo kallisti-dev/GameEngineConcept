@@ -9,7 +9,13 @@ namespace GameEngineTest
 
         public event Action<BaseTester, bool> TestComplete;
         private int timeoutCounter = 300; //Assuming 60 cycles a second then this is 5 seconds
-        private bool succeedOnTimeout = false;
+
+        public virtual bool SucceedOnTimeout { get; protected set; }
+
+        protected BaseTester()
+        {
+            SucceedOnTimeout = false;
+        }
 
         public void TestSuccess()
         {
@@ -41,11 +47,6 @@ namespace GameEngineTest
                 else TestFailure();
             }
             else timeoutCounter--;
-        }
-        public bool SucceedOnTimeout
-        {
-            get { return succeedOnTimeout; }
-            set { succeedOnTimeout = value; }
         }
     }
 }
