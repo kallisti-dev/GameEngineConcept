@@ -83,7 +83,7 @@ namespace GameEngineConcept
 
         public async Task AddScene(IScene scene)
         {
-            if (scene.IsLoaded)
+            if (!scene.IsLoaded)
                 await scene.Load(vPool);
             scene.Activate(this);
             sceneSet.Add(scene);
