@@ -52,7 +52,7 @@
     <Compile Include="Tests\BroadcastTestComponent.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tests\DrawTester.cs" />
+    <Compile Include="DrawTester.cs" />
     <Compile Include="Tests\SpriteDrawTest.cs" />
     <Compile Include="Tests\TestWindowTest.cs" />
     <Compile Include="Tests\Triangle2DDrawTest.cs" />

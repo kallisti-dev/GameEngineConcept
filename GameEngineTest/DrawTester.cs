@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameEngineTest.Tests
+namespace GameEngineTest
 {
     //abstract base class for draw tests
     public abstract class DrawTester : BaseTester
