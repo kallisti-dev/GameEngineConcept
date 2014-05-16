@@ -7,38 +7,16 @@ namespace GameEngineConcept.Graphics.Loaders
 {
     using VertexBuffers;
 
-    public class SpriteLoader : BaseVertexLoader<IAttributedVertexBuffer, TexturedVertex2, SpriteLoader.State, Sprite>
+    public class SpriteLoader : BaseVertexLoader<IAttributedVertexBuffer, TexturedVertex2, Sprite>
     {
-
-        public class State
-        {
-            public Texture tex;
-            //public Rectangle rect;
-            //public Vector2 pos;
-            public PrimitiveType type;
-            public int index;
-            public int depth;
-            public int[] enabledAttribs;
-        }
 
         public SpriteLoader(BufferUsageHint hint, IBindableVertexBuffer buffer) 
             : base(hint, new AttributedVertexBuffer(buffer, TexturedVertex2.vAttributes)) { }
 
         public void AddSprite(Texture tex, Vector2 pos, Rectangle rect, int depth = 0)
         {
-            AddState(new State {
-                tex = tex,
-                //rect = rect,
-                //pos = pos,
-                depth = depth,
-                index = currentIndex,
-            });
+            AddState(new Sprite(tex, VBuffer, currentIndex, depth));
             AddVertices(Sprite.CreateVertices(pos, rect));
-        }
-
-        protected override Sprite CreateVertexOutput(State state)
-        {
-            return new Sprite(state.tex, VBuffer, state.index, state.depth);
         }
     }
 }

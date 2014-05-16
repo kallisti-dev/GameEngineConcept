@@ -1,10 +1,11 @@
-﻿using OpenTK.Graphics.OpenGL4;
+﻿using System.Collections.Generic;
+using OpenTK.Graphics.OpenGL4;
 
 using GameEngineConcept.Graphics.VertexBuffers;
 
 namespace GameEngineConcept.Graphics.Loaders
 {
-    public class VertexLoader<V> : BaseVertexLoader<IAttributedVertexBuffer, V, VertexLoader<V>.State, VertexSet>
+    public class VertexLoader<V> : BaseVertexLoader<IAttributedVertexBuffer, V, VertexSet>
         where V : struct
     {
         public class State 
@@ -18,18 +19,8 @@ namespace GameEngineConcept.Graphics.Loaders
 
         public void AddVertexSet(PrimitiveType mode, V[] vertices, int[] enabledAttribs = null)
         {
-            AddState(new State
-            {
-                mode = mode,
-                indices = VertexIndices.Create(currentIndex, vertices.Length),
-                enabledAttribs = enabledAttribs
-            });
+            AddState(new VertexSet(mode, VBuffer, VertexIndices.FromRange(currentIndex, vertices.Length), enabledAttribs));
             AddVertices(vertices);
-        }
-
-        protected override VertexSet CreateVertexOutput(State s) 
-        {
-            return new VertexSet(s.mode, VBuffer, s.indices, s.enabledAttribs);
         }
     }
 }

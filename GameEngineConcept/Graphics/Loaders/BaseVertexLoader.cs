@@ -6,6 +6,21 @@ namespace GameEngineConcept.Graphics.Loaders
 {
     using VertexBuffers;
 
+    //vertex loader where output and state type are the same
+    public abstract class BaseVertexLoader<BufferType, VIn, VOut> : BaseVertexLoader<BufferType, VIn, VOut, VOut>
+        where BufferType : IVertexBuffer
+        where VIn : struct
+    {
+
+        protected BaseVertexLoader(BufferUsageHint hint, BufferType buffer) : base(hint, buffer) { }
+
+        protected sealed override IEnumerable<VOut> CreateVertexOutput(VOut state)
+        {
+            yield return state;
+        }
+    }
+
+    //vertex loader with internal state type
     public abstract class BaseVertexLoader<BufferType, VIn, VState, VOut> 
         : ILoader<IEnumerable<VOut>>, IHasVertexBuffer<BufferType>
         where BufferType : IVertexBuffer
@@ -18,13 +33,6 @@ namespace GameEngineConcept.Graphics.Loaders
         private DynamicArray<VIn> vList;
         private List<VState> stateList;
 
-        protected abstract VOut CreateVertexOutput(VState state);
-
-        public virtual IEnumerable<VOut> Load()
-        {
-            LoadBuffer();
-            return ConsumeAddedStates();
-        }
 
         protected BaseVertexLoader(BufferUsageHint hint, BufferType buffer)
         {
@@ -35,6 +43,12 @@ namespace GameEngineConcept.Graphics.Loaders
             this.hint = hint;
         }
 
+        //Converts an internal state value into one or more output values
+        //
+        //all subclasses must define this conversion
+        protected abstract IEnumerable<VOut> CreateVertexOutput(VState state);
+
+        //queues vertices to be copied into the vertex buffer
         protected void AddVertices(VIn[] vertices)
         {
             for (int i = 0; i < vertices.Length; ++i)
@@ -44,22 +58,34 @@ namespace GameEngineConcept.Graphics.Loaders
             currentIndex += vertices.Length;
         }
 
+        //queues a new state value
         protected void AddState(VState s)
         {
             stateList.Add(s);
         }
 
 
+        //dequeues all added state values and returns an enumeration of them
         protected IEnumerable<VOut> ConsumeAddedStates()
         {
-            var outs = stateList.Select(CreateVertexOutput);
+            var outs = stateList.SelectMany(CreateVertexOutput);
             stateList.Clear();
             return outs;
         }
 
+        //loads all queued vertices into the vertex buffer (should only be called once)
         protected void LoadBuffer()
         {
             VBuffer.LoadData(hint, vList.InternalArray);
+        }
+
+        //public-facing load method, which should load the buffer and produce an enumeration of output values
+        //
+        //subclasses may wish to override this to provide custom behavior
+        public virtual IEnumerable<VOut> Load()
+        {
+            LoadBuffer();
+            return ConsumeAddedStates();
         }
     }
 }
