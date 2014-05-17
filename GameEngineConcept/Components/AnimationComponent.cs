@@ -24,28 +24,13 @@ namespace GameEngineConcept.Components
         public LoopAnimation(bool loop = true) { this.loop = loop; }
     }
 
-    /* Base AnimationComponent for use with the phased update system:
-     * 
-     * collection.Update<AnimationComponent>();
-     * collection.OfType<AnimationComponent>().Select(...);
-     */
-    public abstract class AnimationComponent :
-        IReceiver<PauseAnimation>,
-        IReceiver<ResumeAnimation>,
-        IReceiver<LoopAnimation>
-    {
-        public abstract void Update();
-        public abstract bool Paused {get; set; }
-        public abstract bool Loop{get; set;}
-        public abstract void Receive(PauseAnimation msg);
-        public abstract void Receive(ResumeAnimation msg);
-        public abstract void Receive(LoopAnimation msg);
-    }
 
     /* Game component that manages animation of a given subject */
     public class AnimationComponent<S> :
-        AnimationComponent,
-        IReceiver<BeginAnimation<S>>
+        IReceiver<BeginAnimation<S>>,
+        IReceiver<PauseAnimation>,
+        IReceiver<ResumeAnimation>,
+        IReceiver<LoopAnimation>
     {
         S subject;
         IAnimator<S> animator = null;
