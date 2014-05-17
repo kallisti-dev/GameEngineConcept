@@ -61,23 +61,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\AnimationComponent.cs" />
-    <Compile Include="Components\Interfaces.cs" />
+    <Compile Include="Components\_Interfaces.cs" />
     <Compile Include="Components\Message.cs" />
     <Compile Include="Components\MiscellaneousComponent.cs" />
-    <Compile Include="ExtensionMethods\ComparisonExtensions.cs" />
     <Compile Include="ExtensionMethods\IEnumerableExtensions.cs" />
     <Compile Include="ExtensionMethods\PointSizeExtensions.cs" />
     <Compile Include="ExtensionMethods\TypeExtensions.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="Graphics\Animations\AnimationFunc.cs" />
-    <Compile Include="Graphics\Animations\Interfaces.cs" />
+    <Compile Include="Graphics\Animations\_Interfaces.cs" />
     <Compile Include="Graphics\Animations\AnimatorTable.cs" />
     <Compile Include="Graphics\DrawableDepthSet.cs" />
     <Compile Include="Graphics\Loaders\BaseVertexLoader.cs" />
-    <Compile Include="Graphics\Loaders\Interfaces.cs" />
+    <Compile Include="Graphics\Loaders\_Interfaces.cs" />
     <Compile Include="Graphics\Loaders\SpriteLoader.cs" />
     <Compile Include="Graphics\Loaders\TMXLoader.cs" />
-    <Compile Include="Graphics\Modes\Interfaces.cs" />
+    <Compile Include="Graphics\Modes\_Interfaces.cs" />
     <Compile Include="Graphics\Modes\ResizeMode.cs" />
     <Compile Include="Graphics\Modes\Texturing2DMode.cs" />
     <Compile Include="Graphics\Animations\SpriteAnimation.cs" />
@@ -85,7 +84,7 @@
     <Compile Include="Graphics\Animations\SpriteAnimator.cs" />
     <Compile Include="Graphics\Tileset.cs" />
     <Compile Include="Graphics\VertexAttributes\ComponentType.cs" />
-    <Compile Include="Graphics\VertexAttributes\Interfaces.cs" />
+    <Compile Include="Graphics\VertexAttributes\_Interfaces.cs" />
     <Compile Include="Graphics\VertexAttributes\VertexAttribute.cs" />
     <Compile Include="Graphics\VertexAttributes\NumberOfComponents.cs" />
     <Compile Include="Graphics\VertexAttributes\NormalizeComponents.cs" />
@@ -94,28 +93,28 @@
     <Compile Include="Graphics\VertexBuffers\VertexIndices.cs" />
     <Compile Include="Graphics\Loaders\VertexLoader.cs" />
     <Compile Include="Graphics\VertexSet.cs" />
-    <Compile Include="Graphics\Interfaces.cs" />
+    <Compile Include="Graphics\_Interfaces.cs" />
     <Compile Include="Graphics\VertexBuffers\AttributedVertexBuffer.cs" />
     <Compile Include="Graphics\VertexBuffers\BoundVertexBuffer.cs" />
-    <Compile Include="Graphics\VertexBuffers\Interfaces.cs" />
+    <Compile Include="Graphics\VertexBuffers\_Interfaces.cs" />
     <Compile Include="Components\ComponentCollection.cs" />
     <Compile Include="Graphics\Sprite.cs" />
     <Compile Include="Graphics\TexturedVertexSet.cs" />
     <Compile Include="Graphics\VertexAttributes\AttributeDescriptor.cs" />
     <Compile Include="Graphics\VertexBuffers\VertexBuffer.cs" />
     <Compile Include="EngineWindow.cs" />
-    <Compile Include="FloatMath.cs" />
+    <Compile Include="Util\FloatMath.cs" />
     <Compile Include="Pool.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Graphics\Texture.cs" />
     <Compile Include="Graphics\TexturedVertex2.cs" />
-    <Compile Include="DynamicArray.cs" />
-    <Compile Include="Scenes\Interfaces.cs" />
+    <Compile Include="Util\DynamicArray.cs" />
+    <Compile Include="Scenes\_Interfaces.cs" />
     <Compile Include="Scenes\JoinScenes.cs" />
     <Compile Include="Scenes\OverrideScene.cs" />
     <Compile Include="Scenes\Scene.cs" />
     <Compile Include="Scenes\TileScene.cs" />
-    <Compile Include="Util.cs" />
+    <Compile Include="Util\Util.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

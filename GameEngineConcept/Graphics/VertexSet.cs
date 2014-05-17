@@ -36,24 +36,22 @@ namespace GameEngineConcept.Graphics
 
         public VertexAttributeSet VertexAttributes { get { return VBuffer.VertexAttributes; } }
 
+        public int DrawDepth { get; protected set; }
+
         protected VertexSet() { }
 
-        public VertexSet(PrimitiveType mode, IAttributedVertexBuffer buffer, VertexIndices indices, ISet<int> enabledAttribs = null)
+        public VertexSet(PrimitiveType mode, IAttributedVertexBuffer buffer, VertexIndices indices, ISet<int> enabledAttribs = null, int depth = 0)
         {
             DrawMode = mode;
             VBuffer = buffer;
             EnabledAttributes = enabledAttribs;
             this.indices = indices;
+            DrawDepth = depth;
         }
 
         public int CompareTo(IDrawable d)
         {
-            return -d.CompareTo(VBuffer);
-        }
-
-        public int CompareTo(IVertexBuffer b)
-        {
-            return VBuffer.CompareTo(b);
+            return DrawDepth.CompareTo(d.DrawDepth);
         }
          
         public virtual void Draw()

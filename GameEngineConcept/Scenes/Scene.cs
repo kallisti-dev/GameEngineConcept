@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 
 namespace GameEngineConcept.Scenes
 {
+
     //abstract base class for Scenes
     //static convenience functions for Scenes go here as well.
     public abstract class Scene : IScene
@@ -24,8 +25,6 @@ namespace GameEngineConcept.Scenes
 
         public abstract void Unload(Pool<VertexBuffer> pool);
 
-        public abstract void Activate(EngineWindow window);
-
-        public abstract void Deactivate(EngineWindow window);
+        public abstract void Activate(GameState window);
     }
 }

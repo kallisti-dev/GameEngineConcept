@@ -30,14 +30,9 @@ namespace GameEngineConcept.Scenes
             foreach(var scene in scenes.Reverse<IScene>()) { scene.Unload(pool); }
         }
 
-        public override void Activate(EngineWindow w)
+        public override void Activate(GameState s)
         {
-            foreach (var scene in scenes) { scene.Activate(w); }
-        }
-
-        public override void Deactivate(EngineWindow w)
-        {
-            foreach (var scene in scenes.Reverse<IScene>()) { scene.Deactivate(w); }
+            foreach (var scene in scenes) { scene.Activate(s); }
         }
     }
 }

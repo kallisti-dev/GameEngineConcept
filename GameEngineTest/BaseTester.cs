@@ -1,4 +1,5 @@
-﻿using OpenTK;
+﻿using GameEngineConcept;
+using OpenTK;
 using System;
 using System.Diagnostics;
 
@@ -28,8 +29,8 @@ namespace GameEngineTest
             TestComplete(this, false);
         }
 
-        public virtual void OnLoad(TestWindow window) { }
-        public virtual void OnUnload(TestWindow window) { }
+        public virtual void OnLoad(GameState window) { }
+        public virtual void OnUnload(GameState window) { }
         public virtual void OnRenderFrame(FrameEventArgs e) { }
         public virtual void OnUpdateFrame(FrameEventArgs e) 
         {

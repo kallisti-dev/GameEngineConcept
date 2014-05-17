@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 
 namespace GameEngineConcept.Scenes
 {
+
+
     //TODO: progress meters?
     public interface IScene
     {
@@ -12,9 +14,8 @@ namespace GameEngineConcept.Scenes
 
         void Unload(Pool<VertexBuffer> pool);
 
-        void Activate(EngineWindow window);
+        void Activate(GameState state);
 
-        void Deactivate(EngineWindow window);
 
     }
 }

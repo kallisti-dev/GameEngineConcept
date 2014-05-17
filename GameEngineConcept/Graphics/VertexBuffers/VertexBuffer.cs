@@ -48,7 +48,7 @@ namespace GameEngineConcept.Graphics.VertexBuffers
 
         public int CompareTo(IVertexBuffer b)
         {
-            return b.CompareTo(vboId);
+            return -b.CompareTo(vboId);
         }
 
         public void LoadData<T>(BufferUsageHint hint, T[] data) where T : struct

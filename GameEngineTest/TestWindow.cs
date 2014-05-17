@@ -1,4 +1,5 @@
 ﻿using GameEngineConcept;
+using GameEngineConcept.Util;
 using OpenTK;
 using OpenTK.Graphics.OpenGL4;
 using System;
@@ -49,12 +50,12 @@ namespace GameEngineTest
         private void StartNextTest()
         {
             if (currentTest != null) {
-                currentTest.OnUnload(this);
+                currentTest.OnUnload(RootState);
                 currentTest.TestComplete -= TestCompleteHandler;
             }
             currentTest = tests.Dequeue();
             currentTest.TestComplete += TestCompleteHandler;
-            TestFailOnException(() => currentTest.OnLoad(this));
+            TestFailOnException(() => currentTest.OnLoad(RootState));
         }
 
         //event handler for test completion

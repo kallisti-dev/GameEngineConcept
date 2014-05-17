@@ -1,4 +1,5 @@
-﻿using GameEngineConcept.Components;
+﻿using GameEngineConcept;
+using GameEngineConcept.Components;
 
 namespace GameEngineTest.Tests
 {
@@ -14,9 +15,9 @@ namespace GameEngineTest.Tests
         //dummy component update (not used)
         public void Update() { }
 
-        public override void OnLoad(TestWindow window)
+        public override void OnLoad(GameState s)
         {
-            base.OnLoad(window);
+            base.OnLoad(s);
             //create a component structure that references our test component
             //at multiple levels of nesting.
             var c = new ComponentCollection() {
@@ -26,7 +27,7 @@ namespace GameEngineTest.Tests
                     new ComponentCollection() { this }
                 }
             };
-            window.AddComponent(c);
+            s.AddComponents(new[] { c });
             c.Broadcast(new TestMessage());
         }
 

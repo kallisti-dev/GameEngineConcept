@@ -2,6 +2,7 @@
 using GameEngineConcept.Graphics;
 using GameEngineConcept.Graphics.Loaders;
 using GameEngineConcept.Graphics.VertexBuffers;
+using GameEngineConcept.Util;
 using OpenTK;
 using OpenTK.Graphics.OpenGL4;
 using System.Collections.Generic;
@@ -12,9 +13,9 @@ namespace GameEngineTest.Tests
     {
         IEnumerable<VertexSet> loadedVertexSets;
 
-        public override void OnLoad(TestWindow window) 
+        public override void OnLoad(GameState state) 
         {
-            base.OnLoad(window);
+            base.OnLoad(state);
             //a vertex buffer is an array of vertices within video memory
             //
             //In this test we allocate a VertexBuffer directly. However, for performance in-game we use a Pool<VertexBuffer>

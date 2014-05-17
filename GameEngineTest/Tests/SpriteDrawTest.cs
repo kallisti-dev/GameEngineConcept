@@ -1,4 +1,5 @@
-﻿using GameEngineConcept.Graphics;
+﻿using GameEngineConcept;
+using GameEngineConcept.Graphics;
 using GameEngineConcept.Graphics.Loaders;
 using GameEngineConcept.Graphics.VertexBuffers;
 using OpenTK;
@@ -13,9 +14,9 @@ namespace GameEngineTest.Tests
         DrawableDepthSet sprites;
 
         //see Triangle2DDrawTest for a general tutorial of the resource loading pattern
-        public override void OnLoad(TestWindow window)
+        public override void OnLoad(GameState state)
         {
-            base.OnLoad(window);
+            base.OnLoad(state);
             var tex = Texture.Allocate();
             tex.LoadImageFile("assets/sprite-example.png");
 

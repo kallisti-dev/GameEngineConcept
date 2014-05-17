@@ -15,14 +15,10 @@ namespace GameEngineConcept.Scenes
 
         public override abstract void Unload(Pool<VertexBuffer> pool);
 
-        public override void Activate(EngineWindow w)
+        public override void Activate(GameState s)
         {
-            scenes = w.RemoveAllScenes();
+            scenes = s.Window.RemoveAllScenes();
         }
 
-        public override void Deactivate(EngineWindow w)
-        {
-            w.AddScenes(scenes);
-        }
     }
 }

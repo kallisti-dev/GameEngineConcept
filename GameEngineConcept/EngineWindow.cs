@@ -1,5 +1,4 @@
-﻿using GameEngineConcept.Components;
-using GameEngineConcept.Graphics;
+﻿using GameEngineConcept.Graphics;
 using GameEngineConcept.Graphics.Modes;
 using GameEngineConcept.Graphics.VertexBuffers;
 using GameEngineConcept.Scenes;
@@ -24,51 +23,57 @@ namespace GameEngineConcept
             mainWindow.releaseQueue.SendAsync(releaseObj);
         }
 
-        HashSet<IScene> sceneSet = new HashSet<IScene>();
+
+        Dictionary<IScene, GameState> sceneSet = new Dictionary<IScene, GameState>();
         BufferBlock<IRelease> releaseQueue = new BufferBlock<IRelease>();
         Pool<VertexBuffer> vPool;
-        GameState state;
+        public GameState RootState { get; private set; }   //root game state for this window
 
         public IGraphicsMode CurrentGraphicsMode { get; private set; }
 
         public EngineWindow()
             : base(800, 600, GraphicsMode.Default, "foo", GameWindowFlags.Default, null, 3, 0, GraphicsContextFlags.Default)
         {
-            state = new GameState();
+            RootState = new GameState(this);
             CurrentGraphicsMode = null;
-        }
-
-        public async Task AddScene(IScene scene)
-        {
-            if (!scene.IsLoaded)
-                await scene.Load(vPool);
-            scene.Activate(this);
-            sceneSet.Add(scene);
         }
 
         public Task AddScenes(IEnumerable<IScene> scenes)
         {
-            return Task.WhenAll(scenes.Select(AddScene));
+            return Task.WhenAll(scenes.Select(async (scene) => {
+                if (!scene.IsLoaded)
+                    await scene.Load(vPool);
+                var sceneState = new GameState(this, RootState);
+                scene.Activate(sceneState);
+                sceneSet.Add(scene, sceneState);
+            }));
         }
+
+        public Task AddScenes(params IScene[] scenes) { return AddScenes(scenes);  }
 
         public void RemoveScene(IScene scene)
         {
-            if (sceneSet.Remove(scene)) {
-                scene.Deactivate(this);
-            }
         }
 
         public void RemoveScenes(IEnumerable<IScene> scenes)
         {
-            foreach (var s in sceneSet) { RemoveScene(s); }
+            foreach (var scene in sceneSet.Keys) {
+                GameState sceneState;
+                if (sceneSet.TryGetValue(scene, out sceneState)) {
+                    sceneState.Parent = null;
+                    sceneSet.Remove(scene);
+                }
+            }
         }
+
+        public void RemoveScenes(params IScene[] scenes) { RemoveScenes(scenes); }
 
         //removes all scenes from the window. returns a collection of the scenes that can later be
         //passed to AddScenes to restore them.
         public IEnumerable<IScene> RemoveAllScenes()
         {
-            var scenesCopy = new HashSet<IScene>(sceneSet);
-            RemoveScenes(sceneSet);
+            var scenesCopy = new HashSet<IScene>(sceneSet.Keys);
+            RemoveScenes(sceneSet.Keys);
             return scenesCopy;
         }
 
@@ -123,7 +128,6 @@ namespace GameEngineConcept
 
         protected override void OnRenderFrame(FrameEventArgs e)
         {
-            foreach (IDrawable x in drawSet) { x.Draw(); }
             base.OnRenderFrame(e);
             //SwapBuffers();
         }
@@ -131,8 +135,6 @@ namespace GameEngineConcept
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             processReleaseQueue();
-            updateSet.Update<AnimationComponent>();
-            updateSet.Update<MiscellaneousComponent>();
             base.OnUpdateFrame(e);
         }
 

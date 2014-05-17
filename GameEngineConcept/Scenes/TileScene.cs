@@ -42,16 +42,10 @@ namespace GameEngineConcept.Scenes
             sprites = null;
         }
 
-        public override void Activate(EngineWindow window)
+        public override void Activate(GameState state)
         {
             Debug.Assert(IsLoaded);
-            window.AddDrawables(sprites);
-        }
-
-        public override void Deactivate(EngineWindow window)
-        {
-            if (!IsLoaded) return;
-            window.RemoveDrawables(sprites);
+            state.AddDrawables(sprites);
         }
 
 

@@ -4,16 +4,11 @@ using System.Drawing;
 
 namespace GameEngineConcept.Graphics
 {
-    using VertexBuffers;
 
     //object that can draw with no extra parameters needed
-    public interface IDrawable : IComparable<IDrawable>, IComparable<IVertexBuffer>
+    public interface IDrawable : IComparable<IDrawable>
     {
         void Draw();
-    }
-
-    public interface IDrawableDepth : IDrawable
-    {
         int DrawDepth { get; }
     }
 
