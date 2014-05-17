@@ -25,59 +25,17 @@ namespace GameEngineConcept
         }
 
         HashSet<IScene> sceneSet = new HashSet<IScene>();
-        ComponentCollection updateSet = new ComponentCollection();
-        HashSet<IDrawable> drawSet;
-        DrawableDepthSet depthSet = new DrawableDepthSet();
         BufferBlock<IRelease> releaseQueue = new BufferBlock<IRelease>();
         Pool<VertexBuffer> vPool;
+        GameState state;
 
         public IGraphicsMode CurrentGraphicsMode { get; private set; }
 
         public EngineWindow()
             : base(800, 600, GraphicsMode.Default, "foo", GameWindowFlags.Default, null, 3, 0, GraphicsContextFlags.Default)
         {
-            drawSet = new HashSet<IDrawable> { depthSet };
+            state = new GameState();
             CurrentGraphicsMode = null;
-        }
-
-        public void AddDrawables(IEnumerable<IDrawableDepth> drawables)
-        {
-            depthSet.UnionWith(drawables);
-        }
-
-        public void AddDrawables(IEnumerable<IDrawable> drawables)
-        {
-            drawSet.UnionWith(drawables);
-        }
-
-        public void RemoveDrawables(IEnumerable<IDrawableDepth> drawables)
-        {
-            depthSet.ExceptWith(drawables);
-        }
-
-        public void RemoveDrawables(IEnumerable<IDrawable> drawables)
-        {
-            drawSet.ExceptWith(drawables);
-        }
-
-        public void AddComponent(IComponent component)
-        {
-            updateSet.Add(component);
-        }
-
-        public void AddComponents(IEnumerable<IComponent> components)
-        {
-            updateSet.UnionWith(components);
-        }
-
-        public void RemoveComponents(IEnumerable<IComponent> components)
-        {
-            updateSet.ExceptWith(components);
-        }
-
-        public void RemoveComponent(IComponent components)
-        {
-            updateSet.Remove(components);
         }
 
         public async Task AddScene(IScene scene)

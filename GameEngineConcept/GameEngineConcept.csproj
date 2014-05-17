@@ -68,6 +68,7 @@
     <Compile Include="ExtensionMethods\IEnumerableExtensions.cs" />
     <Compile Include="ExtensionMethods\PointSizeExtensions.cs" />
     <Compile Include="ExtensionMethods\TypeExtensions.cs" />
+    <Compile Include="GameState.cs" />
     <Compile Include="Graphics\Animations\AnimationFunc.cs" />
     <Compile Include="Graphics\Animations\Interfaces.cs" />
     <Compile Include="Graphics\Animations\AnimatorTable.cs" />
