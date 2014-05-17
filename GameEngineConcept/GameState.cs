@@ -67,7 +67,7 @@ namespace GameEngineConcept
 
         public void AddComponents(IEnumerable<IComponent> components)
         {
-            updateSet.UnionWith(components);
+            updateSet.AddRange(components);
             if (Parent != null) Parent.AddComponents(components);
         }
 
@@ -77,7 +77,7 @@ namespace GameEngineConcept
 
         public void RemoveComponents(IEnumerable<IComponent> components)
         {
-            updateSet.ExceptWith(components);
+            updateSet.AddRange(components);
             if (Parent != null) Parent.RemoveComponents(components);
         }
 

@@ -2,7 +2,7 @@
 
 namespace GameEngineConcept.Components
 {
-    public class ComponentCollection : HashSet<IComponent>, IComponentCollection
+    public class ComponentCollection : List<IComponent>, IComponentCollection
     {
         public void Update()
         {
