@@ -10,8 +10,8 @@ namespace GameEngineTest
 
         public event Action<BaseTester, bool> TestComplete;
 
-        public virtual bool SucceedOnTimeout { get; protected set; }
-        public virtual int FramesUntilTimeout { get; protected set; }
+        public bool SucceedOnTimeout { get; protected set; }
+        public int FramesUntilTimeout { get; protected set; }
 
         protected BaseTester()
         {
