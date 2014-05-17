@@ -2,6 +2,8 @@
 
 namespace GameEngineConcept.Graphics.Animations
 {
+    using Util;
+
     public enum FrameRoundingType { Floor, Round, Truncate, Ceiling };
 
     //static extension methods for creating transformations on existing animations

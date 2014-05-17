@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace GameEngineConcept
+namespace GameEngineConcept.Util
 {
     //since List<T> doesn't expose its internal array pointer, we need to roll our own dynamically resizing array implementation.
     public class DynamicArray<T> : IEnumerable<T>

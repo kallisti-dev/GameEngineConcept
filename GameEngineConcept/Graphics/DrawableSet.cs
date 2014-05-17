@@ -5,8 +5,10 @@ namespace GameEngineConcept.Graphics
 {
 
     [Serializable]
-    public class DrawableDepthSet : SortedSet<IDrawable>, IDrawable
+    public class DrawableSet : SortedSet<IDrawable>, IDrawable
     {
+       /* 
+        //deprecated
        static IComparer<IDrawable> comparer = Comparer<IDrawable>.Create((a, b) => {
            var cmp = a.DrawDepth.CompareTo(b.DrawDepth);
            if (cmp == 0)
@@ -14,15 +16,16 @@ namespace GameEngineConcept.Graphics
            else
                return cmp;
        });
+        */
 
        public int DrawDepth { get; protected set; }
 
-        public DrawableDepthSet(int depth = 0) : base(comparer) 
+        public DrawableSet(int depth = 0) : base() 
         {
             DrawDepth = depth;
         }
 
-        public DrawableDepthSet(IEnumerable<IDrawable> e, int depth = 0) : base(e, comparer)
+        public DrawableSet(IEnumerable<IDrawable> e, int depth = 0) : base(e)
         {
             DrawDepth = depth;
         }

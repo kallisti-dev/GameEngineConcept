@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-namespace GameEngineConcept.Graphics.VertexBuffers
+
+namespace GameEngineConcept
 {
+    using Graphics;
+    using Graphics.VertexBuffers;
+
     //convenience functions for resource pools
     public static class Pool
     {

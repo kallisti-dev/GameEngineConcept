@@ -71,7 +71,7 @@
     <Compile Include="Graphics\Animations\AnimationFunc.cs" />
     <Compile Include="Graphics\Animations\_Interfaces.cs" />
     <Compile Include="Graphics\Animations\AnimatorTable.cs" />
-    <Compile Include="Graphics\DrawableDepthSet.cs" />
+    <Compile Include="Graphics\DrawableSet.cs" />
     <Compile Include="Graphics\Loaders\BaseVertexLoader.cs" />
     <Compile Include="Graphics\Loaders\_Interfaces.cs" />
     <Compile Include="Graphics\Loaders\SpriteLoader.cs" />

@@ -6,7 +6,7 @@ namespace GameEngineConcept
 {
     public class GameState
     {
-        DrawableDepthSet drawSet = new DrawableDepthSet();
+        DrawableSet drawSet = new DrawableSet();
         ComponentCollection updateSet = new ComponentCollection();
 
         public IEnumerable<IDrawable> Drawables { get { return drawSet; } }
@@ -28,6 +28,11 @@ namespace GameEngineConcept
                     _parent.RemoveComponents(Components);
                     _parent.RemoveDrawables(Drawables);
                 }
+                if (value != null) {
+                    value.AddComponents(Components);
+                    value.AddDrawables(Drawables);
+                }
+                _parent = value;
             }
         }
 

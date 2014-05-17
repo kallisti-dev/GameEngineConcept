@@ -1,5 +1,5 @@
 ﻿
-namespace GameEngineConcept
+namespace GameEngineConcept.Util
 {
     public static class FloatMath
     {

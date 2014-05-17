@@ -8,6 +8,7 @@ namespace GameEngineConcept.Graphics.VertexAttributes
 {
 
     using ExtensionMethods;
+    using Util;
 
     public class VertexAttributeSet : SortedSet<VertexAttribute>
     {

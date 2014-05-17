@@ -3,6 +3,8 @@ using System;
 
 namespace GameEngineConcept.ExtensionMethods
 {
+    using Util;
+
     public static class TypeExtensions
     {
 

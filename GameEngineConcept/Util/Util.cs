@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 
-namespace GameEngineConcept
+namespace GameEngineConcept.Util
 {
     using Graphics.VertexAttributes;
 

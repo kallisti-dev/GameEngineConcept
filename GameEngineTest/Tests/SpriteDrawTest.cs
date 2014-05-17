@@ -11,7 +11,7 @@ namespace GameEngineTest.Tests
     //draws a sprite on screen
     public class SpriteDrawTest : DrawTester
     {
-        DrawableDepthSet sprites;
+        DrawableSet sprites;
 
         //see Triangle2DDrawTest for a general tutorial of the resource loading pattern
         public override void OnLoad(GameState state)
@@ -28,7 +28,7 @@ namespace GameEngineTest.Tests
                 new Rectangle(0, 0, 48, 21)    //source rectangle in sprite sheet
             );
 
-            sprites = new DrawableDepthSet(loader.Load());
+            sprites = new DrawableSet(loader.Load());
             
         }
         public  override void OnRenderFrame(FrameEventArgs e) 

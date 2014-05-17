@@ -51,10 +51,6 @@ namespace GameEngineConcept
 
         public Task AddScenes(params IScene[] scenes) { return AddScenes(scenes);  }
 
-        public void RemoveScene(IScene scene)
-        {
-        }
-
         public void RemoveScenes(IEnumerable<IScene> scenes)
         {
             foreach (var scene in sceneSet.Keys) {
