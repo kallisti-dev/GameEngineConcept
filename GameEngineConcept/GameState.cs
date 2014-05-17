@@ -1,4 +1,5 @@
-﻿using GameEngineConcept.Components;
+﻿using System;
+using GameEngineConcept.Components;
 using GameEngineConcept.Graphics;
 using System.Collections.Generic;
 
@@ -13,6 +14,9 @@ namespace GameEngineConcept
 
         public IDrawableCollection Drawables { get { return drawSet; } }
         public IComponentCollection  Components { get { return updateSet; } }
+        
+        public event Action<GameState> OnOverride; //called at the beginning of Override method
+        public event Action<GameState> OnRestore;  //called after a Snapshot of this state is restored
 
         GameState _parent;
 
@@ -44,6 +48,7 @@ namespace GameEngineConcept
             Parent = parent;
             Window = window;
         }
+
 
         public void AddDrawables(IEnumerable<IDrawable> drawables)
         {
@@ -84,6 +89,39 @@ namespace GameEngineConcept
         public void RemoveComponents(params IComponent[] components) { RemoveComponents(components); }
 
         public void RemoveComponent(IComponent component) { RemoveComponents(new[] { component }); }
+
+        //Removes all state from this GameState and returns a GameState.Snapshot that can be used
+        //to restore it
+        public Snapshot Override()
+        {
+            OnOverride(this);
+            var snapshot = new Snapshot(this, new List<IDrawable>(Drawables), new List<IComponent>(Components));
+            RemoveComponents((IEnumerable<IComponent>)Components);
+            RemoveDrawables((IEnumerable<IDrawable>)Drawables);
+            return snapshot;
+        }
+
+        //inner class representing a "snapshot" of an overriden state that can later be restored
+        public class Snapshot
+        {
+            GameState overriden;
+            IEnumerable<IDrawable> drawables;
+            IEnumerable<IComponent> components;
+
+            internal Snapshot(GameState o, IEnumerable<IDrawable> d, IEnumerable<IComponent> c)
+            {
+                overriden = o;
+                drawables = d;
+                components = c;
+            }
+
+            public void Restore()
+            {
+                overriden.AddDrawables(drawables);
+                overriden.AddComponents(components);
+                overriden.OnRestore(overriden);
+            }
+        }
 
     }
 }
