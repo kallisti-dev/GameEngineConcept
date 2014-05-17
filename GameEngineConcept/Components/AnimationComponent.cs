@@ -34,9 +34,9 @@ namespace GameEngineConcept.Components
     {
         S subject;
         IAnimator<S> animator = null;
-        public override bool Paused { get; set; }
-        public override bool Loop {get; set;}
-
+        public bool Paused { get; set; }
+        public bool Loop {get; set;}
+        
         public AnimationComponent(S subject)
         {
             this.subject = subject;
@@ -53,7 +53,7 @@ namespace GameEngineConcept.Components
         }
 
 
-        public override void Update()
+        public void Update()
         {
             if(animator == null)
                 return;
@@ -72,17 +72,17 @@ namespace GameEngineConcept.Components
             BeginAnimation(msg.animation);
         }
 
-        public override void Receive(PauseAnimation msg)
+        public void Receive(PauseAnimation msg)
         {
             Paused = true;
         }
 
-        public override void Receive(ResumeAnimation msg)
+        public void Receive(ResumeAnimation msg)
         {
             Paused = false;
         }
 
-        public override void Receive(LoopAnimation msg)
+        public void Receive(LoopAnimation msg)
         {
             Loop = msg.loop;
         }
