@@ -9,13 +9,14 @@ namespace GameEngineTest
     {
 
         public event Action<BaseTester, bool> TestComplete;
-        private int timeoutCounter = 300; //Assuming 60 cycles a second then this is 5 seconds
 
         public virtual bool SucceedOnTimeout { get; protected set; }
+        public virtual int FramesUntilTimeout { get; protected set; }
 
         protected BaseTester()
         {
             SucceedOnTimeout = false;
+            FramesUntilTimeout = 300;
         }
 
         public void TestSuccess()
@@ -33,14 +34,14 @@ namespace GameEngineTest
         public virtual void OnRenderFrame(FrameEventArgs e) { }
         public virtual void OnUpdateFrame(FrameEventArgs e) 
         {
-            Timeout();
+            CheckTimeout();
         }
         public virtual void OnResize() { }
 
-        private void Timeout()
+        private void CheckTimeout()
         {
-            Debug.Print("Timeout is called " + timeoutCounter);
-            if (timeoutCounter <= 0)
+            Debug.Print("Timeout is called " + FramesUntilTimeout);
+            if (FramesUntilTimeout <= 0)
             {
                 if (SucceedOnTimeout)
                 {
@@ -48,7 +49,7 @@ namespace GameEngineTest
                 }
                 else TestFailure();
             }
-            else timeoutCounter--;
+            else FramesUntilTimeout--;
         }
     }
 }
