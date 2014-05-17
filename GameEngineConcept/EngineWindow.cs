@@ -125,13 +125,15 @@ namespace GameEngineConcept
         protected override void OnRenderFrame(FrameEventArgs e)
         {
             base.OnRenderFrame(e);
-            //SwapBuffers();
+            RootState.Drawables.Draw();
+            SwapBuffers();
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
-            processReleaseQueue();
             base.OnUpdateFrame(e);
+            RootState.Components.Update();
+            processReleaseQueue();
         }
 
         protected override void OnResize(EventArgs e)

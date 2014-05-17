@@ -1,5 +1,6 @@
 ﻿using OpenTK;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace GameEngineConcept.Graphics
@@ -16,6 +17,11 @@ namespace GameEngineConcept.Graphics
     {
         T Width { get; }
         T Height { get; }
+    }
+
+    public interface IDrawableCollection : IDrawable, IReadOnlyCollection<IDrawable>
+    {
+
     }
 
     public static class IHasDimensionsExtensions

@@ -17,7 +17,7 @@ namespace GameEngineConcept.Components
     }
 
     //a collection of game components, which itself acts as a component
-    public interface IComponentCollection : IComponent, ICollection<IComponent>
+    public interface IComponentCollection : IComponent, IReadOnlyCollection<IComponent>
     {
     }
 

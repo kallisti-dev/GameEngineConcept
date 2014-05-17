@@ -9,8 +9,10 @@ namespace GameEngineConcept
         DrawableSet drawSet = new DrawableSet();
         ComponentCollection updateSet = new ComponentCollection();
 
-        public IEnumerable<IDrawable> Drawables { get { return drawSet; } }
-        public IEnumerable<IComponent> Components { get { return updateSet; } }
+
+
+        public IDrawableCollection Drawables { get { return drawSet; } }
+        public IComponentCollection  Components { get { return updateSet; } }
 
         GameState _parent;
 
@@ -25,12 +27,12 @@ namespace GameEngineConcept
             set
             {
                 if (_parent != null) {
-                    _parent.RemoveComponents(Components);
-                    _parent.RemoveDrawables(Drawables);
+                    _parent.RemoveComponents((IEnumerable<IComponent>)Components);
+                    _parent.RemoveDrawables((IEnumerable<IDrawable>)Drawables);
                 }
                 if (value != null) {
-                    value.AddComponents(Components);
-                    value.AddDrawables(Drawables);
+                    value.AddComponents((IEnumerable<IComponent>)Components);
+                    value.AddDrawables((IEnumerable<IDrawable>)Drawables);
                 }
                 _parent = value;
             }
@@ -43,16 +45,15 @@ namespace GameEngineConcept
             Window = window;
         }
 
-
         public void AddDrawables(IEnumerable<IDrawable> drawables)
         {
             drawSet.UnionWith(drawables);
             if (Parent != null) Parent.AddDrawables(drawables);
         }
 
-
         public void AddDrawables(params IDrawable[] drawables) { AddDrawables(drawables); }
 
+        public void AddDrawable(IDrawable drawable) { AddDrawables(drawable); }
 
         public void RemoveDrawables(IEnumerable<IDrawable> drawables)
         {
@@ -62,6 +63,8 @@ namespace GameEngineConcept
 
         public void RemoveDrawables(params IDrawable[] drawables) { RemoveDrawables(drawables); }
 
+        public void RemoveDrawable(IDrawable drawable) { RemoveDrawables(drawable); }
+
         public void AddComponents(IEnumerable<IComponent> components)
         {
             updateSet.UnionWith(components);
@@ -70,6 +73,8 @@ namespace GameEngineConcept
 
         public void AddComponents(params IComponent[] components) { AddComponents(components); }
 
+        public void AddComponent(IComponent component) { AddComponents(new[] { component });  }
+
         public void RemoveComponents(IEnumerable<IComponent> components)
         {
             updateSet.ExceptWith(components);
@@ -77,6 +82,8 @@ namespace GameEngineConcept
         }
 
         public void RemoveComponents(params IComponent[] components) { RemoveComponents(components); }
+
+        public void RemoveComponent(IComponent component) { RemoveComponents(new[] { component }); }
 
     }
 }

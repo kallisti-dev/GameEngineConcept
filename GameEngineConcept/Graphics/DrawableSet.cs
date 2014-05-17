@@ -5,7 +5,7 @@ namespace GameEngineConcept.Graphics
 {
 
     [Serializable]
-    public class DrawableSet : SortedSet<IDrawable>, IDrawable
+    public class DrawableSet : SortedSet<IDrawable>, IDrawableCollection
     {
        /* 
         //deprecated
