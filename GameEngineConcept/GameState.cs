@@ -21,7 +21,7 @@ namespace GameEngineConcept
         GameState _parent;
 
 
-        public EngineWindow Window { get; private set; }
+        protected EngineWindow window;
 
         public GameState Parent {
             get
@@ -46,7 +46,7 @@ namespace GameEngineConcept
         public GameState(EngineWindow window, GameState parent = null)
         {
             Parent = parent;
-            Window = window;
+            this.window = window;
         }
 
 

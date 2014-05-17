@@ -111,7 +111,6 @@
     <Compile Include="Util\DynamicArray.cs" />
     <Compile Include="Scenes\_Interfaces.cs" />
     <Compile Include="Scenes\JoinScenes.cs" />
-    <Compile Include="Scenes\OverrideScene.cs" />
     <Compile Include="Scenes\Scene.cs" />
     <Compile Include="Scenes\TileScene.cs" />
     <Compile Include="Util\Util.cs" />
