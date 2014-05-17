@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using GameEngineConcept.Components;
+﻿using GameEngineConcept.Components;
 
 namespace GameEngineTest.Tests
 {

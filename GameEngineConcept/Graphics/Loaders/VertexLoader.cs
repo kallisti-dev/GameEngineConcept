@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using GameEngineConcept.Graphics.VertexBuffers;
 using OpenTK.Graphics.OpenGL4;
-
-using GameEngineConcept.Graphics.VertexBuffers;
+using System.Collections.Generic;
 
 namespace GameEngineConcept.Graphics.Loaders
 {

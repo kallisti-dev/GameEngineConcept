@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Linq;
-using System.Diagnostics;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 namespace GameEngineConcept.Graphics.VertexAttributes
 {
 
     using ExtensionMethods;
-    using VertexAttributes;
 
     public class VertexAttributeSet : SortedSet<VertexAttribute>
     {

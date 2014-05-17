@@ -1,6 +1,6 @@
-﻿using System.Runtime.InteropServices;
-using OpenTK;
+﻿using OpenTK;
 using System.Drawing;
+using System.Runtime.InteropServices;
 
 
 namespace GameEngineConcept.Graphics

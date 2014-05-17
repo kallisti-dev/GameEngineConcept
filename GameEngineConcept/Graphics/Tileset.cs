@@ -1,9 +1,8 @@
-﻿using System;
+﻿using GameEngineConcept.Graphics.Loaders;
+using OpenTK;
+using System;
 using System.Diagnostics;
 using System.Drawing;
-using OpenTK;
-
-using GameEngineConcept.Graphics.Loaders;
 
 namespace GameEngineConcept.Graphics
 {

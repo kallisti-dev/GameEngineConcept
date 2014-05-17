@@ -1,7 +1,6 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using OpenTK;
+using System;
 using System.Diagnostics;
-using OpenTK;
 
 namespace GameEngineTest
 {

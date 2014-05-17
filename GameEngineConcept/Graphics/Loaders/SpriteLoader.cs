@@ -1,12 +1,11 @@
-﻿using System.Drawing;
-
-using OpenTK;
+﻿using OpenTK;
 using OpenTK.Graphics.OpenGL4;
+using System.Drawing;
 
 namespace GameEngineConcept.Graphics.Loaders
 {
-    using VertexBuffers;
     using VertexAttributes;
+    using VertexBuffers;
 
     public class SpriteLoader : BaseVertexLoader<IAttributedVertexBuffer, TexturedVertex2, Sprite>
     {

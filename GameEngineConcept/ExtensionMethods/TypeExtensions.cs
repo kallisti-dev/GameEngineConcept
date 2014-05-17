@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-
-using OpenTK.Graphics.OpenGL4;
+﻿using OpenTK.Graphics.OpenGL4;
+using System;
 
 namespace GameEngineConcept.ExtensionMethods
 {

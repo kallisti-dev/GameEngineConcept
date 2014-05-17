@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using GameEngineConcept;
 using OpenTK;
 using OpenTK.Graphics.OpenGL4;
-
-using GameEngineConcept;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace GameEngineTest
 {

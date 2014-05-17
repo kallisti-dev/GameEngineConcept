@@ -1,6 +1,6 @@
-﻿using System;
+﻿using OpenTK;
+using System;
 using System.Drawing;
-using OpenTK;
 
 namespace GameEngineConcept.Graphics
 {

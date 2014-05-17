@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Diagnostics;
 using System.Threading;
-using System.Diagnostics;
 
 namespace GameEngineConcept.Components
 {

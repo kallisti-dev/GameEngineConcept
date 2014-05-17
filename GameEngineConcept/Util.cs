@@ -1,14 +1,12 @@
-﻿using System;
+﻿using OpenTK;
+using OpenTK.Graphics.OpenGL4;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
-using OpenTK;
-using OpenTK.Graphics.OpenGL4;
 
 namespace GameEngineConcept
 {
-    using Graphics;
-    using Graphics.VertexBuffers;
     using Graphics.VertexAttributes;
 
     public class Util

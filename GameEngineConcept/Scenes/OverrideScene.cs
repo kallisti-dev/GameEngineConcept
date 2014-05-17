@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using GameEngineConcept.Graphics.VertexBuffers;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-
-using GameEngineConcept.Graphics.VertexBuffers;
 
 namespace GameEngineConcept.Scenes
 {

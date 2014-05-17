@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
+﻿using OpenTK.Graphics.OpenGL4;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Threading.Tasks;
-using OpenTK.Graphics.OpenGL4;
 
 namespace GameEngineConcept.Scenes
 {

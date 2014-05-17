@@ -1,7 +1,5 @@
-﻿using System;
-
-
-using GameEngineTest.Tests;
+﻿using GameEngineTest.Tests;
+using System;
 
 namespace GameEngineTest
 {

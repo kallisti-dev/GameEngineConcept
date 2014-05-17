@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Windows;
-
+﻿using GameEngineConcept.Graphics;
+using GameEngineConcept.Graphics.Loaders;
+using GameEngineConcept.Graphics.VertexBuffers;
 using OpenTK;
 using OpenTK.Graphics.OpenGL4;
-
-using GameEngineConcept;
-using GameEngineConcept.Graphics.Loaders;
-using GameEngineConcept.Graphics;
-using GameEngineConcept.Graphics.VertexBuffers;
+using System.Drawing;
 
 namespace GameEngineTest.Tests
 {

@@ -1,6 +1,5 @@
-﻿using System.Threading.Tasks;
-
-using GameEngineConcept.Graphics.VertexBuffers;
+﻿using GameEngineConcept.Graphics.VertexBuffers;
+using System.Threading.Tasks;
 
 namespace GameEngineConcept.Scenes
 {

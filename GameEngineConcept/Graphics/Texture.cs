@@ -1,8 +1,8 @@
-﻿using System;
+﻿using OpenTK.Graphics.OpenGL4;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using OpenTK.Graphics.OpenGL4;
 using System.Drawing;
+using System.Linq;
 using Img = System.Drawing.Imaging;
 
 namespace GameEngineConcept.Graphics

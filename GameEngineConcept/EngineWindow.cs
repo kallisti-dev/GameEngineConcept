@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Threading.Tasks.Dataflow;
-using System.Diagnostics;
-using System.Linq;
-using OpenTK;
-using OpenTK.Graphics;
-
-using GameEngineConcept.Scenes;
+﻿using GameEngineConcept.Components;
 using GameEngineConcept.Graphics;
 using GameEngineConcept.Graphics.Modes;
 using GameEngineConcept.Graphics.VertexBuffers;
-using GameEngineConcept.Components;
+using GameEngineConcept.Scenes;
+using OpenTK;
+using OpenTK.Graphics;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Threading.Tasks.Dataflow;
 
 namespace GameEngineConcept
 {

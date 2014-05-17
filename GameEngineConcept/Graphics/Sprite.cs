@@ -1,14 +1,14 @@
-﻿using System;
+﻿using OpenTK;
+using OpenTK.Graphics.OpenGL4;
+using System;
 using System.Diagnostics;
 using System.Drawing;
-using OpenTK;
-using OpenTK.Graphics.OpenGL4;
 
 namespace GameEngineConcept.Graphics
 {
     using ExtensionMethods;
-    using VertexBuffers;
     using VertexAttributes;
+    using VertexBuffers;
 
     public class Sprite : TexturedVertexSet, IDrawableDepth, IHasPosition<Vector2>, IHasDimensions<int>
     {
