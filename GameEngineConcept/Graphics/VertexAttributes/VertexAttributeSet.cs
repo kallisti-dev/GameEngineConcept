@@ -33,7 +33,7 @@ namespace GameEngineConcept.Graphics.VertexAttributes
             if (t.IsPrimitive || !t.IsValueType)
                 throw new ArgumentException("Type must be a non-primitive value type.");
 
-            var vs = (VertexStruct)t.GetCustomAttribute(typeof(VertexStruct)) ?? new VertexStruct();
+            var vs = t.GetCustomAttribute<VertexStruct>() ?? new VertexStruct();
 
             return new VertexAttributeSet(t.GetFields(Util.AllInstanceFields)
                 .Select((field, i) => {
@@ -65,6 +65,8 @@ namespace GameEngineConcept.Graphics.VertexAttributes
 
         private static int GetNComponents(Type t)
         {
+            if (!t.IsValueType)
+                throw new ArgumentException(t + " is not a value type.");
             if (t.IsPrimitive)
                 return 1;
             int n = 0;

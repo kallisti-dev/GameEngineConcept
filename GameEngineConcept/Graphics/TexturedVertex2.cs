@@ -1,18 +1,15 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using OpenTK;
-using OpenTK.Graphics.OpenGL4;
 using System.Drawing;
 
-using GameEngineConcept.Graphics.VertexBuffers;
 
 namespace GameEngineConcept.Graphics
 {
 
     using VertexAttributes;
 
-    [StructLayout(LayoutKind.Sequential)]
     [VertexStruct]
+    [StructLayout(LayoutKind.Sequential)]
     public struct TexturedVertex2 : IHasVertexAttributes
     {
 
