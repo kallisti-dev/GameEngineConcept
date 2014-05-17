@@ -12,10 +12,7 @@ namespace GameEngineConcept.Graphics
     [StructLayout(LayoutKind.Sequential)]
     public struct TexturedVertex2 : IHasVertexAttributes
     {
-
-        public static VertexAttributeSet vAttributes = VertexAttributeSet.Create(typeof(TexturedVertex2));
-
-        public VertexAttributeSet VertexAttributes { get { return vAttributes; } }
+        public VertexAttributeSet VertexAttributes { get { return VertexAttributeSet.FromType<TexturedVertex2>(); } }
 
         [NormalizeComponents(true)]
         public Vector2 position;

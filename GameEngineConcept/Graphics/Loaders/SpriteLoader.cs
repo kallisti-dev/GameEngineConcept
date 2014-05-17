@@ -6,12 +6,13 @@ using OpenTK.Graphics.OpenGL4;
 namespace GameEngineConcept.Graphics.Loaders
 {
     using VertexBuffers;
+    using VertexAttributes;
 
     public class SpriteLoader : BaseVertexLoader<IAttributedVertexBuffer, TexturedVertex2, Sprite>
     {
 
         public SpriteLoader(BufferUsageHint hint, IBindableVertexBuffer buffer) 
-            : base(hint, new AttributedVertexBuffer(buffer, TexturedVertex2.vAttributes)) { }
+            : base(hint, new AttributedVertexBuffer(buffer, VertexAttributeSet.FromType<TexturedVertex2>())) { }
 
         public void AddSprite(Texture tex, Vector2 pos, Rectangle rect, int depth = 0)
         {

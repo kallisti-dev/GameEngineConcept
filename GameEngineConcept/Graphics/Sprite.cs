@@ -12,8 +12,6 @@ namespace GameEngineConcept.Graphics
 
     public class Sprite : TexturedVertexSet, IDrawableDepth, IHasPosition<Vector2>, IHasDimensions<int>
     {
-        public static VertexAttributeSet vAttributes = TexturedVertex2.vAttributes;
-
         //create an array of sprite vertices given a position vector and a texture sampling rectangle
         public static TexturedVertex2[] CreateVertices (Vector2 pos, Rectangle texRect)
         {
@@ -91,7 +89,12 @@ namespace GameEngineConcept.Graphics
         }
 
         public Sprite(Texture tex, IBindableVertexBuffer buffer, int bufferInd, int depth = 0)
-            : base(tex, PrimitiveType.Quads, new AttributedVertexBuffer(buffer, vAttributes), VertexIndices.FromRange(bufferInd, 4), null)
+            : base(
+            tex, 
+            PrimitiveType.Quads,
+            new AttributedVertexBuffer(buffer, VertexAttributeSet.FromType<TexturedVertex2>()),
+            VertexIndices.FromRange(bufferInd, 4),
+            null)
         {
             DrawDepth = depth;
             index = bufferInd;
