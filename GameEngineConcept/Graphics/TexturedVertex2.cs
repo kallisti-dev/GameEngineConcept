@@ -12,7 +12,7 @@ namespace GameEngineConcept.Graphics
     using VertexAttributes;
 
     [StructLayout(LayoutKind.Sequential)]
-    [VertexAttributeDefaults]
+    [VertexStruct]
     public struct TexturedVertex2 : IHasVertexAttributes
     {
 

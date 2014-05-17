@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 namespace GameEngineConcept.Graphics.VertexAttributes
 {
     [AttributeUsage(AttributeTargets.Struct)]
-    public class VertexAttributeDefaults : Attribute
+    public class VertexStruct : Attribute
     {
         public bool DefaultNormalization { get; private set; }
 
-        public VertexAttributeDefaults() : this(true) { }
+        public VertexStruct() : this(true) { }
 
-        public VertexAttributeDefaults(bool defaultNormalization)
+        public VertexStruct(bool defaultNormalization)
         {
             DefaultNormalization = defaultNormalization;
         }
