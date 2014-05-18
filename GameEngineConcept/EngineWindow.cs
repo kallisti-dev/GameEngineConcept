@@ -68,7 +68,7 @@ namespace GameEngineConcept
                 PendingScene pending;
                 if(loadedScenes.TryGetValue(scene, out pending)) {
                     pending.cancelSource.Cancel(true);
-                    pending.pool.Unload();
+                    pending.pool.Release();
                     loadedScenes.Remove(scene);
                 }
             }

@@ -17,6 +17,8 @@ namespace GameEngineConcept
         List<Texture> tList = new List<Texture>();
         List<VertexBuffer> vList = new List<VertexBuffer>();
 
+        public event Action OnRelease;
+
         internal ResourcePool(Pool<Texture> tPool, Pool<VertexBuffer> vPool)
         {
             this.tPool = tPool;
@@ -35,10 +37,11 @@ namespace GameEngineConcept
             return _Get(vPool, vList);
         }
 
-        internal void Unload()
+        internal void Release()
         {
             _Release(vPool, vList);
             _Release(tPool, tList);
+            OnRelease();
         }
 
         //creates a new ResourcePool that refers to the same internal resources,
