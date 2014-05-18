@@ -1,16 +1,39 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Linq;
 using GameEngineConcept.Components;
 using GameEngineConcept.Graphics;
+using GameEngineConcept.Scenes;
 using System.Collections.Generic;
 
 namespace GameEngineConcept
 {
     public class GameState
     {
+
+        static Dictionary<IScene, PendingSceneState> loadedScenes = new Dictionary<IScene, PendingSceneState>();
+
+        //internal state related to a background-loaded scene
+        private class PendingSceneState
+        {
+            public Task task;
+            public ResourcePool pool;
+            public CancellationTokenSource cancelSource = new CancellationTokenSource();
+
+            public PendingSceneState(IScene s, ResourcePool p)
+            {
+                pool = p.Copy();
+                task = s.Load(pool, cancelSource.Token);
+            }
+        }
+
+        Dictionary<IScene, GameState> activeScenes = new Dictionary<IScene, GameState>();
         DrawableSet drawSet = new DrawableSet();
         ComponentCollection updateSet = new ComponentCollection();
 
-
+        protected EngineWindow window;
+        protected ResourcePool pool;
 
         public IDrawableCollection Drawables { get { return drawSet; } }
         public IComponentCollection  Components { get { return updateSet; } }
@@ -19,10 +42,6 @@ namespace GameEngineConcept
         public event Action<GameState> OnRestore;  //called after a Snapshot of this state is restored
 
         GameState _parent;
-
-
-        protected EngineWindow window;
-
         public GameState Parent {
             get
             {
@@ -43,11 +62,69 @@ namespace GameEngineConcept
         }
 
 
-        public GameState(EngineWindow window, GameState parent = null)
+        public GameState(EngineWindow window, ResourcePool pool, GameState parent = null)
         {
             Parent = parent;
+            this.pool = pool;
             this.window = window;
         }
+
+
+        public Task LoadScenes(IEnumerable<IScene> scenes)
+        {
+            return Task.WhenAll(scenes.Select((scene) =>
+                Task.Run(() => _LoadScene(scene).Wait())
+            ));
+        }
+
+        public void UnloadScenes(IEnumerable<IScene> scenes)
+        {
+            RemoveScenes(scenes);
+            foreach (var scene in scenes) {
+                PendingSceneState pending;
+                if (loadedScenes.TryGetValue(scene, out pending)) {
+                    pending.cancelSource.Cancel(true);
+                    pending.pool.Release();
+                    loadedScenes.Remove(scene);
+                }
+            }
+        }
+
+        private Task _LoadScene(IScene scene)
+        {
+            PendingSceneState pendingScene;
+            if (loadedScenes.TryGetValue(scene, out pendingScene)) {
+                return pendingScene.task;
+            }
+            else {
+                return (loadedScenes[scene] = new PendingSceneState(scene, pool)).task;
+            }
+        }
+
+        public Task AddScenes(IEnumerable<IScene> scenes)
+        {
+            return Task.WhenAll(scenes.Select(async (scene) => {
+                await _LoadScene(scene);
+                var sceneState = new GameState(window, pool, this);
+                scene.Activate(sceneState);
+                activeScenes.Add(scene, sceneState);
+            }));
+        }
+
+        public Task AddScenes(params IScene[] scenes) { return AddScenes(scenes); }
+
+        public void RemoveScenes(IEnumerable<IScene> scenes)
+        {
+            foreach (var scene in activeScenes.Keys) {
+                GameState sceneState;
+                if (activeScenes.TryGetValue(scene, out sceneState)) {
+                    sceneState.Parent = null;
+                    activeScenes.Remove(scene);
+                }
+            }
+        }
+
+        public void RemoveScenes(params IScene[] scenes) { RemoveScenes(scenes); }
 
 
         public void AddDrawables(IEnumerable<IDrawable> drawables)
