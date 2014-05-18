@@ -82,6 +82,7 @@ namespace GameEngineConcept
                 new Pool<Texture>(Texture.Allocate),
                 new Pool<VertexBuffer>(VertexBuffer.Allocate)
             );
+            rootState = new GameState(this, pool);
             Debug.Assert(mainWindow == null);
             mainWindow = this;
         }

@@ -12,9 +12,9 @@ namespace GameEngineConcept.Scenes
     //and unloaded/deactivated in reverse order.
     public class JoinScenes : Scene
     {
-        IScene[] scenes;
+        Scene[] scenes;
 
-        public JoinScenes(params IScene[] scenes)
+        public JoinScenes(params Scene[] scenes)
         {
             this.scenes = scenes;
         }

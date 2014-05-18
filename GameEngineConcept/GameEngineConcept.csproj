@@ -110,7 +110,6 @@
     <Compile Include="Graphics\Texture.cs" />
     <Compile Include="Graphics\TexturedVertex2.cs" />
     <Compile Include="Util\DynamicArray.cs" />
-    <Compile Include="Scenes\_Interfaces.cs" />
     <Compile Include="Scenes\JoinScenes.cs" />
     <Compile Include="Scenes\Scene.cs" />
     <Compile Include="Scenes\TileScene.cs" />
