@@ -60,6 +60,17 @@ namespace GameEngineConcept
             }
         }
 
+        public GameState Root
+        {
+            get
+            {
+                if (_parent == null)
+                    return this;
+                else
+                    return Parent.Root;
+            }
+        }
+
 
         public GameState(EngineWindow window, ResourcePool pool, GameState parent = null)
         {
