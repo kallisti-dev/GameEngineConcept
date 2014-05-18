@@ -4,23 +4,10 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 
 
-namespace GameEngineConcept
+namespace GameEngineConcept.Util
 {
     using Graphics;
     using Graphics.VertexBuffers;
-
-    //convenience functions for resource pools
-    public static class Pool
-    {
-        public static Pool<VertexBuffer> CreateBufferPool()
-        {
-            return new Pool<VertexBuffer>(VertexBuffer.Allocate);
-        }
-        public static Pool<Texture> CreateTexturePool()
-        {
-            return new Pool<Texture>(Texture.Allocate);
-        }
-    }
 
     //allows recycling of allocated openGL resources. Use Request() to request a resource.
     //All Request() calls should have a corresponding Release() call for when the buffer is no longer needed, so that other consumers can reuse the buffer.

@@ -50,12 +50,12 @@ namespace GameEngineTest
         private void StartNextTest()
         {
             if (currentTest != null) {
-                currentTest.OnUnload(RootState);
+                currentTest.OnUnload(rootState);
                 currentTest.TestComplete -= TestCompleteHandler;
             }
             currentTest = tests.Dequeue();
             currentTest.TestComplete += TestCompleteHandler;
-            TestFailOnException(() => currentTest.OnLoad(RootState));
+            TestFailOnException(() => currentTest.OnLoad(rootState));
         }
 
         //event handler for test completion

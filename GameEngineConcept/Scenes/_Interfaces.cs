@@ -1,4 +1,5 @@
 ﻿using GameEngineConcept.Graphics.VertexBuffers;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace GameEngineConcept.Scenes
@@ -8,14 +9,7 @@ namespace GameEngineConcept.Scenes
     //TODO: progress meters?
     public interface IScene
     {
-        bool IsLoaded { get; }
-
-        Task Load(Pool<VertexBuffer> pool);
-
-        void Unload(Pool<VertexBuffer> pool);
-
+        Task Load(ResourcePool pool, CancellationToken token);
         void Activate(GameState state);
-
-
     }
 }

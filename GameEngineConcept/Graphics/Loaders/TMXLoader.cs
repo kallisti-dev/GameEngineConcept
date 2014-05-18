@@ -18,7 +18,7 @@ namespace GameEngineConcept.Graphics.Loaders
         Lazy<Dictionary<string, TiledLayer>> _lazyLayers;
 
         Dictionary<int, Texture> textures;
-        Pool<Texture> texPool;
+        ResourcePool pool;
 
         TiledMap TileMap { get { return _lazyTileMap.Value;  } }
         Dictionary<string, TiledLayer> TiledLayers { get { return _lazyLayers.Value; } }
@@ -26,11 +26,11 @@ namespace GameEngineConcept.Graphics.Loaders
 
         public Dictionary<string, IEnumerable<Sprite>> Layers {get; private set;}
 
-        public TMXLoader(IBindableVertexBuffer buffer, Pool<Texture> texPool, string fileName)
+        public TMXLoader(IBindableVertexBuffer buffer, ResourcePool pool, string fileName)
             : base(BufferUsageHint.DynamicDraw, buffer)
         {
             textures = new Dictionary<int,Texture>();
-            this.texPool = texPool;
+            this.pool = pool;
             Layers = new Dictionary<string, IEnumerable<Sprite>>();
            _lazyTileMap = 
                 new Lazy<TiledMap>(
@@ -101,7 +101,7 @@ namespace GameEngineConcept.Graphics.Loaders
             Texture t;
             if (!textures.TryGetValue(ts.FirstId, out t))
             {
-                t = await texPool.Request();
+                t = await pool.GetTexture();
                 t.LoadImageFile(ts.Image.Source);
                 textures[ts.FirstId] = t;
             }

@@ -1,4 +1,5 @@
 ﻿using GameEngineConcept.Graphics.VertexBuffers;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace GameEngineConcept.Scenes
@@ -14,16 +15,7 @@ namespace GameEngineConcept.Scenes
         public static IScene operator+(Scene s1, IScene s2) { return new JoinScenes(s1, s2); }
         public static IScene operator+(IScene s1, Scene s2) { return new JoinScenes(s1, s2); }
 
-        public static Task LoadInBackground(IScene scene, Pool<VertexBuffer> pool)
-        {
-            return Task.Run(async () => await scene.Load(pool));
-        }
-
-        public abstract bool IsLoaded { get; }
-
-        public abstract Task Load(Pool<VertexBuffer> pool);
-
-        public abstract void Unload(Pool<VertexBuffer> pool);
+        public abstract Task Load(ResourcePool pool, CancellationToken token);
 
         public abstract void Activate(GameState window);
     }

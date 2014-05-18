@@ -1,6 +1,7 @@
 ﻿using GameEngineConcept.Graphics.VertexBuffers;
 using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace GameEngineConcept.Scenes
@@ -13,21 +14,14 @@ namespace GameEngineConcept.Scenes
     {
         IScene[] scenes;
 
-        public override bool IsLoaded { get { return Array.TrueForAll(scenes, (s) => s.IsLoaded);  } }
-
         public JoinScenes(params IScene[] scenes)
         {
             this.scenes = scenes;
         }
 
-        public override Task Load(Pool<VertexBuffer> pool)
+        public override Task Load(ResourcePool pool, CancellationToken token)
         {
-            return Task.WhenAll(scenes.Select((scene) => scene.Load(pool)));      
-        }
-
-        public override void Unload(Pool<VertexBuffer> pool)
-        {
-            foreach(var scene in scenes.Reverse<IScene>()) { scene.Unload(pool); }
+            return Task.WhenAll(scenes.Select((scene) => scene.Load(pool, token)));      
         }
 
         public override void Activate(GameState s)

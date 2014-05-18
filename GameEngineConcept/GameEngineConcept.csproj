@@ -103,8 +103,9 @@
     <Compile Include="Graphics\VertexAttributes\AttributeDescriptor.cs" />
     <Compile Include="Graphics\VertexBuffers\VertexBuffer.cs" />
     <Compile Include="EngineWindow.cs" />
+    <Compile Include="ResourcePool.cs" />
     <Compile Include="Util\FloatMath.cs" />
-    <Compile Include="Pool.cs" />
+    <Compile Include="Util\Pool.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Graphics\Texture.cs" />
     <Compile Include="Graphics\TexturedVertex2.cs" />
