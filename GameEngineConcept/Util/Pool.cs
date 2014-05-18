@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 
 namespace GameEngineConcept.Util
 {
-    using Graphics;
-    using Graphics.VertexBuffers;
 
     //allows recycling of allocated openGL resources. Use Request() to request a resource.
     //All Request() calls should have a corresponding Release() call for when the buffer is no longer needed, so that other consumers can reuse the buffer.

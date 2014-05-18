@@ -1,11 +1,10 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Linq;
-using GameEngineConcept.Components;
+﻿using GameEngineConcept.Components;
 using GameEngineConcept.Graphics;
 using GameEngineConcept.Scenes;
+using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace GameEngineConcept
 {

@@ -1,16 +1,12 @@
 ﻿using GameEngineConcept.Graphics;
 using GameEngineConcept.Graphics.Modes;
 using GameEngineConcept.Graphics.VertexBuffers;
-using GameEngineConcept.Scenes;
 using GameEngineConcept.Util;
 using OpenTK;
 using OpenTK.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 
 namespace GameEngineConcept

@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GameEngineConcept
 {
-    using Util;
     using Graphics;
     using Graphics.VertexBuffers;
+    using Util;
     public class ResourcePool
     {
         Pool<Texture> tPool;
