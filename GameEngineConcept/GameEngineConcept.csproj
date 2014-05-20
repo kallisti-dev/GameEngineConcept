@@ -114,6 +114,7 @@
     <Compile Include="Scenes\Scene.cs" />
     <Compile Include="Scenes\TileScene.cs" />
     <Compile Include="Util\Util.cs" />
+    <Compile Include="_Interfaces.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

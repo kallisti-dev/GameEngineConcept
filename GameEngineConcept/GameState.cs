@@ -10,24 +10,6 @@ namespace GameEngineConcept
 {
     public class GameState
     {
-
-        static Dictionary<Scene, PendingSceneState> loadedScenes = new Dictionary<Scene, PendingSceneState>();
-
-        //internal state related to a background-loaded scene
-        private class PendingSceneState
-        {
-            public Task task;
-            public ResourcePool pool;
-            public CancellationTokenSource cancelSource = new CancellationTokenSource();
-
-            public PendingSceneState(Scene s, ResourcePool p)
-            {
-                pool = p.Copy();
-                task = s.Load(pool, cancelSource.Token);
-            }
-        }
-
-        Dictionary<Scene, GameState> activeScenes = new Dictionary<Scene, GameState>();
         DrawableSet drawSet = new DrawableSet();
         ComponentCollection updateSet = new ComponentCollection();
 
@@ -49,12 +31,14 @@ namespace GameEngineConcept
             set
             {
                 if (_parent != null) {
-                    _parent.RemoveComponents((IEnumerable<IComponent>)Components);
-                    _parent.RemoveDrawables((IEnumerable<IDrawable>)Drawables);
+                    _parent.RemoveComponents(Components);
+                    _parent.RemoveDrawables(Drawables);
+                    _parent._children.Remove(this);
                 }
                 if (value != null) {
-                    value.AddComponents((IEnumerable<IComponent>)Components);
-                    value.AddDrawables((IEnumerable<IDrawable>)Drawables);
+                    value.AddComponents(Components);
+                    value.AddDrawables(Drawables);
+                    value._children.Add(this);
                 }
                 _parent = value;
             }
@@ -71,61 +55,27 @@ namespace GameEngineConcept
             }
         }
 
-
-        public GameState(EngineWindow window, ResourcePool pool, GameState parent = null)
+        List<GameState> _children = new List<GameState>();
+        public IEnumerable<GameState> Children
         {
-            Parent = parent;
+            get { return _children; }
+        }
+
+        public GameState(EngineWindow window, ResourcePool pool)
+        {
             this.pool = pool;
             this.window = window;
         }
 
-
-        public Task LoadScene(Scene scene)
+        public GameState(GameState parent) : this(parent.window, parent.pool)
         {
-            return Task.Run(() => _LoadScene(scene).Wait());
+            Parent = parent;
         }
 
-        public void UnloadScene(Scene scene)
+        public void AddChildren(IEnumerable<GameState> children)
         {
-            RemoveScene(scene);
-            PendingSceneState pending;
-            if (loadedScenes.TryGetValue(scene, out pending)) {
-                pending.cancelSource.Cancel(true);
-                pending.pool.Release();
-                loadedScenes.Remove(scene);
-            }
+            foreach (var child in children) { child.Parent = this; }
         }
-
-        private Task _LoadScene(Scene scene)
-        {
-            PendingSceneState pendingScene;
-            if (loadedScenes.TryGetValue(scene, out pendingScene)) {
-                return pendingScene.task;
-            }
-            else {
-                return (loadedScenes[scene] = new PendingSceneState(scene, pool)).task;
-            }
-        }
-
-        public async Task AddScene(Scene scene)
-        {
-            await _LoadScene(scene);
-            var sceneState = new GameState(window, pool, this);
-            scene.Activate(sceneState);
-            activeScenes.Add(scene, sceneState);
-        }
-
-        public void RemoveScene(Scene scenes)
-        {
-            foreach (var scene in activeScenes.Keys) {
-                GameState sceneState;
-                if (activeScenes.TryGetValue(scene, out sceneState)) {
-                    sceneState.Parent = null;
-                    activeScenes.Remove(scene);
-                }
-            }
-        }
-
 
         public void AddDrawables(IEnumerable<IDrawable> drawables)
         {
@@ -133,9 +83,7 @@ namespace GameEngineConcept
             if (Parent != null) Parent.AddDrawables(drawables);
         }
 
-        public void AddDrawables(params IDrawable[] drawables) { AddDrawables(drawables); }
-
-        public void AddDrawable(IDrawable drawable) { AddDrawables(drawable); }
+        public void AddDrawable(IDrawable drawable) { AddDrawables(new[] { drawable }); }
 
         public void RemoveDrawables(IEnumerable<IDrawable> drawables)
         {
@@ -143,17 +91,13 @@ namespace GameEngineConcept
             if (Parent != null) Parent.RemoveDrawables(drawables);
         }
 
-        public void RemoveDrawables(params IDrawable[] drawables) { RemoveDrawables(drawables); }
-
-        public void RemoveDrawable(IDrawable drawable) { RemoveDrawables(drawable); }
+        public void RemoveDrawable(IDrawable drawable) { RemoveDrawables(new[] { drawable }); }
 
         public void AddComponents(IEnumerable<IComponent> components)
         {
             updateSet.AddRange(components);
             if (Parent != null) Parent.AddComponents(components);
         }
-
-        public void AddComponents(params IComponent[] components) { AddComponents(components); }
 
         public void AddComponent(IComponent component) { AddComponents(new[] { component });  }
 
@@ -163,39 +107,41 @@ namespace GameEngineConcept
             if (Parent != null) Parent.RemoveComponents(components);
         }
 
-        public void RemoveComponents(params IComponent[] components) { RemoveComponents(components); }
-
         public void RemoveComponent(IComponent component) { RemoveComponents(new[] { component }); }
 
         //Removes all state from this GameState and returns a GameState.Snapshot that can be used
         //to restore it
-        public Snapshot Override()
+        public ISceneSnapshot Override()
         {
             OnOverride(this);
-            var snapshot = new Snapshot(this, new List<IDrawable>(Drawables), new List<IComponent>(Components));
+            var snapshot = new Snapshot(this);
             RemoveComponents((IEnumerable<IComponent>)Components);
             RemoveDrawables((IEnumerable<IDrawable>)Drawables);
+            foreach (var child in Children) { child.Parent = null; }
             return snapshot;
         }
 
         //inner class representing a "snapshot" of an overriden state that can later be restored
-        public class Snapshot
+        private class Snapshot : ISceneSnapshot
         {
             GameState overriden;
             IEnumerable<IDrawable> drawables;
             IEnumerable<IComponent> components;
+            IEnumerable<GameState> children;
 
-            internal Snapshot(GameState o, IEnumerable<IDrawable> d, IEnumerable<IComponent> c)
+            public Snapshot(GameState o)
             {
                 overriden = o;
-                drawables = d;
-                components = c;
+                drawables = new List<IDrawable>(o.Drawables);
+                components = new List<IComponent>(o.Components);
+                children = new List<GameState>(o.Children);
             }
 
             public void Restore()
             {
                 overriden.AddDrawables(drawables);
                 overriden.AddComponents(components);
+                overriden.AddChildren(children);
                 overriden.OnRestore(overriden);
             }
         }
