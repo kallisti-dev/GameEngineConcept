@@ -83,8 +83,10 @@ namespace GameEngineConcept
 
         protected override void OnUnload(EventArgs e)
         {
+            foreach (var state in rootState.TraverseBreadthFirst()) {
+                state.OnShutdown(this);
+            }
             base.OnUnload(e);
-            rootState.OnShutdown(this);
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)
