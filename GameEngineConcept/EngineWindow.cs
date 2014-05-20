@@ -85,6 +85,7 @@ namespace GameEngineConcept
         protected override void OnUnload(EventArgs e)
         {
             base.OnUnload(e);
+            rootState.OnShutdown(this);
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)

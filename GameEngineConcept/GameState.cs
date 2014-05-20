@@ -13,7 +13,7 @@ namespace GameEngineConcept
         DrawableSet drawSet = new DrawableSet();
         ComponentCollection updateSet = new ComponentCollection();
 
-        protected EngineWindow window;
+        private EngineWindow window;
         protected ResourcePool pool;
 
         public IDrawableCollection Drawables { get { return drawSet; } }
@@ -21,7 +21,7 @@ namespace GameEngineConcept
 
         public event Action<GameState> OnOverride = (_) => { }; //called at the beginning of Override method
         public event Action<GameState> OnRestore = (_) => { };  //called after a Snapshot of this state is restored
-        public event Action<EngineWindow> OnShutdown = (_) => { }; //called on game shutdown
+        public Action<EngineWindow> OnShutdown = (_) => { }; //called on game shutdown
 
         GameState _parent;
         public GameState Parent {
@@ -32,13 +32,9 @@ namespace GameEngineConcept
             set
             {
                 if (_parent != null) {
-                    _parent.RemoveComponents(Components);
-                    _parent.RemoveDrawables(Drawables);
                     _parent._children.Remove(this);
                 }
                 if (value != null) {
-                    value.AddComponents(Components);
-                    value.AddDrawables(Drawables);
                     value._children.Add(this);
                 }
                 _parent = value;
@@ -66,7 +62,6 @@ namespace GameEngineConcept
         {
             this.pool = pool;
             this.window = window;
-            window.Unload += (s, e) => { OnShutdown(window); };
         }
 
         public GameState(GameState parent) : this(parent.window, parent.pool)
@@ -82,7 +77,6 @@ namespace GameEngineConcept
         public void AddDrawables(IEnumerable<IDrawable> drawables)
         {
             drawSet.UnionWith(drawables);
-            if (Parent != null) Parent.AddDrawables(drawables);
         }
 
         public void AddDrawable(IDrawable drawable) { AddDrawables(new[] { drawable }); }
@@ -90,7 +84,6 @@ namespace GameEngineConcept
         public void RemoveDrawables(IEnumerable<IDrawable> drawables)
         {
             drawSet.ExceptWith(drawables);
-            if (Parent != null) Parent.RemoveDrawables(drawables);
         }
 
         public void RemoveDrawable(IDrawable drawable) { RemoveDrawables(new[] { drawable }); }
@@ -98,7 +91,6 @@ namespace GameEngineConcept
         public void AddComponents(IEnumerable<IComponent> components)
         {
             updateSet.AddRange(components);
-            if (Parent != null) Parent.AddComponents(components);
         }
 
         public void AddComponent(IComponent component) { AddComponents(new[] { component });  }
@@ -106,7 +98,6 @@ namespace GameEngineConcept
         public void RemoveComponents(IEnumerable<IComponent> components)
         {
             updateSet.AddRange(components);
-            if (Parent != null) Parent.RemoveComponents(components);
         }
 
         public void RemoveComponent(IComponent component) { RemoveComponents(new[] { component }); }
@@ -114,6 +105,39 @@ namespace GameEngineConcept
         public void UpdateComponents()
         {
             updateSet.Update(this);
+            foreach (var child in Children) { child.UpdateComponents(); }
+        }
+
+        public void UpdateComponents<C>() where C : IComponent
+        {
+            updateSet.Update<C>(this);
+            foreach (var child in Children) { child.UpdateComponents<C>(); }
+        }
+
+        public IEnumerable<GameState> TraverseDepthFirst()
+        {
+            Stack<GameState> stack = new Stack<GameState>();
+            stack.Push(this);
+            while(stack.Count > 0) {
+                GameState current = stack.Pop();
+                yield return current;
+                foreach(var child in current.Children) {
+                    stack.Push(child);
+                }
+            }
+        }
+
+        public IEnumerable<GameState> TraverseBreadthFirst()
+        {
+            Queue<GameState> queue = new Queue<GameState>();
+            queue.Enqueue(this);
+            while (queue.Count > 0) {
+                GameState current = queue.Dequeue();
+                yield return current;
+                foreach (var child in current.Children) {
+                    queue.Enqueue(child);
+                }
+            }
         }
 
         //shutdown the game
