@@ -23,7 +23,6 @@ namespace GameEngineConcept
 
         protected IGraphicsMode currentGraphicsMode;
         protected GameState rootState;
-        protected ResourcePool pool;
         BufferBlock<IRelease> releaseQueue = new BufferBlock<IRelease>();
  
 
@@ -73,7 +72,7 @@ namespace GameEngineConcept
         {
             base.OnLoad(e);
             UseGraphicsMode(new Texturing2DMode());
-            pool = new ResourcePool(
+            var pool = new ResourcePool(
                 new Pool<Texture>(Texture.Allocate),
                 new Pool<VertexBuffer>(VertexBuffer.Allocate)
             );
