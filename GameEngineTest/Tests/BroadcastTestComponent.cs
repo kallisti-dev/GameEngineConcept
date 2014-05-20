@@ -13,7 +13,7 @@ namespace GameEngineTest.Tests
         public class TestMessage : Message { }
         
         //dummy component update (not used)
-        public void Update() { }
+        public void Update(GameState state) { }
 
         public override void OnLoad(GameState s)
         {

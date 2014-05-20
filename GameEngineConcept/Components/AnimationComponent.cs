@@ -53,7 +53,7 @@ namespace GameEngineConcept.Components
         }
 
 
-        public void Update()
+        public void Update(GameState state)
         {
             if(animator == null)
                 return;

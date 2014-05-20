@@ -18,9 +18,10 @@ namespace GameEngineConcept
 
         public IDrawableCollection Drawables { get { return drawSet; } }
         public IComponentCollection  Components { get { return updateSet; } }
-        
-        public event Action<GameState> OnOverride; //called at the beginning of Override method
-        public event Action<GameState> OnRestore;  //called after a Snapshot of this state is restored
+
+        public event Action<GameState> OnOverride = (_) => { }; //called at the beginning of Override method
+        public event Action<GameState> OnRestore = (_) => { };  //called after a Snapshot of this state is restored
+        public event Action<EngineWindow> OnShutdown = (_) => { }; //called on game shutdown
 
         GameState _parent;
         public GameState Parent {
@@ -65,6 +66,7 @@ namespace GameEngineConcept
         {
             this.pool = pool;
             this.window = window;
+            window.Unload += (s, e) => { OnShutdown(window); };
         }
 
         public GameState(GameState parent) : this(parent.window, parent.pool)
@@ -108,6 +110,17 @@ namespace GameEngineConcept
         }
 
         public void RemoveComponent(IComponent component) { RemoveComponents(new[] { component }); }
+
+        public void UpdateComponents()
+        {
+            updateSet.Update(this);
+        }
+
+        //shutdown the game
+        public void Shutdown()
+        {
+            window.Close();
+        }
 
         //Removes all state from this GameState and returns a GameState.Snapshot that can be used
         //to restore it

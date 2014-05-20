@@ -6,7 +6,7 @@ namespace GameEngineConcept.Components
     public interface IComponent
     {
         //update 1 frame
-        void Update();
+        void Update(GameState state);
     }
 
     //a component that can receive an object of type T
@@ -55,11 +55,11 @@ namespace GameEngineConcept.Components
         }
 
         //Update all components whose type matchs C
-        public static void Update<C>(this IEnumerable<IComponent> @this) 
+        public static void Update<C>(this IEnumerable<IComponent> @this, GameState state) 
             where C : IComponent
         {
             foreach (var c in @this.Fetch<C>()) {
-                c.Update();
+                c.Update(state);
             }
         }
 

@@ -5,6 +5,6 @@ namespace GameEngineConcept.Components
     //children of this class will be executed last in the update chain
     public abstract class MiscellaneousComponent : IComponent
     {
-        public abstract void Update();
+        public abstract void Update(GameState state);
     }
 }

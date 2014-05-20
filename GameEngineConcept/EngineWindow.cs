@@ -21,7 +21,6 @@ namespace GameEngineConcept
             mainWindow.releaseQueue.SendAsync(releaseObj);
         }
 
-
         protected IGraphicsMode currentGraphicsMode;
         protected GameState rootState;
         protected ResourcePool pool;
@@ -98,7 +97,7 @@ namespace GameEngineConcept
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             base.OnUpdateFrame(e);
-            rootState.Components.Update();
+            rootState.UpdateComponents();
             processReleaseQueue();
         }
 
