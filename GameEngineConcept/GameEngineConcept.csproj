@@ -77,7 +77,6 @@
     <Compile Include="Graphics\Loaders\SpriteLoader.cs" />
     <Compile Include="Graphics\Loaders\TMXLoader.cs" />
     <Compile Include="Graphics\Modes\_Interfaces.cs" />
-    <Compile Include="Graphics\Modes\ResizeMode.cs" />
     <Compile Include="Graphics\Modes\Texturing2DMode.cs" />
     <Compile Include="Graphics\Animations\SpriteAnimation.cs" />
     <Compile Include="Graphics\Animations\BaseAnimator.cs" />

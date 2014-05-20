@@ -4,6 +4,7 @@ using GameEngineConcept.Graphics.VertexBuffers;
 using GameEngineConcept.Util;
 using OpenTK;
 using OpenTK.Graphics;
+using OpenTK.Graphics.OpenGL4;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -106,7 +107,7 @@ namespace GameEngineConcept
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
-            //WithGraphicsMode(new ResizeMode(Width, Height), () => { });
+            GL.Viewport(0, 0, Width, Height);
         }
 
         private void processReleaseQueue()
