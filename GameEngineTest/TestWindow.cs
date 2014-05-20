@@ -75,8 +75,11 @@ namespace GameEngineTest
 
             if (tests.Count > 0)
                 StartNextTest();
-            else
-                Console.WriteLine("All tests completed. Total: " + (testsSucceeded + testsFailed) + " Succeess: " + testsSucceeded + " Failed: " + testsFailed);
+            else {
+                Debug.Print("All tests completed. Total: " + (testsSucceeded + testsFailed) + " Succeess: " + testsSucceeded + " Failed: " + testsFailed);
+                Close();
+            }
+
         }
 
         //Fails the current test if an exception in the given Action occurs
