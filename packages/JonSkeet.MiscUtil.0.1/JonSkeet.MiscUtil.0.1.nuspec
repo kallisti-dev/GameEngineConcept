@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>JonSkeet.MiscUtil</id>
+    <version>0.1</version>
+    <authors>Jon Skeet</authors>
+    <owners>Jon Skeet</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+    <projectUrl>http://pobox.com/~skeet/csharp/miscutil</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>MiscUtil is an "odds and ends" library with various utilities I've collected over the years. Note that this version is a pre-release containing the code which has been languishing for some time; before 1.0 is released as a NuGet package, it's likely that the namespace and signing key may change, and some classes may be redesigned or removed.</description>
+    <summary>An "odds and ends" utility library collected by Jon Skeet.</summary>
+    <tags>miscutil utility skeet</tags>
+  </metadata>
+</package>

@@ -39,6 +39,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MiscUtil">
+      <HintPath>..\packages\JonSkeet.MiscUtil.0.1\lib\net35-Client\MiscUtil.dll</HintPath>
+    </Reference>
     <Reference Include="NTiled">
       <HintPath>..\packages\NTiled.0.1.3\lib\net45\NTiled.dll</HintPath>
     </Reference>
@@ -61,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\AnimationComponent.cs" />
+    <Compile Include="Components\Properties\Property.cs" />
     <Compile Include="Components\_Interfaces.cs" />
     <Compile Include="Components\Message.cs" />
     <Compile Include="Components\MiscellaneousComponent.cs" />
@@ -102,6 +106,7 @@
     <Compile Include="Graphics\VertexAttributes\AttributeDescriptor.cs" />
     <Compile Include="Graphics\VertexBuffers\VertexBuffer.cs" />
     <Compile Include="EngineWindow.cs" />
+    <Compile Include="Physics\PointPhysics.cs" />
     <Compile Include="ResourcePool.cs" />
     <Compile Include="Util\FloatMath.cs" />
     <Compile Include="Util\Pool.cs" />
