@@ -1,5 +1,5 @@
 ﻿
-namespace GameEngineConcept.Physics
+namespace GameEngineConcept.Components.Physics
 {
     //simple 2-dimensional particle physics
     class ParticlePhysics2

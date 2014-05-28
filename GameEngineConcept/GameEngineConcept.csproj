@@ -106,7 +106,7 @@
     <Compile Include="Graphics\VertexAttributes\AttributeDescriptor.cs" />
     <Compile Include="Graphics\VertexBuffers\VertexBuffer.cs" />
     <Compile Include="EngineWindow.cs" />
-    <Compile Include="Physics\PointPhysics.cs" />
+    <Compile Include="Components\Physics\PointPhysics.cs" />
     <Compile Include="ResourcePool.cs" />
     <Compile Include="Util\FloatMath.cs" />
     <Compile Include="Util\Pool.cs" />
