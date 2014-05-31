@@ -1,55 +1,58 @@
-﻿
+﻿using System;
+
 namespace GameEngineConcept.Components
 {
     using Graphics.Animations;
 
-    /* AnimationComponent message types */
-
-    public class BeginAnimation<S> : Message
-    {
-        public IAnimatable<S> animation;
-        public BeginAnimation(IAnimatable<S> animation) {
-            this.animation = animation;
-        }
-    }
-
-
-    public class PauseAnimation : Message { }
-
-    public class ResumeAnimation : Message { }
-
-    public class LoopAnimation : Message
-    {
-        public bool loop;
-        public LoopAnimation(bool loop = true) { this.loop = loop; }
-    }
-
+    public delegate void AnimationEventHandler<S>(AnimationComponent<S> c, IAnimator<S> a);
 
     /* Game component that manages animation of a given subject */
-    public class AnimationComponent<S> :
-        IReceiver<BeginAnimation<S>>,
-        IReceiver<PauseAnimation>,
-        IReceiver<ResumeAnimation>,
-        IReceiver<LoopAnimation>
+    public sealed class AnimationComponent<S> : IComponent
     {
-        S subject;
-        IAnimator<S> animator = null;
-        public bool Paused { get; set; }
-        public bool Loop {get; set;}
+        IAnimator<S> animator;
+        public S Subject {get; protected set;}
+        public bool Loop { get; set; }
+        bool _paused;
+        public bool Paused { 
+            get { return _paused; }
+            set
+            {
+                _paused = value;
+                if (_paused)
+                    OnPause(this, animator);
+                else
+                    OnUnpause(this, animator);
+            }
+        }
+
+        private static AnimationEventHandler<S> @void = (_, __) => { };
+        public event AnimationEventHandler<S> OnBegin = @void;     //start of new animation
+        public event AnimationEventHandler<S> OnEnd = @void;       //animation has completed and stopped
+        public event AnimationEventHandler<S> OnStart = @void;     //start of animation cycle
+        public event AnimationEventHandler<S> OnComplete = @void;  //complete animation cycle
+        public event AnimationEventHandler<S> OnPause = @void;     //animation pause
+        public event AnimationEventHandler<S> OnUnpause = @void;   //animation unpause
         
         public AnimationComponent(S subject)
         {
-            this.subject = subject;
-            Paused = false;
-            Loop = false;
+            Subject = subject;
+            animator = null;
         
+        }
+
+        public AnimationComponent(S subject, IAnimatable<S> animation) : this(subject)
+        {
+            BeginAnimation(animation);
         }
 
         public void BeginAnimation(IAnimatable<S> animation)
         {
-            animator = animation.CreateAnimator(subject);
-            Paused = false;
+            if (animator != null)
+                OnEnd(this, animator);
+            animator = animation.CreateAnimator(Subject);
             Loop = false;
+            _paused = false;
+            OnBegin(this, animator);
         }
 
 
@@ -58,33 +61,18 @@ namespace GameEngineConcept.Components
             if(animator == null)
                 return;
             if (!Loop && animator.CurrentFrame >= animator.TotalFrames) {
+                OnEnd(this, animator);
                 animator = null;
             }
             else if (!Paused) {
                 //TODO: add frames per second control
                 animator.Forward();
+                if (animator.NextFrame == 0)
+                    OnStart(this, animator);
+                else if (animator.NextFrame >= animator.TotalFrames)
+                    OnComplete(this, animator);
                 animator.Animate();
             }
-        }
-
-        public void Receive(BeginAnimation<S> msg)
-        {
-            BeginAnimation(msg.animation);
-        }
-
-        public void Receive(PauseAnimation msg)
-        {
-            Paused = true;
-        }
-
-        public void Receive(ResumeAnimation msg)
-        {
-            Paused = false;
-        }
-
-        public void Receive(LoopAnimation msg)
-        {
-            Loop = msg.loop;
         }
     }
 }

@@ -18,17 +18,10 @@ namespace GameEngineConcept.Graphics
        });
         */
 
-       public int DrawDepth { get; protected set; }
+        public int DrawDepth { get { return 0; } }
 
-        public DrawableSet(int depth = 0) : base() 
-        {
-            DrawDepth = depth;
-        }
-
-        public DrawableSet(IEnumerable<IDrawable> e, int depth = 0) : base(e)
-        {
-            DrawDepth = depth;
-        }
+        public DrawableSet() : base() { }
+        public DrawableSet(IEnumerable<IDrawable> e) : base(e) { }
 
         public void Draw()
         {

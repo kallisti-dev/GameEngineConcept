@@ -71,6 +71,11 @@ namespace GameEngineConcept
             foreach (var child in children) { child.Parent = this; }
         }
 
+        public void AddChild(GameState child)
+        {
+            child.Parent = this;
+        }
+
         public void AddDrawables(IEnumerable<IDrawable> drawables)
         {
             drawSet.UnionWith(drawables);
@@ -99,26 +104,43 @@ namespace GameEngineConcept
 
         public void RemoveComponent(IComponent component) { RemoveComponents(new[] { component }); }
 
-        public void UpdateComponents()
+        public void Update()
         {
-            updateSet.Update(this);
-            foreach (var child in Children) { child.UpdateComponents(); }
+            foreach (var state in TraverseBreadthFirst()) {
+                state.Components.Update(state);
+            }
         }
 
-        public void UpdateComponents<C>() where C : IComponent
+        public void Update<C>() where C : IComponent
         {
-            updateSet.Update<C>(this);
-            foreach (var child in Children) { child.UpdateComponents<C>(); }
+            foreach (var state in TraverseBreadthFirst()) {
+                state.Components.Update<C>(state);
+            }
+        }
+
+        public void Draw()
+        {
+            DrawableSet drawSet = new DrawableSet();
+            foreach (var state in TraverseDepthFirst()) {
+                drawSet.UnionWith(state.Drawables);
+            }
+            drawSet.Draw();
+        }
+
+        //shutdown the game
+        public void Shutdown()
+        {
+            window.Close();
         }
 
         public IEnumerable<GameState> TraverseDepthFirst()
         {
             Stack<GameState> stack = new Stack<GameState>();
             stack.Push(this);
-            while(stack.Count > 0) {
+            while (stack.Count > 0) {
                 GameState current = stack.Pop();
                 yield return current;
-                foreach(var child in current.Children) {
+                foreach (var child in current.Children) {
                     stack.Push(child);
                 }
             }
@@ -135,12 +157,6 @@ namespace GameEngineConcept
                     queue.Enqueue(child);
                 }
             }
-        }
-
-        //shutdown the game
-        public void Shutdown()
-        {
-            window.Close();
         }
 
         //Removes all state from this GameState and returns a GameState.Snapshot that can be used

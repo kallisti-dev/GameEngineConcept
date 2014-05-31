@@ -84,30 +84,31 @@ namespace GameEngineConcept
 
         protected override void OnUnload(EventArgs e)
         {
-            foreach (var state in rootState.TraverseBreadthFirst()) {
-                state.OnShutdown(this);
-            }
+            rootState.Update();
             base.OnUnload(e);
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)
         {
             base.OnRenderFrame(e);
-            rootState.Drawables.Draw();
+            rootState.Draw();
             SwapBuffers();
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             base.OnUpdateFrame(e);
-            rootState.UpdateComponents();
+            foreach (var state in rootState.TraverseBreadthFirst()) {
+                foreach (var component in state.Components) {
+                    component.Update(state);
+                }
+            }
             processReleaseQueue();
         }
 
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
-            GL.Viewport(0, 0, Width, Height);
         }
 
         private void processReleaseQueue()
